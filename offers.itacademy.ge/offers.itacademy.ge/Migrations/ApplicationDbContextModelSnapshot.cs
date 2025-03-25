@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using offers.itacademy.ge.Data;
+using offers.itacademy.ge.Web.Data;
 
 #nullable disable
 
-namespace offers.itacademy.ge.Migrations
+namespace offers.itacademy.ge.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

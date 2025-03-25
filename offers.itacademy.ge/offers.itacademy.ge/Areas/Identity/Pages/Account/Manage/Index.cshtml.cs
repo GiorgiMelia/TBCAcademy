@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using offers.itacademy.ge.Models;
+using offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Manage;
+using offers.itacademy.ge.Web.Models;
 
-namespace offers.itacademy.ge.Areas.Identity.Pages.Account.Manage
+namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Manage
 {
     public class IndexModel : PageModel
     {

@@ -1,4 +1,4 @@
-namespace offers.itacademy.ge.Models
+namespace offers.itacademy.ge.Web.Models
 {
     public class ErrorViewModel
     {

@@ -1,4 +1,4 @@
-﻿@using offers.itacademy.ge.Models
+﻿@using offers.itacademy.ge.Web.Models
 @inject SignInManager<Client> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

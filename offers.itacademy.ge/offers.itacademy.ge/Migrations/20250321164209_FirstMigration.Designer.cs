@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using offers.itacademy.ge.Data;
+using offers.itacademy.ge.Web.Data;
 
 #nullable disable
 
-namespace offers.itacademy.ge.Migrations
+namespace offers.itacademy.ge.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250321164209_FirstMigration")]

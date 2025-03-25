@@ -11,11 +11,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using offers.itacademy.ge.Models; // <-- Your Client, UserType, Buyer, Company
 using Microsoft.AspNetCore.Mvc.Rendering;
-using offers.itacademy.ge.Data;
+using offers.itacademy.ge.Web.Areas.Identity.Pages.Account;
+using offers.itacademy.ge.Web.Data;
+using offers.itacademy.ge.Web.Models;
+using offers.itacademy.ge.Domain.entities;
 
-namespace offers.itacademy.ge.Areas.Identity.Pages.Account
+namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
@@ -68,7 +70,7 @@ namespace offers.itacademy.ge.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [Display(Name = "User Type")]
+            [Display(Name = "Registering as")]
             public UserType UserType { get; set; }
         }
 

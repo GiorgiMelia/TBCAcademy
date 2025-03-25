@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Models;
+using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Web.Data;
+using offers.itacademy.ge.Web.Models;
 
-namespace offers.itacademy.ge.Data
+namespace offers.itacademy.ge.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext<Client>
     {
