@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Manage;
 using offers.itacademy.ge.Web.Models;
+using offers.itacademy.ge.Domain.entities;
 
 namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Manage
 {

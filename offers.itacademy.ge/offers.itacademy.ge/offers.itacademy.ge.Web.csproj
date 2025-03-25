@@ -21,7 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\offers.itacademy.ge.API\offers.itacademy.ge.API.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Application\offers.itacademy.ge.Application.csproj" />
     <ProjectReference Include="..\offers.itacademy.ge.Domain\offers.itacademy.ge.Domain.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Infrastructure\offers.itacademy.ge.Infrastructure.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Persistance\offers.itacademy.ge.Persistance.csproj" />
   </ItemGroup>
 
 </Project>

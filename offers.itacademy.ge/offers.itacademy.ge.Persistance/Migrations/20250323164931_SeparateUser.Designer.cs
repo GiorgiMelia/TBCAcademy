@@ -4,21 +4,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using offers.itacademy.ge.Web.Data;
+using offers.itacademy.ge.Persistance.Data;
 
 #nullable disable
 
-namespace offers.itacademy.ge.Web.Migrations
+namespace offers.itacademy.ge.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250321164209_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20250323164931_SeparateUser")]
+    partial class SeparateUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.11");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -81,6 +81,11 @@ namespace offers.itacademy.ge.Web.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -131,6 +136,10 @@ namespace offers.itacademy.ge.Web.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator().HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -159,11 +168,9 @@ namespace offers.itacademy.ge.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
@@ -201,11 +208,9 @@ namespace offers.itacademy.ge.Web.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
@@ -214,6 +219,60 @@ namespace offers.itacademy.ge.Web.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("offers.itacademy.ge.Models.Buyer", b =>
+                {
+                    b.Property<int>("BuyerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("balacane")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("BuyerId");
+
+                    b.ToTable("Buyer");
+                });
+
+            modelBuilder.Entity("offers.itacademy.ge.Models.Company", b =>
+                {
+                    b.Property<int>("CompanyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ContactInfo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CompanyId");
+
+                    b.ToTable("Company");
+                });
+
+            modelBuilder.Entity("offers.itacademy.ge.Models.Client", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int?>("BuyerId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("CompanyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserType")
+                        .HasColumnType("INTEGER");
+
+                    b.HasIndex("BuyerId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasDiscriminator().HasValue("Client");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -265,6 +324,23 @@ namespace offers.itacademy.ge.Web.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("offers.itacademy.ge.Models.Client", b =>
+                {
+                    b.HasOne("offers.itacademy.ge.Models.Buyer", "Buyer")
+                        .WithMany()
+                        .HasForeignKey("BuyerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("offers.itacademy.ge.Models.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Buyer");
+
+                    b.Navigation("Company");
                 });
 #pragma warning restore 612, 618
         }

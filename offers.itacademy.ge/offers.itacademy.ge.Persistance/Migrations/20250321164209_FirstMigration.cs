@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace offers.itacademy.ge.Web.Migrations
+namespace offers.itacademy.ge.Persistance.Migrations
 {
     /// <inheritdoc />
     public partial class FirstMigration : Migration

@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Web.Data;
 using offers.itacademy.ge.Web.Models;
+using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Persistance.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

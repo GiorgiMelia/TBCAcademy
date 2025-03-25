@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace offers.itacademy.ge.Web.Migrations
+namespace offers.itacademy.ge.Persistance.Migrations
 {
     /// <inheritdoc />
     public partial class ClientSeparating : Migration

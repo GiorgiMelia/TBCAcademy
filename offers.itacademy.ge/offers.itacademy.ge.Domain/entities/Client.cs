@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Web.Models;
 
-namespace offers.itacademy.ge.Web.Models
+namespace offers.itacademy.ge.Domain.entities
 {
     public class Client : IdentityUser
     {
