@@ -16,11 +16,14 @@ using offers.itacademy.ge.Web.Areas.Identity.Pages.Account;
 using offers.itacademy.ge.Web.Models;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Persistance.Data;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Application.Dtos;
 
 namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
+        private readonly UserRegistrationService _userRegistrationService;
         private readonly SignInManager<Client> _signInManager;
         private readonly UserManager<Client> _userManager;
         private readonly IUserStore<Client> _userStore;
@@ -33,8 +36,8 @@ namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account
             IUserStore<Client> userStore,
             SignInManager<Client> signInManager,
             ILogger<RegisterModel> logger,
-            ApplicationDbContext context
-        )
+            ApplicationDbContext context,
+            UserRegistrationService userRegistrationService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -42,6 +45,7 @@ namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _context = context;
+            _userRegistrationService = userRegistrationService;
         }
 
         [BindProperty]
@@ -87,61 +91,30 @@ namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                user.UserType = Input.UserType;
-
-                var result = await _userManager.CreateAsync(user, Input.Password);
-
-                if (result.Succeeded)
+                CreateClientDto createClientDto = new CreateClientDto
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    Email = Input.Email,
+                    Password = Input.Password,
+                    UserType = Input.UserType,
 
-                    // Attach related entity
-                    if (user.UserType == UserType.Company)
-                    {
-                        user.Company = new Company
-                        {
-                            // Fill any default fields
-                        };
-                    }
-                    else if (user.UserType == UserType.Buyer)
-                    {
-                        user.Buyer = new Buyer
-                        {
-                            // Fill any default fields
-                        };
-                    }
+                };
+                var result = await _userRegistrationService.Registration(createClientDto);
 
-                    _context.Update(user); // Attach & track related entities
-                    await _context.SaveChangesAsync();
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                if (result.IdentityResult.Succeeded)
+                {
+                    await _signInManager.SignInAsync(result.Client, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
 
-                foreach (var error in result.Errors)
+                foreach (var error in result.IdentityResult.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
-            // Something failed, show form again
             return Page();
-        }
+        }  
 
-        private Client CreateUser()
-        {
-            try
-            {
-                return new Client();
-            }
-            catch
-            {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(Client)}'. Make sure it has a parameterless constructor.");
-            }
-        }
+
 
         private IUserEmailStore<Client> GetEmailStore()
         {
