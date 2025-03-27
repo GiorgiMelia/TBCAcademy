@@ -3,9 +3,9 @@
     public class Buyer
     {
         public int? BuyerId { get; set; }
-        public string? UserName { get; set; }
-        public int balacane { get; set; }
-
-
+        public decimal Balance { get; set; } = 0m;
+        public string? PhotoUrl { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        //lists
     }
 }

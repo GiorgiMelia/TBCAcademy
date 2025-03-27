@@ -42,6 +42,7 @@ namespace offers.itacademy.ge.Application.services
             {
                 client.UserType = UserType.Company;
                 client.Company = new Company();
+
             }
             else if (createClientDto.UserType == UserType.Buyer)
             {
