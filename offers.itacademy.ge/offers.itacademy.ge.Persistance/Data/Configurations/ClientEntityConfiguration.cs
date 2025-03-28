@@ -16,6 +16,7 @@ namespace offers.itacademy.ge.Persistance.Data.Configurations
         {
             builder.HasOne(c => c.Company).WithMany().HasForeignKey(c => c.CompanyId).OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(c => c.Buyer).WithMany().HasForeignKey(c => c.BuyerId).OnDelete(DeleteBehavior.Restrict);
+            builder.Property(u => u.UserType).HasConversion<string>();
 
         }
     }
