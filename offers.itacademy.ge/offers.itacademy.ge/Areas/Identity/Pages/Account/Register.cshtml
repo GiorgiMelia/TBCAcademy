@@ -1,48 +1,28 @@
 ﻿@page
 @using offers.itacademy.ge.Domain.entities
+@using offers.itacademy.ge.Web.Areas.Identity.Pages.Account
 @using offers.itacademy.ge.Web.Models
 @using Microsoft.AspNetCore.Mvc.Rendering
 
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Register as";
 }
 
 <h1>@ViewData["Title"]</h1>
-
-<div class="row">
-    <div class="col-md-4">
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2>Create a new account.</h2>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label asp-for="Input.Email">Email</label>
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.Password">Password</label>
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-3">
-                <label asp-for="Input.UserType" class="control-label"></label>
-                <select asp-for="Input.UserType" class="form-control" asp-items="Html.GetEnumSelectList<UserType>()"></select>
-                <span asp-validation-for="Input.UserType" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
-
-        </form>
+<div style="display: flex; gap: 2rem; margin-top: 2rem;">
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 2rem; width: 300px; text-align: center;">
+        <h3>Buyer</h3>
+        <p>For individual customers who want to buy discounted products.</p>
+        <a class="btn btn-primary" asp-page="/Account/Register/RegisterBuyer">Register as Buyer</a>
     </div>
- 
-</div>
 
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 2rem; width: 300px; text-align: center;">
+        <h3>Company</h3>
+        <p>For companies who want to post products and offers.</p>
+        <a asp-page="/Account/Register/RegisterCompany" class="btn btn-secondary">Register as Company</a>
+    </div>
+</div>
   @section Scripts {
       <partial name="_ValidationScriptsPartial" />
   }

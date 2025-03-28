@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using offers.itacademy.ge.Application.Dtos;
-using offers.itacademy.ge.Domain.entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using offers.itacademy.ge.Domain.entities;
 
 namespace offers.itacademy.ge.Application.services
 {
@@ -32,24 +32,26 @@ namespace offers.itacademy.ge.Application.services
 
         private Client CreateClient(CreateClientDto createClientDto)
         {
-            Client client = new Client();
-            client.UserName = createClientDto.Email;
-            client.NormalizedUserName = createClientDto.Email.ToUpper();
+            var client = new Client
+            {
+                UserName = createClientDto.Email,
+                NormalizedUserName = createClientDto.Email.ToUpper(),
+                Email = createClientDto.Email,
+                NormalizedEmail = createClientDto.Email.ToUpper(),
+                UserType = createClientDto.UserType
+            };
 
-            client.Email = createClientDto.Email;
-            client.NormalizedEmail = createClientDto.Email.ToUpper();
             if (createClientDto.UserType == UserType.Company)
             {
-                client.UserType = UserType.Company;
-                client.Company = new Company();
-
+                client.Company = createClientDto.Company;
             }
             else if (createClientDto.UserType == UserType.Buyer)
             {
-                client.UserType = UserType.Buyer;
-                client.Buyer = new Buyer();
+                client.Buyer = createClientDto.Buyer;
             }
+
             return client;
         }
+
     }
 }

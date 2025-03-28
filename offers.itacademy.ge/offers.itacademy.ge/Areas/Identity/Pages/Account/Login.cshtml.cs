@@ -14,9 +14,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using offers.itacademy.ge.Web.Areas.Identity.Pages.Account;
 using offers.itacademy.ge.Web.Models;
 using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Web.Areas.Identity.Pages.Account;
 
 namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account
 {

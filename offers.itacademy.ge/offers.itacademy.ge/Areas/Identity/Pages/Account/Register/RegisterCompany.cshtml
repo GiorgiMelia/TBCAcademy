@@ -1,0 +1,60 @@
+﻿@page
+@model offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Register.RegisterCompanyModel
+@{
+    ViewData["Title"] = "Register as Company";
+}
+
+<h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form method="post" class="p-4 border rounded shadow-sm bg-white">
+
+            <div class="form-group mb-3">
+                <label asp-for="Input.CompanyName">Company Name *</label>
+                <input asp-for="Input.CompanyName" class="form-control" />
+                <span asp-validation-for="Input.CompanyName" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Input.Description">Description</label>
+                <textarea asp-for="Input.Description" class="form-control"></textarea>
+                <span asp-validation-for="Input.Description" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Input.PhotoUrl">Photo URL</label>
+                <input asp-for="Input.PhotoUrl" class="form-control" />
+                <span asp-validation-for="Input.PhotoUrl" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Input.Email">Email *</label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Input.Password">Password *</label>
+                <input asp-for="Input.Password" type="password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger small"></span>
+            </div>
+
+            <div class="form-group mb-4">
+                <label asp-for="Input.ConfirmPassword">Confirm Password *</label>
+                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+            </div>
+
+            <button type="submit" class="btn btn-secondary w-100">Register</button>
+
+            <div class="text-center mt-3">
+                <a asp-page="/Account/Register" class="text-muted">← Back to registration options</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
