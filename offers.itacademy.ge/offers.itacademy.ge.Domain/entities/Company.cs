@@ -14,6 +14,7 @@
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+        new List<Offer> offers { get; set; }
         // lists
     }
 }

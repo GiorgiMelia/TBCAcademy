@@ -2,6 +2,8 @@
 {
     public class Buyer
     {
+        private List<Subscription> subscriptions;
+
         public int? Id{ get; set; }
 
         public string Name { get; set; }
@@ -12,9 +14,10 @@
 
         public decimal Balance { get; set; } = 0m;
 
-        public string? PhotoUrl { get; set; }
+        public string? PhoaaaatoUrl { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        //lists
+        //listssad
+         public List<Purchase> Purchases { get; set; }
     }
 }
