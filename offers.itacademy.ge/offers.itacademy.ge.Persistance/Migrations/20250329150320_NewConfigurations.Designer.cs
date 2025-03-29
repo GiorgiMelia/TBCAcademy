@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using offers.itacademy.ge.Persistance.Data;
 
@@ -10,9 +11,11 @@ using offers.itacademy.ge.Persistance.Data;
 namespace offers.itacademy.ge.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250329150320_NewConfigurations")]
+    partial class NewConfigurations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.11");
@@ -388,8 +391,6 @@ namespace offers.itacademy.ge.Persistance.Migrations
 
                     b.HasIndex("BuyerId");
 
-                    b.HasIndex("ProductId");
-
                     b.ToTable("Purchases");
                 });
 
@@ -516,15 +517,7 @@ namespace offers.itacademy.ge.Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("offers.itacademy.ge.Domain.entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Buyer");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("offers.itacademy.ge.Domain.entities.Subscription", b =>

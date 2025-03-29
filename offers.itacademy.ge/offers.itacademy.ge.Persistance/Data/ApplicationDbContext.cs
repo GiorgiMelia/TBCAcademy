@@ -14,16 +14,26 @@ namespace offers.itacademy.ge.Persistance.Data
         }
 
         public DbSet<Buyer> Buyers { get; set; }
-
         public DbSet<Company> Companies { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new ClientEntityConfiguration());
             modelBuilder.ApplyConfiguration(new BuyerEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new OfferConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new PurchaseConfiguration());
+            modelBuilder.ApplyConfiguration(new SubscriptionConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            base.OnModelCreating(modelBuilder);
+
         }
 
     }

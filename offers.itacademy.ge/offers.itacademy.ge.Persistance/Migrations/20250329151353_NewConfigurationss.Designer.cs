@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using offers.itacademy.ge.Persistance.Data;
 
@@ -10,9 +11,11 @@ using offers.itacademy.ge.Persistance.Data;
 namespace offers.itacademy.ge.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250329151353_NewConfigurationss")]
+    partial class NewConfigurationss
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.11");
@@ -372,6 +375,9 @@ namespace offers.itacademy.ge.Persistance.Migrations
                     b.Property<int>("BuyerId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("BuyerId1")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsCanceled")
                         .HasColumnType("INTEGER");
 
@@ -388,7 +394,7 @@ namespace offers.itacademy.ge.Persistance.Migrations
 
                     b.HasIndex("BuyerId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("BuyerId1");
 
                     b.ToTable("Purchases");
                 });
@@ -511,20 +517,16 @@ namespace offers.itacademy.ge.Persistance.Migrations
             modelBuilder.Entity("offers.itacademy.ge.Domain.entities.Purchase", b =>
                 {
                     b.HasOne("offers.itacademy.ge.Domain.entities.Buyer", "Buyer")
-                        .WithMany("Purchases")
+                        .WithMany()
                         .HasForeignKey("BuyerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("offers.itacademy.ge.Domain.entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("offers.itacademy.ge.Domain.entities.Buyer", null)
+                        .WithMany("Purchases")
+                        .HasForeignKey("BuyerId1");
 
                     b.Navigation("Buyer");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("offers.itacademy.ge.Domain.entities.Subscription", b =>

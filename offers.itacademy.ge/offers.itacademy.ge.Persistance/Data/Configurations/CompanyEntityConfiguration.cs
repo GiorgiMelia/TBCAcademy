@@ -13,7 +13,6 @@ namespace offers.itacademy.ge.Persistance.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Company> builder)
         {
-
             builder.HasKey(b => b.Id);
             builder.Property(b => b.Name).HasMaxLength(100);
         }

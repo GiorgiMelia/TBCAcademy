@@ -14,10 +14,11 @@
 
         public decimal Balance { get; set; } = 0m;
 
-        public string? PhoaaaatoUrl { get; set; }
+        public string? PhotoUrl { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         //listssad
+        public List<Subscription> Subscriptions { get; set; }
          public List<Purchase> Purchases { get; set; }
     }
 }

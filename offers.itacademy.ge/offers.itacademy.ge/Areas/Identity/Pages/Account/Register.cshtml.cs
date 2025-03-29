@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using offers.itacademy.ge.Web.Models;
 using offers.itacademy.ge.Persistance.Data;
-using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Web.Areas.Identity.Pages.Account;

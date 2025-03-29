@@ -10,17 +10,17 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-<div style="display: flex; gap: 2rem; margin-top: 2rem;">
-    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 2rem; width: 300px; text-align: center;">
-        <h3>Buyer</h3>
+<div class="d-flex justify-content-center gap-5 flex-wrap">
+    <div class="border rounded p-4 text-center" style="width: 300px;">
+        <h4>Buyer</h4>
         <p>For individual customers who want to buy discounted products.</p>
-        <a class="btn btn-primary" asp-page="/Account/Register/RegisterBuyer">Register as Buyer</a>
+        <a class="btn btn-primary mt-3" asp-page="/Account/Register/RegisterBuyer">Register as Buyer</a>
     </div>
 
-    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 2rem; width: 300px; text-align: center;">
-        <h3>Company</h3>
+    <div class="border rounded p-4 text-center" style="width: 300px;">
+        <h4>Company</h4>
         <p>For companies who want to post products and offers.</p>
-        <a asp-page="/Account/Register/RegisterCompany" class="btn btn-secondary">Register as Company</a>
+        <a class="btn btn-secondary mt-3" asp-page="/Account/Register/RegisterCompany">Register as Company</a>
     </div>
 </div>
   @section Scripts {

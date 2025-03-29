@@ -1,15 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using offers.itacademy.ge.Application.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 
-namespace offers.itacademy.ge.Application.services
+namespace offers.itacademy.ge.Application.Interfaces
 {
-    public class UserRegistrationService
+    public class UserRegistrationService : IUserRegistrationService
     {
         private readonly UserManager<Client> _userManager;
 

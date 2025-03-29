@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using offers.itacademy.ge.Application.Dtos;
-using offers.itacademy.ge.Application.services;
 using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Application.Interfaces;
 
 namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Register
 {
     public class RegisterCompanyModel : PageModel
     {
-        private readonly UserRegistrationService _userRegistrationService;
+        private readonly IUserRegistrationService _userRegistrationService;
         private readonly SignInManager<Client> _signInManager;
 
-        public RegisterCompanyModel(UserRegistrationService userRegistrationService, SignInManager<Client> signInManager)
+        public RegisterCompanyModel(IUserRegistrationService userRegistrationService, SignInManager<Client> signInManager)
         {
             _userRegistrationService = userRegistrationService;
             _signInManager = signInManager;

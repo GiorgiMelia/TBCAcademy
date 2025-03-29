@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Web.Models;
 using offers.itacademy.ge.Persistance.Data;
-using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddIdentity<Client, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>().AddTokenProvider<DataProtectorTokenProvider<Client>>(TokenOptions.DefaultProvider);
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<UserRegistrationService>();
+builder.Services.AddScoped<IUserRegistrationService,UserRegistrationService>();
 
 builder.Services.AddRazorPages();
 builder.Services.Configure<IdentityOptions>(options =>
