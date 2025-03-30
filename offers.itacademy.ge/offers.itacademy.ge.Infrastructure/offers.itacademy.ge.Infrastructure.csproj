@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\offers.itacademy.ge.Application\offers.itacademy.ge.Application.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Persistance\offers.itacademy.ge.Persistance.csproj" />
+  </ItemGroup>
+
 </Project>

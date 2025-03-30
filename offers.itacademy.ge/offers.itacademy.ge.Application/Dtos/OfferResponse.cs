@@ -1,24 +1,17 @@
-﻿namespace offers.itacademy.ge.Domain.entities
+﻿namespace offers.itacademy.ge.API.Models
 {
-    public class Offer
+    public class OfferResponse
     {
         public int Id { get; set; }
-
-        public int ProductId { get; set; }  
-        public Product Product { get; set; }
-
+        public int ProductId { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
         public double Price { get; set; }
-        public int Quantity { get; set; }
         public bool IsArchived { get; set; }
-
-
+        public int Quantity { get; set; }
+        public string? CategoryName { get; set; }
     }
-
-   
-
 }
