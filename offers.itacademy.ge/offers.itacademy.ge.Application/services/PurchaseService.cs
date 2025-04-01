@@ -2,27 +2,23 @@
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Persistance.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace offers.itacademy.ge.Infrastructure.Services
+namespace offers.itacademy.ge.Application.services
 {
     public class PurchaseService : IPurchaseService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IPurchaseRepository purchaseRepository;
+        private readonly IOfferRepository offerRepository;
 
-        public PurchaseService(ApplicationDbContext context)
+        public PurchaseService(IPurchaseRepository context,IOfferRepository offerRepository)
         {
-            _context = context;
+            purchaseRepository = context;
+            this.offerRepository = offerRepository;
         }
 
         public async Task<Purchase> CreatePurchase(PurchaseDto purchaseDto)
         {
-            var offer = await _context.Offers.FindAsync(purchaseDto.OfferId);
+            var offer = await offerRepository.GetOfferById(purchaseDto.OfferId);
             if (offer == null)
                 throw new Exception($"Offer with Id {purchaseDto.OfferId} not found.");
 
@@ -40,29 +36,19 @@ namespace offers.itacademy.ge.Infrastructure.Services
                 IsCanceled = false
             };
 
-            _context.Purchases.Add(purchase);
-            await _context.SaveChangesAsync();
-
-            return await _context.Purchases
-    .Include(p => p.Buyer)
-    .Include(p => p.Offer)
-    .FirstOrDefaultAsync(p => p.Id == purchase.Id);
+            await purchaseRepository.CreatePurchase(purchase);
+            return await purchaseRepository.GetPurchaseById(purchase.Id);
         }
 
         public async Task<List<Purchase>> GetAllPurchases()
         {
-            return await _context.Purchases
-        .Include(p => p.Buyer)
-        .Include(p => p.Offer)
-        .ToListAsync();
+            return await purchaseRepository.GetAllPurchases();
         }
 
         public async Task<Purchase?> GetPurchaseById(int id)
         {
-            return await _context.Purchases
-      .Include(p => p.Buyer)
-      .Include(p => p.Offer)
-      .FirstOrDefaultAsync(p => p.Id == id);
+            return await purchaseRepository.GetPurchaseById(id);
+
         }
     }
 }

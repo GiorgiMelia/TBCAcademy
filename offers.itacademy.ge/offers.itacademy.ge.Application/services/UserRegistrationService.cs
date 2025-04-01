@@ -2,7 +2,6 @@
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Application.Interfaces;
 
 namespace offers.itacademy.ge.Application.services
 {

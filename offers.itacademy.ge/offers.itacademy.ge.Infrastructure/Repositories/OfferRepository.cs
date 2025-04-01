@@ -7,40 +7,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using offers.itacademy.ge.Application.Dtos;
 
-namespace offers.itacademy.ge.Infrastructure.Services
+namespace offers.itacademy.ge.Infrastructure.Repositories
 {
-    public class OfferService : IOfferService
+    public class OfferRepository : IOfferRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public OfferService(ApplicationDbContext context)
+        public OfferRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Offer> CreateOffer(OfferDto offerDto)
+        public async Task<Offer> CreateOffer(Offer offer)
         {
-
-            var offer = new Offer
-            {
-                ProductName = offerDto.ProductName,
-                ProductDescription = offerDto.ProductDescription,
-                CategoryId = offerDto.CategoryId,
-                StartDate = DateTime.UtcNow,
-                EndDate = offerDto.EndDate,
-                Price = offerDto.Price,
-                Quantity = offerDto.Quantity,
-                IsArchived = false
-            };
-
             _context.Offers.Add(offer);
             await _context.SaveChangesAsync();
 
             return await _context.Offers
-    .Include(o => o.Category)
-    .FirstOrDefaultAsync(o => o.Id == offer.Id);
+                .Include(o => o.Category)
+                .FirstOrDefaultAsync(o => o.Id == offer.Id);
         }
 
         public async Task<List<Offer>> GetAllOffers()
