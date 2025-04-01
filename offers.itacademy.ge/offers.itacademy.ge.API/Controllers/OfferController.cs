@@ -2,6 +2,8 @@
 using offers.itacademy.ge.API.Models;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Application.Dtos;
+using System;
 
 namespace offers.itacademy.ge.API.Controllers
 {
@@ -17,20 +19,19 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OfferResponse>> Create([FromBody] CreateOfferRequest request)
+        public async Task<ActionResult<OfferResponse>> Create([FromBody] OfferDto request)
         {
-            var offer = await _offerService.CreateOfferAsync(request);
+            var offer = await _offerService.CreateOffer(request);
 
             var response = new OfferResponse
             {
                 Id = offer.Id,
-                ProductId = offer.ProductId,
-                CategoryId = offer.CategoryId,
+                ProductDescription = offer.ProductDescription,
+                ProductName = offer.ProductName,
+                CategoryName = offer.Category.Name,
                 StartDate = offer.StartDate,
                 EndDate = offer.EndDate,
                 Price = offer.Price,
-                IsArchived = offer.IsArchived,
-                CategoryName = offer.Category?.Name,
                 Quantity = offer.Quantity,
             };
 
@@ -40,40 +41,37 @@ namespace offers.itacademy.ge.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<OfferResponse>>> GetAll()
         {
-            var offers = await _offerService.GetAllAsync();
+            var offers = await _offerService.GetAllOffers();
 
-            return Ok(offers.Select(o => new OfferResponse
+            return Ok(offers.Select(offer => new OfferResponse
             {
-                Id = o.Id,
-                ProductId = o.ProductId,
-                CategoryId = o.CategoryId,
-                StartDate = o.StartDate,
-                EndDate = o.EndDate,
-                Price = o.Price,
-                IsArchived = o.IsArchived,
-                CategoryName = o.Category?.Name,
-                Quantity = o.Quantity,
-
+                Id = offer.Id,
+                ProductDescription = offer.ProductDescription,
+                ProductName = offer.ProductName,
+                CategoryName = offer.Category.Name,
+                StartDate = offer.StartDate,
+                EndDate = offer.EndDate,
+                Price = offer.Price,
+                Quantity = offer.Quantity,
             }));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<OfferResponse>> GetById(int id)
         {
-            var offer = await _offerService.GetByIdAsync(id);
+            var offer = await _offerService.GetOfferById(id);
             if (offer == null)
                 return NotFound();
 
             return Ok(new OfferResponse
             {
                 Id = offer.Id,
-                ProductId = offer.ProductId,
-                CategoryId = offer.CategoryId,
+                ProductDescription = offer.ProductDescription,
+                ProductName = offer.ProductName,
+                CategoryName = offer.Category.Name,
                 StartDate = offer.StartDate,
                 EndDate = offer.EndDate,
                 Price = offer.Price,
-                IsArchived = offer.IsArchived,
-                CategoryName = offer.Category?.Name,
                 Quantity = offer.Quantity,
             });
         }

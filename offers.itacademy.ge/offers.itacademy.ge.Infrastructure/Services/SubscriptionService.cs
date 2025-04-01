@@ -20,28 +20,31 @@ namespace offers.itacademy.ge.Infrastructure.Services
             _context = context;
         }
 
-        public async Task<Subscription> CreateAsync(CreateSubscriptionRequest request)
+        public async Task<Subscription> CreateSubscription(SubscriptionDto subscritionDto)
         {
             var subscription = new Subscription
             {
-                BuyerId = request.BuyerId,
-                CategoryId = request.CategoryId
+                BuyerId = subscritionDto.BuyerId,
+                CategoryId = subscritionDto.CategoryId
             };
 
             _context.Subscriptions.Add(subscription);
             await _context.SaveChangesAsync();
 
-            return subscription;
+            return await _context.Subscriptions
+     .Include(s => s.Buyer)
+     .Include(s => s.Category)
+     .FirstOrDefaultAsync(s => s.Id == subscription.Id);
         }
 
-        public async Task<List<Subscription>> GetAllAsync()
+        public async Task<List<Subscription>> GetAllSubscriptions()
         {
-            return await _context.Subscriptions.Include(s => s.Category).ToListAsync();
+            return await _context.Subscriptions.Include(s => s.Category).Include(s=>s.Buyer).ToListAsync();
         }
 
-        public async Task<Subscription?> GetByIdAsync(int id)
+        public async Task<Subscription?> GetSubscriptionById(int id)
         {
-            return await _context.Subscriptions.Include(s => s.Category)
+            return await _context.Subscriptions.Include(s => s.Category).Include(s => s.Buyer)
                                                .FirstOrDefaultAsync(s => s.Id == id);
         }
     }

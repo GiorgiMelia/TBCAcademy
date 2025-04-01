@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.API.Models;
+using offers.itacademy.ge.Domain.entities;
 
 namespace offers.itacademy.ge.API.Controllers
 {
@@ -17,16 +19,22 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<SubscriptionResponse>> Create([FromBody] CreateSubscriptionRequest request)
+        public async Task<ActionResult<SubscriptionResponse>> Create([FromBody] SubscriptionRequest request)
         {
-            var subscription = await _subscriptionService.CreateAsync(request);
+            SubscriptionDto subscriptionDto = new SubscriptionDto
+            {
+                BuyerId = request.BuyerId,
+                CategoryId = request.CategoryId,
+            };
+            var subscription = await _subscriptionService.CreateSubscription(subscriptionDto);
 
             var response = new SubscriptionResponse
             {
                 Id = subscription.Id,
                 BuyerId = subscription.BuyerId,
                 CategoryId = subscription.CategoryId,
-                CategoryName = subscription.Category?.Name
+                CategoryName = subscription.Category?.Name,
+                BuyerNameAndSurname =subscription.Buyer.Name+"  "+ subscription.Buyer.Surname,
             };
 
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
@@ -35,21 +43,22 @@ namespace offers.itacademy.ge.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<SubscriptionResponse>>> GetAll()
         {
-            var subscriptions = await _subscriptionService.GetAllAsync();
+            var subscriptions = await _subscriptionService.GetAllSubscriptions();
 
             return Ok(subscriptions.Select(s => new SubscriptionResponse
             {
                 Id = s.Id,
                 BuyerId = s.BuyerId,
                 CategoryId = s.CategoryId,
-                CategoryName = s.Category?.Name
+                CategoryName = s.Category?.Name,
+                BuyerNameAndSurname = s.Buyer.Name + "  " + s.Buyer.Surname,
             }));
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<SubscriptionResponse>> GetById(int id)
         {
-            var subscription = await _subscriptionService.GetByIdAsync(id);
+            var subscription = await _subscriptionService.GetSubscriptionById(id);
             if (subscription == null)
                 return NotFound();
 
@@ -58,7 +67,8 @@ namespace offers.itacademy.ge.API.Controllers
                 Id = subscription.Id,
                 BuyerId = subscription.BuyerId,
                 CategoryId = subscription.CategoryId,
-                CategoryName = subscription.Category?.Name
+                CategoryName = subscription.Category?.Name,
+                BuyerNameAndSurname = subscription.Buyer.Name + "  " + subscription.Buyer.Surname,
             });
         }
     }

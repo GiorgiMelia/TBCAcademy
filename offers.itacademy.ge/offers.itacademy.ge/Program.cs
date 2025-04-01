@@ -4,6 +4,7 @@ using offers.itacademy.ge.Persistance.Data;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
 
 var builder = WebApplication.CreateBuilder(args);
 

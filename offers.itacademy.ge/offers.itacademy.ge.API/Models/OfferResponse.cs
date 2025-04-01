@@ -3,15 +3,16 @@
     public class OfferResponse
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
-        public int CategoryId { get; set; }
-
+        public string ProductName { get; set; }
+        public string ProductDescription { get; set; }
+       // public int CategoryId { get; set; }
+        public string? CategoryName { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
         public double Price { get; set; }
-        public bool IsArchived { get; set; }
+       // public bool IsArchived { get; set; }
         public int Quantity { get; set; }
-        public string? CategoryName { get; set; }
+
     }
 }

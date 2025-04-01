@@ -19,7 +19,6 @@ namespace offers.itacademy.ge.Persistance.Data
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,7 +27,6 @@ namespace offers.itacademy.ge.Persistance.Data
             modelBuilder.ApplyConfiguration(new BuyerEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CompanyEntityConfiguration());
             modelBuilder.ApplyConfiguration(new OfferConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseConfiguration());
             modelBuilder.ApplyConfiguration(new SubscriptionConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());

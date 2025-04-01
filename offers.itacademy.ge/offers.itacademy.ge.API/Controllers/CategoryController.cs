@@ -2,8 +2,8 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using offers.itacademy.ge.API.Models;
+    using offers.itacademy.ge.Application.Dtos;
     using offers.itacademy.ge.Application.Interfaces;
-    using System;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -18,9 +18,9 @@
 
 
         [HttpPost]
-        public async Task<ActionResult<CategoryResponse>> Create([FromBody] CreateCategoryRequest request)
+        public async Task<ActionResult<CategoryResponse>> Create([FromBody] CategoryRequest request)
         {
-            var category = await _categoryService.CreateCategoryAsync(request.CategoryName);
+            var category = await _categoryService.CreateCategory(new CategoryDto { CategoryName = request.CategoryName});
             var response = new CategoryResponse
             {
                 Id = category.Id,
@@ -33,7 +33,7 @@
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryResponse>>> GetAll()
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
+            var categories = await _categoryService.GetAllCategories();
 
             var response = categories.Select(c => new CategoryResponse
             {
@@ -47,7 +47,7 @@
         [HttpGet("{id}")]
         public async Task<ActionResult<CategoryResponse>> GetById(int id)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
+            var category = await _categoryService.GetCategoryById(id);
             if (category == null)
                 return NotFound();
 
@@ -59,6 +59,3 @@
         }
     }
 }
-
-
-

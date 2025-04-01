@@ -17,7 +17,6 @@ namespace offers.itacademy.ge.Persistance.Data.Configurations
             builder.Property(o => o.Price).HasColumnType("decimal(10,2)").IsRequired();
             builder.Property(o => o.StartDate).IsRequired();
             builder.Property(o => o.EndDate).IsRequired();
-            builder.HasOne(o => o.Product).WithMany().HasForeignKey("ProductId").OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(o => o.Category).WithMany().HasForeignKey(o => o.CategoryId).OnDelete(DeleteBehavior.Restrict);
         }
     }

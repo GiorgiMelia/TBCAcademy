@@ -20,22 +20,22 @@ namespace offers.itacademy.ge.Infrastructure.Services
             _context = context;
         }
 
-        public async Task<Purchase> CreatePurchaseAsync(CreatePurchaseRequest request)
+        public async Task<Purchase> CreatePurchase(PurchaseDto purchaseDto)
         {
-            var offer = await _context.Offers.FindAsync(request.OfferId);
+            var offer = await _context.Offers.FindAsync(purchaseDto.OfferId);
             if (offer == null)
-                throw new Exception($"Offer with Id {request.OfferId} not found.");
+                throw new Exception($"Offer with Id {purchaseDto.OfferId} not found.");
 
-            if (offer.Quantity < request.Quantity)
-                throw new Exception($"Not enough quantity in offer. Available: {offer.Quantity}, requested: {request.Quantity}");
+            if (offer.Quantity < purchaseDto.Quantity)
+                throw new Exception($"Not enough quantity in offer. Available: {offer.Quantity}, requested: {purchaseDto.Quantity}");
 
-            offer.Quantity -= request.Quantity;
+            offer.Quantity -= purchaseDto.Quantity;
 
             var purchase = new Purchase
             {
                 OfferId = offer.Id,
-                BuyerId = request.BuyerId,
-                Quantity = request.Quantity,
+                BuyerId = purchaseDto.BuyerId,
+                Quantity = purchaseDto.Quantity,
                 PurchaseDate = DateTime.UtcNow,
                 IsCanceled = false
             };
@@ -43,17 +43,26 @@ namespace offers.itacademy.ge.Infrastructure.Services
             _context.Purchases.Add(purchase);
             await _context.SaveChangesAsync();
 
-            return purchase;
+            return await _context.Purchases
+    .Include(p => p.Buyer)
+    .Include(p => p.Offer)
+    .FirstOrDefaultAsync(p => p.Id == purchase.Id);
         }
 
-        public async Task<List<Purchase>> GetAllAsync()
+        public async Task<List<Purchase>> GetAllPurchases()
         {
-            return await _context.Purchases.ToListAsync();
+            return await _context.Purchases
+        .Include(p => p.Buyer)
+        .Include(p => p.Offer)
+        .ToListAsync();
         }
 
-        public async Task<Purchase?> GetByIdAsync(int id)
+        public async Task<Purchase?> GetPurchaseById(int id)
         {
-            return await _context.Purchases.FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Purchases
+      .Include(p => p.Buyer)
+      .Include(p => p.Offer)
+      .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

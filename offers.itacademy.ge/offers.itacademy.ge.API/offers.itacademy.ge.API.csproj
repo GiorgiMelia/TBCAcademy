@@ -22,8 +22,4 @@
     <ProjectReference Include="..\offers.itacademy.ge.Persistance\offers.itacademy.ge.Persistance.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
