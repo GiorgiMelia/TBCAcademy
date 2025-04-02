@@ -10,7 +10,7 @@ namespace offers.itacademy.ge.Application.Interfaces
     public interface ISubscriptionRepository
     {
         Task<Subscription> CreateSubscription(Subscription subscription);
-        Task<List<Subscription>> GetAllSubscriptionsWithDetails();
-        Task<Subscription?> GetSubscriptionWithDetailsById(int id);
+        Task<List<Subscription>> GetAllSubscriptions();
+        Task<Subscription?> GetSubscriptionById(int id);
     }
 }

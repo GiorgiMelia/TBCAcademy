@@ -33,11 +33,11 @@ namespace offers.itacademy.ge.Application.services
                 BuyerId = purchaseDto.BuyerId,
                 Quantity = purchaseDto.Quantity,
                 PurchaseDate = DateTime.UtcNow,
-                IsCanceled = false
+                IsCanceled = false,
             };
 
             await purchaseRepository.CreatePurchase(purchase);
-            return await purchaseRepository.GetPurchaseById(purchase.Id);
+            return purchase;
         }
 
         public async Task<List<Purchase>> GetAllPurchases()

@@ -32,8 +32,7 @@ namespace offers.itacademy.ge.Application.services
 
             await offerRepository.CreateOffer(offer);
 
-            await offerRepository.CreateOffer(offer);
-            return await offerRepository.GetOfferById(offer.Id);
+            return offer;
         }
 
         public async Task<List<Offer>> GetAllOffers()

@@ -33,9 +33,7 @@ namespace offers.itacademy.ge.API.Controllers
                 Id = subscription.Id,
                 BuyerId = subscription.BuyerId,
                 CategoryId = subscription.CategoryId,
-                CategoryName = subscription.Category?.Name,
-                BuyerNameAndSurname =subscription.Buyer.Name+"  "+ subscription.Buyer.Surname,
-            };
+                };
 
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
         }
@@ -50,8 +48,6 @@ namespace offers.itacademy.ge.API.Controllers
                 Id = s.Id,
                 BuyerId = s.BuyerId,
                 CategoryId = s.CategoryId,
-                CategoryName = s.Category?.Name,
-                BuyerNameAndSurname = s.Buyer.Name + "  " + s.Buyer.Surname,
             }));
         }
 
@@ -67,8 +63,6 @@ namespace offers.itacademy.ge.API.Controllers
                 Id = subscription.Id,
                 BuyerId = subscription.BuyerId,
                 CategoryId = subscription.CategoryId,
-                CategoryName = subscription.Category?.Name,
-                BuyerNameAndSurname = subscription.Buyer.Name + "  " + subscription.Buyer.Surname,
             });
         }
     }

@@ -28,12 +28,12 @@ namespace offers.itacademy.ge.Application.services
 
         public async Task<List<Subscription>> GetAllSubscriptions()
         {
-            return await _subscriptionRepository.GetAllSubscriptionsWithDetails();
+            return await _subscriptionRepository.GetAllSubscriptions();
         }
 
         public async Task<Subscription?> GetSubscriptionById(int id)
         {
-            return await _subscriptionRepository.GetSubscriptionWithDetailsById(id);
+            return await _subscriptionRepository.GetSubscriptionById(id);
         }
     }
 }

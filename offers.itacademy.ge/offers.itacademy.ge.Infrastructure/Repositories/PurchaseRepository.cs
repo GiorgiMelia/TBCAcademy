@@ -24,26 +24,17 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             _context.Purchases.Add(purchase);
             await _context.SaveChangesAsync();
 
-            return await _context.Purchases
-                .Include(p => p.Buyer)
-                .Include(p => p.Offer)
-                .FirstOrDefaultAsync(p => p.Id == purchase.Id);
+            return purchase;
         }
 
         public async Task<List<Purchase>> GetAllPurchases()
         {
-            return await _context.Purchases
-                .Include(p => p.Buyer)
-                .Include(p => p.Offer)
-                .ToListAsync();
+            return await _context.Purchases.ToListAsync();
         }
 
         public async Task<Purchase?> GetPurchaseById(int id)
         {
-            return await _context.Purchases
-                .Include(p => p.Buyer)
-                .Include(p => p.Offer)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            return await _context.Purchases.FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

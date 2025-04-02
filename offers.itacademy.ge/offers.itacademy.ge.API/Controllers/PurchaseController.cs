@@ -18,9 +18,15 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<PurchaseResponse>> Create([FromBody] PurchaseDto purchaseDto)
+        public async Task<ActionResult<PurchaseResponse>> Create([FromBody] PurchaseRequest request)
         {
-            var purchase = await _purchaseService.CreatePurchase(purchaseDto);
+            var purchasedto = new PurchaseDto
+            {
+                BuyerId = request.BuyerId,
+                OfferId = request.OfferId,
+                Quantity = request.Quantity,
+            };
+            var purchase = await _purchaseService.CreatePurchase(purchasedto);
 
             return CreatedAtAction(nameof(GetById), new { id = purchase.Id }, new PurchaseResponse
             {
@@ -29,7 +35,6 @@ namespace offers.itacademy.ge.API.Controllers
                 BuyerId = purchase.BuyerId,
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,
-                BuyerNameAndSurname = purchase.Buyer?.Name + " " + purchase.Buyer?.Surname,
                 TotalPayment = purchase.Quantity * purchase.Offer.Price,
             });
         }
@@ -46,7 +51,6 @@ namespace offers.itacademy.ge.API.Controllers
                 BuyerId = purchase.BuyerId,
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,
-                BuyerNameAndSurname = purchase.Buyer?.Name + " " + purchase.Buyer?.Surname,
                 TotalPayment = purchase.Quantity * purchase.Offer.Price,
             }));
         }
@@ -65,7 +69,6 @@ namespace offers.itacademy.ge.API.Controllers
                 BuyerId = purchase.BuyerId,
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,
-                BuyerNameAndSurname = purchase.Buyer?.Name + " " + purchase.Buyer?.Surname,
                 TotalPayment = purchase.Quantity * purchase.Offer.Price,
             });
         }

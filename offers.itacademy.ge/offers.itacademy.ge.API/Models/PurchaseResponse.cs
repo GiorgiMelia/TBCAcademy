@@ -12,7 +12,6 @@ namespace offers.itacademy.ge.API.Models
         public int Id { get; set; }
         public int OfferId { get; set; }
         public int BuyerId { get; set; }
-        public string BuyerNameAndSurname { get; set; }
 
         public int Quantity { get; set; }
         public double TotalPayment { get; set; }

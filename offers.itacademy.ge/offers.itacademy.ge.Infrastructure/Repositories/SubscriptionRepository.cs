@@ -23,23 +23,17 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
         {
             _context.Subscriptions.Add(subscription);
             await _context.SaveChangesAsync();
-            return await GetSubscriptionWithDetailsById(subscription.Id);
+            return subscription;
         }
 
-        public async Task<List<Subscription>> GetAllSubscriptionsWithDetails()
+        public async Task<List<Subscription>> GetAllSubscriptions()
         {
-            return await _context.Subscriptions
-                .Include(s => s.Buyer)
-                .Include(s => s.Category)
-                .ToListAsync();
+            return await _context.Subscriptions.ToListAsync();
         }
 
-        public async Task<Subscription?> GetSubscriptionWithDetailsById(int id)
+        public async Task<Subscription?> GetSubscriptionById(int id)
         {
-            return await _context.Subscriptions
-                .Include(s => s.Buyer)
-                .Include(s => s.Category)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            return await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == id);
         }
     }
 }

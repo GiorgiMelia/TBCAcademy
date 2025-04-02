@@ -19,16 +19,25 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OfferResponse>> Create([FromBody] OfferDto request)
+        public async Task<ActionResult<OfferResponse>> Create([FromBody] OfferRequest request)
         {
-            var offer = await _offerService.CreateOffer(request);
+            var OfferDto = new OfferDto
+            {
+                CategoryId = request.CategoryId,
+                EndDate = request.EndDate,
+                Price = request.Price,
+                ProductDescription = request.ProductDescription,
+                ProductName = request.ProductName,
+                Quantity = request.Quantity,
+            };
+            var offer = await _offerService.CreateOffer(OfferDto);
 
             var response = new OfferResponse
             {
                 Id = offer.Id,
                 ProductDescription = offer.ProductDescription,
                 ProductName = offer.ProductName,
-                CategoryName = offer.Category.Name,
+                CategoryId = request.CategoryId,
                 StartDate = offer.StartDate,
                 EndDate = offer.EndDate,
                 Price = offer.Price,
@@ -48,7 +57,7 @@ namespace offers.itacademy.ge.API.Controllers
                 Id = offer.Id,
                 ProductDescription = offer.ProductDescription,
                 ProductName = offer.ProductName,
-                CategoryName = offer.Category.Name,
+                CategoryId = offer.CategoryId,
                 StartDate = offer.StartDate,
                 EndDate = offer.EndDate,
                 Price = offer.Price,
@@ -68,7 +77,7 @@ namespace offers.itacademy.ge.API.Controllers
                 Id = offer.Id,
                 ProductDescription = offer.ProductDescription,
                 ProductName = offer.ProductName,
-                CategoryName = offer.Category.Name,
+                CategoryId = offer.CategoryId,
                 StartDate = offer.StartDate,
                 EndDate = offer.EndDate,
                 Price = offer.Price,
