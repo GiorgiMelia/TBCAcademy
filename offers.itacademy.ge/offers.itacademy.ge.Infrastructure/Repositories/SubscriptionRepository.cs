@@ -26,6 +26,17 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             return subscription;
         }
 
+        public async Task<bool> DeleteSubscription(int id)
+        {
+            var subscription = await _context.Subscriptions.FindAsync(id);
+            if (subscription == null)
+                return false;
+
+            _context.Subscriptions.Remove(subscription);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<List<Subscription>> GetAllSubscriptions()
         {
             return await _context.Subscriptions.ToListAsync();

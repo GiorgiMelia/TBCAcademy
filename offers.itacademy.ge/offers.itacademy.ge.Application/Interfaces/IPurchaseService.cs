@@ -9,5 +9,9 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<Purchase> CreatePurchase(PurchaseDto request);
         Task<List<Purchase>> GetAllPurchases();
         Task<Purchase?> GetPurchaseById(int id);
+        Task<bool> CancelPurchase(int purchaseId);
+        Task<bool> CancelPurchaseByOffer(int offerId);
+
+
     }
 }

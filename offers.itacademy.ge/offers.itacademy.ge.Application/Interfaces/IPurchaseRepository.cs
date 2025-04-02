@@ -10,7 +10,9 @@ namespace offers.itacademy.ge.Application.Interfaces
     public interface IPurchaseRepository
     {
         Task<Purchase> CreatePurchase(Purchase purchase);
+        Task<IEnumerable<Purchase>> GetActivePurchasesByOfferId(int offerId);
         Task<List<Purchase>> GetAllPurchases();
         Task<Purchase?> GetPurchaseById(int id);
+        Task SaveChanges();
     }
 }

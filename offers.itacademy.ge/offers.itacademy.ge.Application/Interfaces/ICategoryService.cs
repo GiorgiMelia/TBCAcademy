@@ -8,6 +8,8 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<Category> CreateCategory(CategoryDto categoryDto);
         Task<List<Category>> GetAllCategories();
         Task<Category?> GetCategoryById(int id);
+        Task<bool> UpdateCategory(int id, CategoryDto dto);
+        Task<bool> DeleteCategory(int id);
     }
 
 

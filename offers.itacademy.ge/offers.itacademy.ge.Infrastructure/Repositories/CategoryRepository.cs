@@ -36,9 +36,26 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             return await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<bool> ExistsAsync(int id)
+        public async Task UpdateCategory(Category category)
         {
-            return await _context.Categories.AnyAsync(c => c.Id == id);
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> DeleteCategory(int id)
+        {
+            var hasOffers = await _context.Offers.AnyAsync(o => o.CategoryId == id);
+            if (hasOffers)
+                throw new InvalidOperationException("Cannot delete category with associated offers.");
+
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
+                return false;
+
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }

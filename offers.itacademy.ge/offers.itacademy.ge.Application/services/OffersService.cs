@@ -9,10 +9,11 @@ namespace offers.itacademy.ge.Application.services
     public class OfferService : IOfferService
     {
         private readonly IOfferRepository offerRepository;
-
-        public OfferService(IOfferRepository context)
+        private readonly IPurchaseService purchaseService;
+        public OfferService(IOfferRepository context, IPurchaseService purchaseService)
         {
             offerRepository = context;
+            this.purchaseService = purchaseService;
         }
 
         public async Task<Offer> CreateOffer(OfferDto offerDto)
@@ -45,6 +46,20 @@ namespace offers.itacademy.ge.Application.services
         {
             return await offerRepository.GetOfferById(id);
 
+        }
+        public async Task<bool> CancelOffer(int offerId)
+        {
+            var offer = await offerRepository.GetOfferById(offerId);
+            if (offer == null || offer.IsArchived)
+                return false;
+
+            var elapsed = DateTime.UtcNow - offer.StartDate;
+            if (elapsed > TimeSpan.FromMinutes(10))
+                return false;
+
+            offer.IsArchived = true;
+
+            return await purchaseService.CancelPurchaseByOffer(offerId);
         }
     }
 }

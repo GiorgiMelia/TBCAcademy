@@ -65,5 +65,14 @@ namespace offers.itacademy.ge.API.Controllers
                 CategoryId = subscription.CategoryId,
             });
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _subscriptionService.DeleteSubscription(id);
+            if (!result)
+                return NotFound("Subscription not found.");
+
+            return NoContent(); 
+        }
     }
 }

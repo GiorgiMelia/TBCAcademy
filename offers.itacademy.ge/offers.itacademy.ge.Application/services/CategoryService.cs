@@ -33,5 +33,20 @@ namespace offers.itacademy.ge.Application.services
         {
             return await _categoryRepository.GetCategoryById(id);
         }
+        public async Task<bool> UpdateCategory(int id, CategoryDto dto)
+        {
+            var category = await _categoryRepository.GetCategoryById(id);
+            if (category == null)
+                return false;
+
+            category.Name = dto.CategoryName;
+            await _categoryRepository.UpdateCategory(category);
+            return true;
+        }
+
+        public async Task<bool> DeleteCategory(int id)
+        {
+            return await _categoryRepository.DeleteCategory(id);
+        }
     }
 }

@@ -36,6 +36,7 @@ namespace offers.itacademy.ge.API.Controllers
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,
                 TotalPayment = purchase.Quantity * purchase.Offer.Price,
+                IsCanceled = purchase.IsCanceled
             });
         }
 
@@ -52,6 +53,7 @@ namespace offers.itacademy.ge.API.Controllers
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,
                 TotalPayment = purchase.Quantity * purchase.Offer.Price,
+                IsCanceled = purchase.IsCanceled
             }));
         }
 
@@ -70,7 +72,17 @@ namespace offers.itacademy.ge.API.Controllers
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,
                 TotalPayment = purchase.Quantity * purchase.Offer.Price,
+                IsCanceled = purchase.IsCanceled
             });
         }
+        [HttpPost("{id}/cancel")]
+        public async Task<IActionResult> CancelPurchase(int id)
+        {
+            if (!await _purchaseService.CancelPurchase(id))
+                return BadRequest("Cannot cancel purchase .");
+
+            return Ok("Purchase canceled successfully.");
+        }
+
     }
 }

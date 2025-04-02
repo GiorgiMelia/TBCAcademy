@@ -7,5 +7,7 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<Offer> CreateOffer(OfferDto request);
         Task<List<Offer>> GetAllOffers();
         Task<Offer?> GetOfferById(int id);
+        Task<bool> CancelOffer(int offerId);
+
     }
 }

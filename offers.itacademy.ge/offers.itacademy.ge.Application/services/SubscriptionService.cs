@@ -35,5 +35,9 @@ namespace offers.itacademy.ge.Application.services
         {
             return await _subscriptionRepository.GetSubscriptionById(id);
         }
+        public async Task<bool> DeleteSubscription(int id)
+        {
+            return await _subscriptionRepository.DeleteSubscription(id);
+        }
     }
 }

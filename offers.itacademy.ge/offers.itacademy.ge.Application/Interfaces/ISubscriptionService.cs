@@ -10,5 +10,6 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<Subscription> CreateSubscription(SubscriptionDto subscriptionDto);
         Task<List<Subscription>> GetAllSubscriptions();
         Task<Subscription?> GetSubscriptionById(int id);
+        Task<bool> DeleteSubscription(int id);
     }
 }

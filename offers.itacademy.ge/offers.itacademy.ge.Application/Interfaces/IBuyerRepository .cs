@@ -7,13 +7,9 @@ using System.Threading.Tasks;
 
 namespace offers.itacademy.ge.Application.Interfaces
 {
-    public interface IOfferRepository
+    public interface IBuyerRepository
     {
-        Task<Offer> CreateOffer(Offer offer);
-        Task<List<Offer>> GetAllOffers();
-        Task<Offer?> GetOfferById(int id);
-        Task<Offer> UpdateOffer(Offer offer);
-
-
+        Task<Buyer?> GetBuyerById(int id);
+        Task UpdateBuyer(Buyer buyer);
     }
 }

@@ -57,5 +57,24 @@
                 Name = category.Name
             });
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, [FromBody] CategoryDto dto)
+        {
+            var result = await _categoryService.UpdateCategory(id, dto);
+            if (!result)
+                return NotFound("Category not found.");
+
+            return NoContent(); 
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _categoryService.DeleteCategory(id);
+            if (!result)
+                return NotFound("Category not found.");
+
+            return NoContent();
+        }
     }
 }

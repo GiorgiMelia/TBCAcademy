@@ -36,5 +36,11 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
         {
             return await _context.Offers.FirstOrDefaultAsync(o => o.Id == id);
         }
+        public async Task<Offer> UpdateOffer(Offer offer)
+        {
+            _context.Offers.Update(offer);
+             await _context.SaveChangesAsync();
+            return offer;
+        }
     }
 }
