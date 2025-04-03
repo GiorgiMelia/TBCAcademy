@@ -28,7 +28,8 @@ namespace offers.itacademy.ge.Application.services
                 EndDate = offerDto.EndDate,
                 Price = offerDto.Price,
                 Quantity = offerDto.Quantity,
-                IsArchived = false
+                IsArchived = false,
+                IsCanceled = false,
             };
 
             await offerRepository.CreateOffer(offer);
@@ -50,14 +51,14 @@ namespace offers.itacademy.ge.Application.services
         public async Task<bool> CancelOffer(int offerId)
         {
             var offer = await offerRepository.GetOfferById(offerId);
-            if (offer == null || offer.IsArchived)
+            if (offer == null || offer.IsArchived||offer.IsCanceled)
                 return false;
 
             var elapsed = DateTime.UtcNow - offer.StartDate;
             if (elapsed > TimeSpan.FromMinutes(10))
                 return false;
 
-            offer.IsArchived = true;
+            offer.IsCanceled = true;
 
             return await purchaseService.CancelPurchaseByOffer(offerId);
         }

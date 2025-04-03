@@ -11,6 +11,7 @@
 
         public decimal Price { get; set; }
         public bool IsArchived { get; set; }
+        public bool IsCanceled{ get; set; }
         public int Quantity { get; set; }
 
     }

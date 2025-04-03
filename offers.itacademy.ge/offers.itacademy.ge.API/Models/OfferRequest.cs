@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using offers.itacademy.ge.API.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace offers.itacademy.ge.API.Models
 {
@@ -13,7 +14,7 @@ namespace offers.itacademy.ge.API.Models
         public string ProductDescription { get; set; }
 
         [Required(ErrorMessage = "End date is required.")]
-        [DataType(DataType.DateTime)]
+        [ValidEndDateAttribute("End date must be in the future.")]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "CategoryId is required.")]

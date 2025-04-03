@@ -43,6 +43,7 @@ namespace offers.itacademy.ge.API.Controllers
                 Price = offer.Price,
                 Quantity = offer.Quantity,
                 IsArchived = offer.IsArchived,
+                IsCanceled = offer.IsCanceled,
             };
 
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
@@ -64,6 +65,8 @@ namespace offers.itacademy.ge.API.Controllers
                 Price = offer.Price,
                 IsArchived = offer.IsArchived,
                 Quantity = offer.Quantity,
+                IsCanceled = offer.IsCanceled,
+
             }));
         }
 
@@ -85,13 +88,15 @@ namespace offers.itacademy.ge.API.Controllers
                 Price = offer.Price,
                 IsArchived = offer.IsArchived,
                 Quantity = offer.Quantity,
+                IsCanceled = offer.IsCanceled,
+
             });
         }
         [HttpPost("{id}/cancel")]
         public async Task<IActionResult> CancelOffer(int id)
         {
             if (!await _offerService.CancelOffer(id))
-                return BadRequest("Offer cannot be canceled (expired, already archived, or not found).");
+                return BadRequest("Offer cannot be canceled (expired, already canceled, or not found).");
             return Ok("Offer canceled successfully.");
         }
     }

@@ -23,6 +23,8 @@ builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBuyerRepository, BuyerRepository>();
 builder.Services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+builder.Services.AddScoped<IBuyerService, BuyerService>();
+
 builder.Services.AddIdentity<Client, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
