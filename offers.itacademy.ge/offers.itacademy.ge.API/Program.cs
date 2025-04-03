@@ -5,13 +5,12 @@ using offers.itacademy.ge.Persistance.Data;
 using System;
 using offers.itacademy.ge.Application.services;
 using offers.itacademy.ge.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
+using offers.itacademy.ge.Domain.entities;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
+builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -23,7 +22,18 @@ builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
 builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBuyerRepository, BuyerRepository>();
-
+builder.Services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+builder.Services.AddIdentity<Client, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 3;
+});
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
@@ -35,11 +45,10 @@ builder.Services.AddSwaggerGen(options =>
 });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
+app.MapHealthChecks("/healthz");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

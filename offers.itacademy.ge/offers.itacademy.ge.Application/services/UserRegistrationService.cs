@@ -48,6 +48,49 @@ namespace offers.itacademy.ge.Application.services
 
             return client;
         }
+        public async Task<CreateClientResult> RegisterBuyer(RegisterBuyerDto dto)
+        {
+            var client = new Client
+            {
+                UserName = dto.Email,
+                NormalizedUserName = dto.Email.ToUpper(),
+                Email = dto.Email,
+                NormalizedEmail = dto.Email.ToUpper(),
+                UserType = UserType.Buyer,
+                Buyer = new Buyer
+                {
+                    Name = dto.Name,
+                    Surname = dto.Surname,
+                    Address = dto.Address,
+                    Balance = dto.Balance
+                }
+            };
 
+            var result = await _userManager.CreateAsync(client, dto.Password);
+            return new CreateClientResult { Client = client, IdentityResult = result };
+        }
+
+        public async Task<CreateClientResult> RegisterCompany(RegisterCompanyDto dto)
+        {
+            var client = new Client
+            {
+                UserName = dto.Email,
+                NormalizedUserName = dto.Email.ToUpper(),
+                Email = dto.Email,
+                NormalizedEmail = dto.Email.ToUpper(),
+                UserType = UserType.Company,
+                Company = new Company
+                {
+                    Name = dto.Name,
+                    Description = dto.Description,
+                    PhotoUrl = dto.PhotoUrl,
+                    IsActive = false
+                }
+            };
+
+            var result = await _userManager.CreateAsync(client, dto.Password);
+            return new CreateClientResult { Client = client, IdentityResult = result };
+        }
     }
+
 }

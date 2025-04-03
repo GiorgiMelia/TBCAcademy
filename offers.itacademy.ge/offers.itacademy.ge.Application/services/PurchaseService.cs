@@ -81,7 +81,7 @@ namespace offers.itacademy.ge.Application.services
         {
             var offer = await offerRepository.GetOfferById(offerId);
 
-            var purchases = await purchaseRepository.GetActivePurchasesByOfferId(offer.Id);
+            var purchases = await purchaseRepository.GetActivePurchasesByOfferId(offerId);
             foreach (var purchase in purchases)
             {
                 var buyer = await buyerRepository.GetBuyerById(purchase.BuyerId);

@@ -17,8 +17,6 @@
         public string? PhotoUrl { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        //listssad
-        public List<Subscription> Subscriptions { get; set; }
-         public List<Purchase> Purchases { get; set; }
+        
     }
 }
