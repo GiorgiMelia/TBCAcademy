@@ -6,11 +6,11 @@ namespace offers.itacademy.ge.Application.Interfaces
 {
     public interface IPurchaseService
     {
-        Task<Purchase> CreatePurchase(PurchaseDto request);
-        Task<List<Purchase>> GetAllPurchases();
-        Task<Purchase?> GetPurchaseById(int id);
-        Task<bool> CancelPurchase(int purchaseId);
-        Task<bool> CancelPurchaseByOffer(int offerId);
+        Task<Purchase> CreatePurchase(PurchaseDto request, CancellationToken cancellationToken);
+        Task<List<Purchase>> GetAllPurchases(CancellationToken cancellationToken);
+        Task<Purchase?> GetPurchaseById(int id, CancellationToken cancellationToken);
+        Task<bool> CancelPurchase(int purchaseId, CancellationToken cancellationToken);
+        Task<bool> CancelPurchaseByOffer(int offerId, CancellationToken cancellationToken);
 
 
     }

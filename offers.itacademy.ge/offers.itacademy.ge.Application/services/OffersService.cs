@@ -16,7 +16,7 @@ namespace offers.itacademy.ge.Application.services
             this.purchaseService = purchaseService;
         }
 
-        public async Task<Offer> CreateOffer(OfferDto offerDto)
+        public async Task<Offer> CreateOffer(OfferDto offerDto,CancellationToken cancellationToken)
         {
 
             var offer = new Offer
@@ -32,25 +32,25 @@ namespace offers.itacademy.ge.Application.services
                 IsCanceled = false,
             };
 
-            await offerRepository.CreateOffer(offer);
+            await offerRepository.CreateOffer(offer,cancellationToken);
 
             return offer;
         }
 
-        public async Task<List<Offer>> GetAllOffers()
+        public async Task<List<Offer>> GetAllOffers(CancellationToken cancellationToken)
         {
-            return await offerRepository.GetAllOffers();
+            return await offerRepository.GetAllOffers(cancellationToken);
 
         }
 
-        public async Task<Offer?> GetOfferById(int id)
+        public async Task<Offer?> GetOfferById(int id, CancellationToken cancellationToken)
         {
-            return await offerRepository.GetOfferById(id);
+            return await offerRepository.GetOfferById(id, cancellationToken);
 
         }
-        public async Task<bool> CancelOffer(int offerId)
+        public async Task<bool> CancelOffer(int offerId, CancellationToken cancellationToken)
         {
-            var offer = await offerRepository.GetOfferById(offerId);
+            var offer = await offerRepository.GetOfferById(offerId, cancellationToken);
             if (offer == null || offer.IsArchived||offer.IsCanceled)
                 return false;
 
@@ -60,7 +60,14 @@ namespace offers.itacademy.ge.Application.services
 
             offer.IsCanceled = true;
 
-            return await purchaseService.CancelPurchaseByOffer(offerId);
+            return await purchaseService.CancelPurchaseByOffer(offerId, cancellationToken);
         }
+
+        public async Task ArchiveOldOffers(CancellationToken stoppingToken)
+        {
+           await offerRepository.ArchiveOldOffers(stoppingToken);
+        }
+
+       
     }
 }

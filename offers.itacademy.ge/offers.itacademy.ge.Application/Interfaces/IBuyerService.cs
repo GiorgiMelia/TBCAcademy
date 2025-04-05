@@ -9,7 +9,7 @@ namespace offers.itacademy.ge.Application.Interfaces
 
     public interface IBuyerService
     {
-        Task<bool> AddMoneyToBuyer(int buyerId, decimal amount);
+        Task<bool> AddMoneyToBuyer(int buyerId, decimal amount,CancellationToken cancellationToken);
 
     }
 }

@@ -19,14 +19,14 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<SubscriptionResponse>> Create([FromBody] SubscriptionRequest request)
+        public async Task<ActionResult<SubscriptionResponse>> Create([FromBody] SubscriptionRequest request, CancellationToken cancellationToken)
         {
             SubscriptionDto subscriptionDto = new SubscriptionDto
             {
                 BuyerId = request.BuyerId,
                 CategoryId = request.CategoryId,
             };
-            var subscription = await _subscriptionService.CreateSubscription(subscriptionDto);
+            var subscription = await _subscriptionService.CreateSubscription(subscriptionDto,cancellationToken);
 
             var response = new SubscriptionResponse
             {
@@ -39,9 +39,9 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<SubscriptionResponse>>> GetAll()
+        public async Task<ActionResult<List<SubscriptionResponse>>> GetAll(CancellationToken cancellationToken)
         {
-            var subscriptions = await _subscriptionService.GetAllSubscriptions();
+            var subscriptions = await _subscriptionService.GetAllSubscriptions(cancellationToken);
 
             return Ok(subscriptions.Select(s => new SubscriptionResponse
             {
@@ -52,9 +52,9 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<SubscriptionResponse>> GetById(int id)
+        public async Task<ActionResult<SubscriptionResponse>> GetById(int id,CancellationToken cancellationToken)
         {
-            var subscription = await _subscriptionService.GetSubscriptionById(id);
+            var subscription = await _subscriptionService.GetSubscriptionById(id, cancellationToken);
             if (subscription == null)
                 return NotFound();
 
@@ -66,9 +66,9 @@ namespace offers.itacademy.ge.API.Controllers
             });
         }
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id, CancellationToken cancellationToken)
         {
-            var result = await _subscriptionService.DeleteSubscription(id);
+            var result = await _subscriptionService.DeleteSubscription(id,cancellationToken);
             if (!result)
                 return NotFound("Subscription not found.");
 

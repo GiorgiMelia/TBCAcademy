@@ -19,7 +19,17 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Offer> CreateOffer(Offer offer)
+        public async Task ArchiveOldOffers(CancellationToken stoppingToken)
+        {
+            var oldOffers = await _context.Offers.Where(o => o.IsArchived != true).ToListAsync(stoppingToken);
+            foreach (var oldOffer in oldOffers)
+            {
+                oldOffer.IsArchived = true;
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Offer> CreateOffer(Offer offer, CancellationToken cancellationToken)
         {
             _context.Offers.Add(offer);
             await _context.SaveChangesAsync();
@@ -27,20 +37,22 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             return offer;
         }
 
-        public async Task<List<Offer>> GetAllOffers()
+        public async Task<List<Offer>> GetAllOffers(CancellationToken cancellationToken)
         {
             return await _context.Offers.ToListAsync();
         }
 
-        public async Task<Offer?> GetOfferById(int id)
+        public async Task<Offer?> GetOfferById(int id, CancellationToken cancellationToken)
         {
             return await _context.Offers.FirstOrDefaultAsync(o => o.Id == id);
         }
-        public async Task<Offer> UpdateOffer(Offer offer)
+        public async Task<Offer> UpdateOffer(Offer offer, CancellationToken cancellationToken)
         {
             _context.Offers.Update(offer);
-             await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             return offer;
         }
+
+      
     }
 }

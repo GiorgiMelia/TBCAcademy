@@ -9,10 +9,10 @@ namespace offers.itacademy.ge.Application.Interfaces
 {
     public interface ISubscriptionRepository
     {
-        Task<Subscription> CreateSubscription(Subscription subscription);
-        Task<List<Subscription>> GetAllSubscriptions();
-        Task<Subscription?> GetSubscriptionById(int id);
-        Task<bool> DeleteSubscription(int id);
+        Task<Subscription> CreateSubscription(Subscription subscription,CancellationToken cancellationToken);
+        Task<List<Subscription>> GetAllSubscriptions(CancellationToken cancellationToken);
+        Task<Subscription?> GetSubscriptionById(int id,CancellationToken cancellationToken);
+        Task<bool> DeleteSubscription(int id, CancellationToken cancellationToken);
     
     }
 }

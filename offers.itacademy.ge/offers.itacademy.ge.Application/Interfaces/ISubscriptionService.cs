@@ -7,9 +7,9 @@ namespace offers.itacademy.ge.Application.Interfaces
 
     public interface ISubscriptionService
     {
-        Task<Subscription> CreateSubscription(SubscriptionDto subscriptionDto);
-        Task<List<Subscription>> GetAllSubscriptions();
-        Task<Subscription?> GetSubscriptionById(int id);
-        Task<bool> DeleteSubscription(int id);
+        Task<Subscription> CreateSubscription(SubscriptionDto subscriptionDto, CancellationToken cancellationToken);
+        Task<List<Subscription>> GetAllSubscriptions(CancellationToken cancellationToken);
+        Task<Subscription?> GetSubscriptionById(int id,CancellationToken cancellationToken);
+        Task<bool> DeleteSubscription(int id, CancellationToken cancellationToken);
     }
 }

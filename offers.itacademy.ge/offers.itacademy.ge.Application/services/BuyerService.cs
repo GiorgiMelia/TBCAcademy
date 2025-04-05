@@ -17,14 +17,14 @@ namespace offers.itacademy.ge.Application.services
             _buyerRepository = buyerRepository;
         }
 
-        public async Task<bool> AddMoneyToBuyer(int buyerId, decimal amount)
+        public async Task<bool> AddMoneyToBuyer(int buyerId, decimal amount,CancellationToken cancellationToken)
         {
-            var buyer = await _buyerRepository.GetBuyerById(buyerId);
+            var buyer = await _buyerRepository.GetBuyerById(buyerId, cancellationToken);
             if (buyer == null)
                 return false;
 
             buyer.Balance += amount;
-           await _buyerRepository.UpdateBuyer(buyer);
+           await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
             return true;
         }
 

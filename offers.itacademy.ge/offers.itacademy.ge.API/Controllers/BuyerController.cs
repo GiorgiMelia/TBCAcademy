@@ -20,9 +20,9 @@ namespace offers.itacademy.ge.API.Controllers
 
 
         [HttpPost("{id}/add-money")]
-        public async Task<IActionResult> AddMoney(int id,[FromBody] AddMoneyRequest request)
+        public async Task<IActionResult> AddMoney(int id,[FromBody] AddMoneyRequest request,CancellationToken cancellationToken)
         {
-           if( await _buyerService.AddMoneyToBuyer(id, request.Amount))
+           if( await _buyerService.AddMoneyToBuyer(id, request.Amount,cancellationToken))
             {
                 return Ok("Money added successfully.");
 

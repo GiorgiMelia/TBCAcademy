@@ -9,10 +9,11 @@ namespace offers.itacademy.ge.Application.Interfaces
 {
     public interface IOfferRepository
     {
-        Task<Offer> CreateOffer(Offer offer);
-        Task<List<Offer>> GetAllOffers();
-        Task<Offer?> GetOfferById(int id);
-        Task<Offer> UpdateOffer(Offer offer);
+        Task ArchiveOldOffers(CancellationToken stoppingToken);
+        Task<Offer> CreateOffer(Offer offer, CancellationToken cancellationToken);
+        Task<List<Offer>> GetAllOffers(CancellationToken cancellationToken);
+        Task<Offer?> GetOfferById(int id, CancellationToken cancellationToken);
+        Task<Offer> UpdateOffer(Offer offer, CancellationToken cancellationToken);
 
 
     }

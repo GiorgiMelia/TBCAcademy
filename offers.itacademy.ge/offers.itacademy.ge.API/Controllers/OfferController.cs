@@ -19,7 +19,7 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<OfferResponse>> Create([FromBody] OfferRequest request)
+        public async Task<ActionResult<OfferResponse>> Create([FromBody] OfferRequest request, CancellationToken cancellationToken)
         {
             var OfferDto = new OfferDto
             {
@@ -30,7 +30,7 @@ namespace offers.itacademy.ge.API.Controllers
                 ProductName = request.ProductName,
                 Quantity = request.Quantity,
             };
-            var offer = await _offerService.CreateOffer(OfferDto);
+            var offer = await _offerService.CreateOffer(OfferDto, cancellationToken);
 
             var response = new OfferResponse
             {
@@ -50,9 +50,9 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OfferResponse>>> GetAll()
+        public async Task<ActionResult<List<OfferResponse>>> GetAll(CancellationToken cancellationToken)
         {
-            var offers = await _offerService.GetAllOffers();
+            var offers = await _offerService.GetAllOffers( cancellationToken);
 
             return Ok(offers.Select(offer => new OfferResponse
             {
@@ -71,9 +71,9 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<OfferResponse>> GetById(int id)
+        public async Task<ActionResult<OfferResponse>> GetById(int id, CancellationToken cancellationToken)
         {
-            var offer = await _offerService.GetOfferById(id);
+            var offer = await _offerService.GetOfferById(id, cancellationToken);
             if (offer == null)
                 return NotFound();
 
@@ -93,9 +93,9 @@ namespace offers.itacademy.ge.API.Controllers
             });
         }
         [HttpPost("{id}/cancel")]
-        public async Task<IActionResult> CancelOffer(int id)
+        public async Task<IActionResult> CancelOffer(int id, CancellationToken cancellationToken)
         {
-            if (!await _offerService.CancelOffer(id))
+            if (!await _offerService.CancelOffer(id, cancellationToken))
                 return BadRequest("Offer cannot be canceled (expired, already canceled, or not found).");
             return Ok("Offer canceled successfully.");
         }

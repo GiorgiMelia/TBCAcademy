@@ -19,32 +19,32 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Subscription> CreateSubscription(Subscription subscription)
+        public async Task<Subscription> CreateSubscription(Subscription subscription, CancellationToken cancellationToken)
         {
             _context.Subscriptions.Add(subscription);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return subscription;
         }
 
-        public async Task<bool> DeleteSubscription(int id)
+        public async Task<bool> DeleteSubscription(int id, CancellationToken cancellationToken)
         {
-            var subscription = await _context.Subscriptions.FindAsync(id);
+            var subscription = await _context.Subscriptions.FindAsync(id,cancellationToken);
             if (subscription == null)
                 return false;
 
             _context.Subscriptions.Remove(subscription);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             return true;
         }
 
-        public async Task<List<Subscription>> GetAllSubscriptions()
+        public async Task<List<Subscription>> GetAllSubscriptions(CancellationToken cancellationToken)
         {
-            return await _context.Subscriptions.ToListAsync();
+            return await _context.Subscriptions.ToListAsync(cancellationToken);
         }
 
-        public async Task<Subscription?> GetSubscriptionById(int id)
+        public async Task<Subscription?> GetSubscriptionById(int id, CancellationToken cancellationToken)
         {
-            return await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == id);
+            return await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == id,cancellationToken);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Register
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl,CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
                 return Page();

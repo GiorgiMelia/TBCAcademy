@@ -9,7 +9,7 @@ namespace offers.itacademy.ge.Application.Interfaces
 {
     public interface IBuyerRepository
     {
-        Task<Buyer?> GetBuyerById(int id);
-        Task UpdateBuyer(Buyer buyer);
+        Task<Buyer?> GetBuyerById(int id, CancellationToken cancellationToken);
+        Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken);
     }
 }

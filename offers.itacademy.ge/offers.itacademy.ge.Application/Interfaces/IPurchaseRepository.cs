@@ -9,10 +9,10 @@ namespace offers.itacademy.ge.Application.Interfaces
 {
     public interface IPurchaseRepository
     {
-        Task<Purchase> CreatePurchase(Purchase purchase);
-        Task<IEnumerable<Purchase>> GetActivePurchasesByOfferId(int offerId);
-        Task<List<Purchase>> GetAllPurchases();
-        Task<Purchase?> GetPurchaseById(int id);
-        Task SaveChanges();
+        Task<Purchase> CreatePurchase(Purchase purchase, CancellationToken cancellationToken);
+        Task<IEnumerable<Purchase>> GetActivePurchasesByOfferId(int offerId, CancellationToken cancellationToken);
+        Task<List<Purchase>> GetAllPurchases(CancellationToken cancellationToken);
+        Task<Purchase?> GetPurchaseById(int id, CancellationToken cancellationToken);
+        Task SaveChanges(CancellationToken cancellationToken);
     }
 }

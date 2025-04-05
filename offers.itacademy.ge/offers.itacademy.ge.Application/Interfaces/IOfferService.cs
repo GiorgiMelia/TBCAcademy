@@ -1,13 +1,14 @@
 ﻿using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Application.Dtos;
+
 namespace offers.itacademy.ge.Application.Interfaces
 {
     public interface IOfferService
     {
-        Task<Offer> CreateOffer(OfferDto request);
-        Task<List<Offer>> GetAllOffers();
-        Task<Offer?> GetOfferById(int id);
-        Task<bool> CancelOffer(int offerId);
-
+        Task<Offer> CreateOffer(OfferDto request, CancellationToken cancellationToken);
+        Task<List<Offer>> GetAllOffers(CancellationToken cancellationToken);
+        Task<Offer?> GetOfferById(int id, CancellationToken cancellationToken);
+        Task<bool> CancelOffer(int offerId, CancellationToken cancellationToken);
+        Task ArchiveOldOffers(CancellationToken stoppingToken);
     }
 }

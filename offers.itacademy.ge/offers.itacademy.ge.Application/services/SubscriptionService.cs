@@ -2,6 +2,7 @@
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
+using System.Threading;
 
 namespace offers.itacademy.ge.Application.services
 {
@@ -14,7 +15,7 @@ namespace offers.itacademy.ge.Application.services
             _subscriptionRepository = subscriptionRepository;
         }
 
-        public async Task<Subscription> CreateSubscription(SubscriptionDto subscritionDto)
+        public async Task<Subscription> CreateSubscription(SubscriptionDto subscritionDto, CancellationToken cancellationToken)
         {
             var subscription = new Subscription
             {
@@ -22,22 +23,22 @@ namespace offers.itacademy.ge.Application.services
                 CategoryId = subscritionDto.CategoryId
             };
 
-            return await _subscriptionRepository.CreateSubscription(subscription);
+            return await _subscriptionRepository.CreateSubscription(subscription,cancellationToken);
 
         }
 
-        public async Task<List<Subscription>> GetAllSubscriptions()
+        public async Task<List<Subscription>> GetAllSubscriptions(CancellationToken cancellationToken)
         {
-            return await _subscriptionRepository.GetAllSubscriptions();
+            return await _subscriptionRepository.GetAllSubscriptions(cancellationToken);
         }
 
-        public async Task<Subscription?> GetSubscriptionById(int id)
+        public async Task<Subscription?> GetSubscriptionById(int id, CancellationToken cancellationToken)
         {
-            return await _subscriptionRepository.GetSubscriptionById(id);
+            return await _subscriptionRepository.GetSubscriptionById(id,cancellationToken);
         }
-        public async Task<bool> DeleteSubscription(int id)
+        public async Task<bool> DeleteSubscription(int id, CancellationToken cancellationToken)
         {
-            return await _subscriptionRepository.DeleteSubscription(id);
+            return await _subscriptionRepository.DeleteSubscription(id,cancellationToken);
         }
     }
 }

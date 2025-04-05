@@ -11,23 +11,24 @@ namespace offers.itacademy.ge.Application.services
         private readonly IOfferRepository offerRepository;
         private readonly IBuyerRepository buyerRepository;
 
-        public PurchaseService(IPurchaseRepository context,IOfferRepository offerRepository,IBuyerRepository buyerRepository)
+        public PurchaseService(IPurchaseRepository context, IOfferRepository offerRepository, IBuyerRepository buyerRepository)
         {
             purchaseRepository = context;
             this.offerRepository = offerRepository;
             this.buyerRepository = buyerRepository;
         }
 
-        public async Task<Purchase> CreatePurchase(PurchaseDto purchaseDto)
+        public async Task<Purchase> CreatePurchase(PurchaseDto purchaseDto, CancellationToken cancellationToken)
         {
-            var offer = await offerRepository.GetOfferById(purchaseDto.OfferId);
+            var offer = await offerRepository.GetOfferById(purchaseDto.OfferId, cancellationToken);
             if (offer == null)
                 throw new Exception($"Offer with Id {purchaseDto.OfferId} not found.");
 
             if (offer.Quantity < purchaseDto.Quantity)
                 throw new Exception($"Not enough quantity. Available: {offer.Quantity}");
             if (offer.IsArchived) throw new Exception("Offer is Archived");
-            var buyer = await buyerRepository.GetBuyerById(purchaseDto.BuyerId);
+            if (offer.IsCanceled) throw new Exception("Offer is Caceled");
+            var buyer = await buyerRepository.GetBuyerById(purchaseDto.BuyerId, cancellationToken);
             if (buyer == null)
                 throw new Exception($"Buyer with Id {purchaseDto.BuyerId} not found.");
             offer.Quantity -= purchaseDto.Quantity;
@@ -43,52 +44,52 @@ namespace offers.itacademy.ge.Application.services
                 Quantity = purchaseDto.Quantity,
                 PurchaseDate = DateTime.UtcNow,
                 IsCanceled = false,
-                
+
             };
 
-            await purchaseRepository.CreatePurchase(purchase);
+            await purchaseRepository.CreatePurchase(purchase, cancellationToken);
             return purchase;
         }
 
-        public async Task<List<Purchase>> GetAllPurchases()
+        public async Task<List<Purchase>> GetAllPurchases(CancellationToken cancellationToken)
         {
-            return await purchaseRepository.GetAllPurchases();
+            return await purchaseRepository.GetAllPurchases(cancellationToken);
         }
 
-        public async Task<Purchase?> GetPurchaseById(int id)
+        public async Task<Purchase?> GetPurchaseById(int id, CancellationToken cancellationToken)
         {
-            return await purchaseRepository.GetPurchaseById(id);
+            return await purchaseRepository.GetPurchaseById(id, cancellationToken);
 
         }
-        public async Task<bool> CancelPurchase(int purchaseId)
+        public async Task<bool> CancelPurchase(int purchaseId, CancellationToken cancellationToken)
         {
-            var purchase = await purchaseRepository.GetPurchaseById(purchaseId);
-            if (purchase == null || purchase.IsCanceled|| DateTime.UtcNow - purchase.PurchaseDate > TimeSpan.FromMinutes(5))
+            var purchase = await purchaseRepository.GetPurchaseById(purchaseId, cancellationToken);
+            if (purchase == null || purchase.IsCanceled || DateTime.UtcNow - purchase.PurchaseDate > TimeSpan.FromMinutes(5))
                 return false;
 
-            var offer = await offerRepository.GetOfferById(purchase.OfferId);
+            var offer = await offerRepository.GetOfferById(purchase.OfferId,cancellationToken);
             if (offer != null)
             {
                 offer.Quantity += purchase.Quantity;
             }
 
             purchase.IsCanceled = true;
-            await purchaseRepository.SaveChanges();
+            await purchaseRepository.SaveChanges(cancellationToken);
 
             return true;
         }
-        public async Task<bool> CancelPurchaseByOffer(int offerId)
+        public async Task<bool> CancelPurchaseByOffer(int offerId, CancellationToken cancellationToken)
         {
-            var offer = await offerRepository.GetOfferById(offerId);
+            var offer = await offerRepository.GetOfferById(offerId,cancellationToken);
 
-            var purchases = await purchaseRepository.GetActivePurchasesByOfferId(offerId);
+            var purchases = await purchaseRepository.GetActivePurchasesByOfferId(offerId, cancellationToken);
             foreach (var purchase in purchases)
             {
-                var buyer = await buyerRepository.GetBuyerById(purchase.BuyerId);
+                var buyer = await buyerRepository.GetBuyerById(purchase.BuyerId,cancellationToken);
                 if (buyer != null)
                 {
                     buyer.Balance += offer.Price * purchase.Quantity;
-                    await buyerRepository.UpdateBuyer(buyer);
+                    await buyerRepository.UpdateBuyer(buyer, cancellationToken);
                 }
 
                 offer.Quantity += purchase.Quantity;
@@ -96,7 +97,7 @@ namespace offers.itacademy.ge.Application.services
 
             }
 
-            await purchaseRepository.SaveChanges();
+            await purchaseRepository.SaveChanges(cancellationToken);
             return true;
         }
     }

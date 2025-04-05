@@ -18,7 +18,7 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<PurchaseResponse>> Create([FromBody] PurchaseRequest request)
+        public async Task<ActionResult<PurchaseResponse>> Create([FromBody] PurchaseRequest request, CancellationToken cancellationToken)
         {
             var purchasedto = new PurchaseDto
             {
@@ -26,7 +26,7 @@ namespace offers.itacademy.ge.API.Controllers
                 OfferId = request.OfferId,
                 Quantity = request.Quantity,
             };
-            var purchase = await _purchaseService.CreatePurchase(purchasedto);
+            var purchase = await _purchaseService.CreatePurchase(purchasedto,cancellationToken);
 
             return CreatedAtAction(nameof(GetById), new { id = purchase.Id }, new PurchaseResponse
             {
@@ -41,9 +41,9 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<PurchaseResponse>>> GetAll()
+        public async Task<ActionResult<List<PurchaseResponse>>> GetAll(CancellationToken cancellationToken)
         {
-            var purchases = await _purchaseService.GetAllPurchases();
+            var purchases = await _purchaseService.GetAllPurchases(cancellationToken);
 
             return Ok(purchases.Select(purchase => new PurchaseResponse
             {
@@ -58,9 +58,9 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<PurchaseResponse>> GetById(int id)
+        public async Task<ActionResult<PurchaseResponse>> GetById(int id, CancellationToken cancellationToken)
         {
-            var purchase = await _purchaseService.GetPurchaseById(id);
+            var purchase = await _purchaseService.GetPurchaseById(id,cancellationToken);
             if (purchase == null)
                 return NotFound();
 
@@ -76,9 +76,9 @@ namespace offers.itacademy.ge.API.Controllers
             });
         }
         [HttpPost("{id}/cancel")]
-        public async Task<IActionResult> CancelPurchase(int id)
+        public async Task<IActionResult> CancelPurchase(int id, CancellationToken cancellationToken)
         {
-            if (!await _purchaseService.CancelPurchase(id))
+            if (!await _purchaseService.CancelPurchase(id, cancellationToken))
                 return BadRequest("Cannot cancel purchase .");
 
             return Ok("Purchase canceled successfully.");

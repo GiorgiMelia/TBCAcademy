@@ -7,6 +7,7 @@ using offers.itacademy.ge.Application.services;
 using offers.itacademy.ge.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using offers.itacademy.ge.Domain.entities;
+using OfferArchiver.Worker;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHealthChecks();
@@ -48,7 +49,7 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
-
+builder.Services.AddHostedService<Worker>();
 var app = builder.Build();
 app.MapHealthChecks("/healthz");
 if (app.Environment.IsDevelopment())

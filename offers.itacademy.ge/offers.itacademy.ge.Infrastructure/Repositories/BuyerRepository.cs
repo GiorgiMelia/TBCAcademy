@@ -18,15 +18,15 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Buyer?> GetBuyerById(int id)
+        public async Task<Buyer?> GetBuyerById(int id, CancellationToken cancellationToken)
         {
-            return await _context.Buyers.FindAsync(id);
+            return await _context.Buyers.FindAsync(id,cancellationToken);
         }
 
-        public async Task UpdateBuyer(Buyer buyer)
+        public async Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken)
         {
             _context.Buyers.Update(buyer);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
