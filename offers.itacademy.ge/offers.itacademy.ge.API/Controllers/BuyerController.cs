@@ -2,6 +2,9 @@
 using offers.itacademy.ge.API.Models;
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Domain.entities;
+using System;
 
 namespace offers.itacademy.ge.API.Controllers
 {
@@ -20,9 +23,9 @@ namespace offers.itacademy.ge.API.Controllers
 
 
         [HttpPost("{id}/add-money")]
-        public async Task<IActionResult> AddMoney(int id,[FromBody] AddMoneyRequest request,CancellationToken cancellationToken)
+        public async Task<IActionResult> AddMoney(int id, [FromBody] AddMoneyRequest request, CancellationToken cancellationToken)
         {
-           if( await _buyerService.AddMoneyToBuyer(id, request.Amount,cancellationToken))
+            if (await _buyerService.AddMoneyToBuyer(id, request.Amount, cancellationToken))
             {
                 return Ok("Money added successfully.");
 
@@ -52,6 +55,38 @@ namespace offers.itacademy.ge.API.Controllers
                 Id = result.Client.Id,
                 Email = result.Client.Email
             });
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+        {
+            var buyer = await _buyerService.GetBuyerById(id, cancellationToken);
+            if (buyer == null) return NotFound();
+            return Ok(new BuyerResponse
+            {
+                Id = buyer.Id,
+                Address = buyer.Address,
+                Balance = buyer.Balance,
+                CreatedAt = buyer.CreatedAt,
+                Name = buyer.Name,
+                PhotoUrl = buyer.PhotoUrl,
+                Surname = buyer.Surname,
+            });
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+        {
+            var buyers = await _buyerService.GetAllBuyers(cancellationToken);
+            var response = buyers.Select(buyer => new BuyerResponse
+            {
+                Id = buyer.Id,
+                Address = buyer.Address,
+                Balance = buyer.Balance,
+                CreatedAt = buyer.CreatedAt,
+                Name = buyer.Name,
+                PhotoUrl = buyer.PhotoUrl,
+                Surname = buyer.Surname,
+            });
+            return Ok(response);
         }
     }
 }

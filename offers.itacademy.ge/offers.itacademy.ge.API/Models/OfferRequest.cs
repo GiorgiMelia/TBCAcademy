@@ -20,6 +20,10 @@ namespace offers.itacademy.ge.API.Models
         [Required(ErrorMessage = "CategoryId is required.")]
         public int CategoryId { get; set; }
 
+        [Required(ErrorMessage = "CompanyId is required.")]
+        public int CompanyId { get; set; }
+
+
         [Required(ErrorMessage = "Price is required.")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0.")]
         public decimal Price { get; set; }

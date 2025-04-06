@@ -1,4 +1,6 @@
-﻿namespace offers.itacademy.ge.Application.Dtos
+﻿using offers.itacademy.ge.Domain.entities;
+
+namespace offers.itacademy.ge.Application.Dtos
 {
     public class OfferDto
     {
@@ -7,6 +9,7 @@
 
         public DateTime EndDate { get; set; }
         public int CategoryId { get; set; }
+        public int CompanyId { get; set; }
 
         public decimal Price { get; set; }
         public int Quantity { get; set; }

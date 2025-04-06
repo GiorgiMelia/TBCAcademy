@@ -1,4 +1,6 @@
-﻿namespace offers.itacademy.ge.API.Models
+﻿using offers.itacademy.ge.Domain.entities;
+
+namespace offers.itacademy.ge.API.Models
 {
     public class OfferResponse
     {
@@ -6,6 +8,8 @@
         public string ProductName { get; set; }
         public string ProductDescription { get; set; }
         public int CategoryId { get; set; }
+        public int? CompanyId { get; set; }
+
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 

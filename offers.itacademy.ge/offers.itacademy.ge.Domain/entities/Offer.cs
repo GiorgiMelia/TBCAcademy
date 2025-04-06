@@ -9,6 +9,9 @@
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+        public int? CompanyId { get; set; }
+
+        public Company Company { get; set; } = null!;
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

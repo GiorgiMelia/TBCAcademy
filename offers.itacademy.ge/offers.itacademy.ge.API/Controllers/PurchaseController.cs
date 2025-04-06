@@ -31,7 +31,7 @@ namespace offers.itacademy.ge.API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = purchase.Id }, new PurchaseResponse
             {
                 Id = purchase.Id,
-                OfferId = purchase.Id,
+                OfferId = purchase.OfferId,
                 BuyerId = purchase.BuyerId,
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,
@@ -48,7 +48,7 @@ namespace offers.itacademy.ge.API.Controllers
             return Ok(purchases.Select(purchase => new PurchaseResponse
             {
                 Id = purchase.Id,
-                OfferId = purchase.Id,
+                OfferId = purchase.OfferId,
                 BuyerId = purchase.BuyerId,
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,
@@ -67,7 +67,7 @@ namespace offers.itacademy.ge.API.Controllers
             return Ok(new PurchaseResponse
             {
                 Id = purchase.Id,
-                OfferId = purchase.Id,
+                OfferId = purchase.OfferId,
                 BuyerId = purchase.BuyerId,
                 Quantity = purchase.Quantity,
                 PurchaseDate = purchase.PurchaseDate,

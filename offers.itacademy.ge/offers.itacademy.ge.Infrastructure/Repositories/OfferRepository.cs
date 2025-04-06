@@ -21,7 +21,7 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
 
         public async Task ArchiveOldOffers(CancellationToken stoppingToken)
         {
-            var oldOffers = await _context.Offers.Where(o => o.IsArchived != true).ToListAsync(stoppingToken);
+            var oldOffers = await _context.Offers.Where(o => o.IsArchived != true).Where(o=>o.EndDate<DateTime.UtcNow).ToListAsync(stoppingToken);
             foreach (var oldOffer in oldOffers)
             {
                 oldOffer.IsArchived = true;

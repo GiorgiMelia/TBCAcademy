@@ -8,6 +8,7 @@ using offers.itacademy.ge.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using offers.itacademy.ge.Domain.entities;
 using OfferArchiver.Worker;
+using offers.itacademy.ge.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHealthChecks();
@@ -24,6 +25,8 @@ builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBuyerRepository, BuyerRepository>();
 builder.Services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IBuyerService, BuyerService>();
 
 builder.Services.AddIdentity<Client, IdentityRole>()
@@ -49,7 +52,6 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
-builder.Services.AddHostedService<Worker>();
 var app = builder.Build();
 app.MapHealthChecks("/healthz");
 if (app.Environment.IsDevelopment())
@@ -59,7 +61,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();

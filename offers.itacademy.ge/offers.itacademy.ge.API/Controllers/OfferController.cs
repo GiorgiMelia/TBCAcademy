@@ -23,6 +23,7 @@ namespace offers.itacademy.ge.API.Controllers
         {
             var OfferDto = new OfferDto
             {
+                CompanyId = request.CompanyId,
                 CategoryId = request.CategoryId,
                 EndDate = request.EndDate,
                 Price = request.Price,
@@ -42,6 +43,7 @@ namespace offers.itacademy.ge.API.Controllers
                 EndDate = offer.EndDate,
                 Price = offer.Price,
                 Quantity = offer.Quantity,
+                CompanyId = request.CompanyId,
                 IsArchived = offer.IsArchived,
                 IsCanceled = offer.IsCanceled,
             };
@@ -65,6 +67,7 @@ namespace offers.itacademy.ge.API.Controllers
                 Price = offer.Price,
                 IsArchived = offer.IsArchived,
                 Quantity = offer.Quantity,
+                CompanyId = offer.CompanyId,
                 IsCanceled = offer.IsCanceled,
 
             }));
@@ -88,6 +91,7 @@ namespace offers.itacademy.ge.API.Controllers
                 Price = offer.Price,
                 IsArchived = offer.IsArchived,
                 Quantity = offer.Quantity,
+                CompanyId = offer.CompanyId,
                 IsCanceled = offer.IsCanceled,
 
             });

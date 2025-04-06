@@ -10,29 +10,27 @@ using System.Threading.Tasks;
 
 namespace offers.itacademy.ge.Infrastructure.Repositories
 {
-    public class BuyerRepository : IBuyerRepository
+    public class CompanyRepository : ICompanyRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public BuyerRepository(ApplicationDbContext context)
+        public CompanyRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<List<Buyer>> GetAllBuyers(CancellationToken cancellationToken)
+        public async Task<List<Company>> GetAllCompanies(CancellationToken cancellationToken)
         {
-            return await _context.Buyers.ToListAsync(cancellationToken);
+           return await _context.Companies.ToListAsync(cancellationToken);
         }
 
-        public async Task<Buyer?> GetBuyerById(int id, CancellationToken cancellationToken)
+        public async Task<Company?> GetCompanyById(int companyId, CancellationToken cancellationToken)
         {
-            return await _context.Buyers.FindAsync(id,cancellationToken);
+            return await _context.Companies.FirstOrDefaultAsync(c => c.Id == companyId,cancellationToken); 
         }
 
-      
-        public async Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken)
+        public async Task SaveChanges(CancellationToken cancellationToken)
         {
-            _context.Buyers.Update(buyer);
             await _context.SaveChangesAsync(cancellationToken);
         }
     }

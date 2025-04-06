@@ -3,6 +3,7 @@ using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Application.Dtos;
 using System;
+using offers.itacademy.ge.Application.Exceptions;
 
 namespace offers.itacademy.ge.Application.services
 {
@@ -10,14 +11,22 @@ namespace offers.itacademy.ge.Application.services
     {
         private readonly IOfferRepository offerRepository;
         private readonly IPurchaseService purchaseService;
-        public OfferService(IOfferRepository context, IPurchaseService purchaseService)
+        private readonly ICompanyService companyService;
+        public OfferService(IOfferRepository context, IPurchaseService purchaseService, ICompanyService companyService)
         {
             offerRepository = context;
             this.purchaseService = purchaseService;
+            this.companyService = companyService;
         }
 
-        public async Task<Offer> CreateOffer(OfferDto offerDto,CancellationToken cancellationToken)
+        public async Task<Offer> CreateOffer(OfferDto offerDto, CancellationToken cancellationToken)
         {
+            var company = await companyService.GetCompanyById(offerDto.CompanyId, cancellationToken);
+            if (company == null)
+                throw new NotFoundException($"Company with{offerDto.CompanyId} does not exist");
+                if(!company.IsActive)
+                throw new WrongRequestException("Company is not Active!");
+
 
             var offer = new Offer
             {
@@ -29,10 +38,11 @@ namespace offers.itacademy.ge.Application.services
                 Price = offerDto.Price,
                 Quantity = offerDto.Quantity,
                 IsArchived = false,
+                CompanyId = offerDto.CompanyId,
                 IsCanceled = false,
             };
 
-            await offerRepository.CreateOffer(offer,cancellationToken);
+            await offerRepository.CreateOffer(offer, cancellationToken);
 
             return offer;
         }
@@ -51,7 +61,7 @@ namespace offers.itacademy.ge.Application.services
         public async Task<bool> CancelOffer(int offerId, CancellationToken cancellationToken)
         {
             var offer = await offerRepository.GetOfferById(offerId, cancellationToken);
-            if (offer == null || offer.IsArchived||offer.IsCanceled)
+            if (offer == null || offer.IsArchived || offer.IsCanceled)
                 return false;
 
             var elapsed = DateTime.UtcNow - offer.StartDate;
@@ -65,9 +75,9 @@ namespace offers.itacademy.ge.Application.services
 
         public async Task ArchiveOldOffers(CancellationToken stoppingToken)
         {
-           await offerRepository.ArchiveOldOffers(stoppingToken);
+            await offerRepository.ArchiveOldOffers(stoppingToken);
         }
 
-       
+
     }
 }

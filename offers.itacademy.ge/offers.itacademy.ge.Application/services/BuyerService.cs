@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Domain.entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,19 @@ namespace offers.itacademy.ge.Application.services
            await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
             return true;
         }
+        public async Task<List<Buyer>> GetAllBuyers(CancellationToken cancellationToken)
+        {
+            return await _buyerRepository.GetAllBuyers(cancellationToken);
+        }
 
+        public async Task<Buyer?> GetBuyerById(int id, CancellationToken cancellationToken)
+        {
+            return await _buyerRepository.GetBuyerById(id, cancellationToken);
+        }
+
+        public async Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken)
+        {
+             await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
+        }
     }
 }

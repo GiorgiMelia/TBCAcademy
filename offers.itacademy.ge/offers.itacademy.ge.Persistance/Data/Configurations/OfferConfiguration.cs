@@ -18,6 +18,8 @@ namespace offers.itacademy.ge.Persistance.Data.Configurations
             builder.Property(o => o.StartDate).IsRequired();
             builder.Property(o => o.EndDate).IsRequired();
             builder.HasOne(o => o.Category).WithMany().HasForeignKey(o => o.CategoryId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(o => o.Company).WithMany().HasForeignKey(o => o.CompanyId).OnDelete(DeleteBehavior.SetNull);
+
         }
     }
 }

@@ -9,13 +9,13 @@ namespace offers.itacademy.ge.Application.services
     {
         private readonly IPurchaseRepository purchaseRepository;
         private readonly IOfferRepository offerRepository;
-        private readonly IBuyerRepository buyerRepository;
+        private readonly IBuyerService buyerService;
 
-        public PurchaseService(IPurchaseRepository context, IOfferRepository offerRepository, IBuyerRepository buyerRepository)
+        public PurchaseService(IPurchaseRepository context, IOfferRepository offerRepository, IBuyerService buyerRepository)
         {
             purchaseRepository = context;
             this.offerRepository = offerRepository;
-            this.buyerRepository = buyerRepository;
+            buyerService = buyerRepository;
         }
 
         public async Task<Purchase> CreatePurchase(PurchaseDto purchaseDto, CancellationToken cancellationToken)
@@ -28,7 +28,7 @@ namespace offers.itacademy.ge.Application.services
                 throw new Exception($"Not enough quantity. Available: {offer.Quantity}");
             if (offer.IsArchived) throw new Exception("Offer is Archived");
             if (offer.IsCanceled) throw new Exception("Offer is Caceled");
-            var buyer = await buyerRepository.GetBuyerById(purchaseDto.BuyerId, cancellationToken);
+            var buyer = await buyerService.GetBuyerById(purchaseDto.BuyerId, cancellationToken);
             if (buyer == null)
                 throw new Exception($"Buyer with Id {purchaseDto.BuyerId} not found.");
             offer.Quantity -= purchaseDto.Quantity;
@@ -72,8 +72,11 @@ namespace offers.itacademy.ge.Application.services
             {
                 offer.Quantity += purchase.Quantity;
             }
-
+            var buyer = await buyerService.GetBuyerById(purchase.BuyerId, cancellationToken);
+            
             purchase.IsCanceled = true;
+            await buyerService.AddMoneyToBuyer(purchase.BuyerId, offer.Price * purchase.Quantity, cancellationToken);
+            await buyerService.UpdateBuyer(buyer,cancellationToken);
             await purchaseRepository.SaveChanges(cancellationToken);
 
             return true;
@@ -85,11 +88,11 @@ namespace offers.itacademy.ge.Application.services
             var purchases = await purchaseRepository.GetActivePurchasesByOfferId(offerId, cancellationToken);
             foreach (var purchase in purchases)
             {
-                var buyer = await buyerRepository.GetBuyerById(purchase.BuyerId,cancellationToken);
+                var buyer = await buyerService.GetBuyerById(purchase.BuyerId,cancellationToken);
                 if (buyer != null)
                 {
                     buyer.Balance += offer.Price * purchase.Quantity;
-                    await buyerRepository.UpdateBuyer(buyer, cancellationToken);
+                    await buyerService.UpdateBuyer(buyer, cancellationToken);
                 }
 
                 offer.Quantity += purchase.Quantity;
