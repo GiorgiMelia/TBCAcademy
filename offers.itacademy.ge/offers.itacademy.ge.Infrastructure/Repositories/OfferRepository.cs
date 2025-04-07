@@ -2,12 +2,6 @@
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Persistance.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace offers.itacademy.ge.Infrastructure.Repositories
 {
     public class OfferRepository : IOfferRepository
