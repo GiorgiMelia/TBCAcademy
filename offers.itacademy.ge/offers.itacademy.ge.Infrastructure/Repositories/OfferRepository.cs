@@ -21,7 +21,7 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
 
         public async Task ArchiveOldOffers(CancellationToken stoppingToken)
         {
-            var oldOffers = await _context.Offers.Where(o => o.IsArchived != true).Where(o=>o.EndDate<DateTime.UtcNow).ToListAsync(stoppingToken);
+            var oldOffers = await _context.Offers.Where(o => o.IsArchived != true).Where(o => o.EndDate < DateTime.UtcNow).ToListAsync(stoppingToken);
             foreach (var oldOffer in oldOffers)
             {
                 oldOffer.IsArchived = true;
@@ -46,6 +46,29 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
         {
             return await _context.Offers.FirstOrDefaultAsync(o => o.Id == id);
         }
+
+        public async Task<IEnumerable<Offer>> GetOffersByCompany(int companyId, CancellationToken cancellationToken)
+        {
+            return await _context.Offers.Where(c => c.CompanyId == companyId).ToListAsync(cancellationToken);
+
+        }
+
+        public async Task<IEnumerable<Offer>> GetSubscribedOffers(int buyerId, CancellationToken cancellationToken)
+        {
+            var categoryIds = await _context.Subscriptions
+            .Where(sub => sub.BuyerId == buyerId)
+             .Select(sub => sub.CategoryId)
+             .ToListAsync(cancellationToken);
+
+            var offers = await _context.Offers
+                .Where(offer => categoryIds.Contains(offer.CategoryId)
+                             && offer.IsArchived == false
+                             && offer.IsCanceled == false)
+                .ToListAsync(cancellationToken);
+
+            return offers;
+        }
+
         public async Task<Offer> UpdateOffer(Offer offer, CancellationToken cancellationToken)
         {
             _context.Offers.Update(offer);
@@ -53,6 +76,6 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             return offer;
         }
 
-      
+
     }
 }

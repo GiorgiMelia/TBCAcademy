@@ -4,6 +4,7 @@ using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Application.Dtos;
 using System;
 using offers.itacademy.ge.Application.Exceptions;
+using System.ComponentModel.Design;
 
 namespace offers.itacademy.ge.Application.services
 {
@@ -78,6 +79,14 @@ namespace offers.itacademy.ge.Application.services
             await offerRepository.ArchiveOldOffers(stoppingToken);
         }
 
+        public async Task<IEnumerable<Offer>> GetOffersByCompany(int companyId, CancellationToken cancellationToken)
+        {
+            return await offerRepository.GetOffersByCompany(companyId, cancellationToken);
+        }
 
+        public async Task<IEnumerable<Offer>> GetSubscribedOffers(int buyerId, CancellationToken cancellationToken)
+        {
+            return await offerRepository.GetSubscribedOffers(buyerId, cancellationToken);
+        }
     }
 }

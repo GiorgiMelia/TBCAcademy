@@ -28,11 +28,4 @@
     <ProjectReference Include="..\offers.itacademy.ge.Persistance\offers.itacademy.ge.Persistance.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Company\" />
-    <Folder Include="Views\Admin\" />
-    <Folder Include="Views\Client\" />
-    <Folder Include="Views\Offers\" />
-  </ItemGroup>
-
 </Project>

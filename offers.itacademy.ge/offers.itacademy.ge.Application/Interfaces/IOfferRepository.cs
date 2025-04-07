@@ -13,6 +13,8 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<Offer> CreateOffer(Offer offer, CancellationToken cancellationToken);
         Task<List<Offer>> GetAllOffers(CancellationToken cancellationToken);
         Task<Offer?> GetOfferById(int id, CancellationToken cancellationToken);
+        Task<IEnumerable<Offer>> GetOffersByCompany(int companyId, CancellationToken cancellationToken);
+        Task<IEnumerable<Offer>> GetSubscribedOffers(int buyerId, CancellationToken cancellationToken);
         Task<Offer> UpdateOffer(Offer offer, CancellationToken cancellationToken);
 
 

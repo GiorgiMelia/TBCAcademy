@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using offers.itacademy.ge.API.Models;
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
 using offers.itacademy.ge.Domain.entities;
 
 namespace offers.itacademy.ge.API.Controllers
@@ -13,11 +14,12 @@ namespace offers.itacademy.ge.API.Controllers
     {
         private readonly IUserRegistrationService _userRegistrationService;
         private readonly ICompanyService _companyService;
-
-        public CompanyController(IUserRegistrationService userRegistrationService, ICompanyService companyService)
+        private readonly IOfferService _offerService;
+        public CompanyController(IUserRegistrationService userRegistrationService, ICompanyService companyService, IOfferService offerService)
         {
             _userRegistrationService = userRegistrationService;
             _companyService = companyService;
+            _offerService = offerService;
         }
 
         [HttpPost("register")]
@@ -80,6 +82,27 @@ namespace offers.itacademy.ge.API.Controllers
 
             });
             return Ok(response);
+        }
+        [HttpGet("{companyId}/GetOffers")]
+        public async Task<IActionResult> GetOffersByCompany(int companyId,CancellationToken cancellationToken)
+        {
+
+            var offers = await _offerService.GetOffersByCompany(companyId,cancellationToken);
+            return Ok(offers.Select(offer => new OfferResponse
+            {
+                Id = offer.Id,
+                ProductDescription = offer.ProductDescription,
+                ProductName = offer.ProductName,
+                CategoryId = offer.CategoryId,
+                StartDate = offer.StartDate,
+                EndDate = offer.EndDate,
+                Price = offer.Price,
+                IsArchived = offer.IsArchived,
+                Quantity = offer.Quantity,
+                CompanyId = offer.CompanyId,
+                IsCanceled = offer.IsCanceled,
+
+            }));
         }
     }
 }

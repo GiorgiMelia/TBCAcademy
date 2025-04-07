@@ -14,11 +14,13 @@ namespace offers.itacademy.ge.API.Controllers
     {
         private readonly IUserRegistrationService _userRegistrationService;
         private readonly IBuyerService _buyerService;
+        private readonly IOfferService _offerService;
 
-        public BuyerController(IUserRegistrationService userRegistrationService, IBuyerService buyerService)
+        public BuyerController(IUserRegistrationService userRegistrationService, IBuyerService buyerService, IOfferService offerService)
         {
             _userRegistrationService = userRegistrationService;
             _buyerService = buyerService;
+            _offerService = offerService;
         }
 
 
@@ -87,6 +89,27 @@ namespace offers.itacademy.ge.API.Controllers
                 Surname = buyer.Surname,
             });
             return Ok(response);
+        }
+        [HttpGet("{id}/subscribedOffers")]
+        public async Task<IActionResult> GetSubscribedOffers(int id, CancellationToken cancellationToken)
+        {
+            var offers = await _offerService.GetSubscribedOffers(id, cancellationToken);
+
+            return Ok(offers.Select(offer => new OfferResponse
+            {
+                Id = offer.Id,
+                ProductDescription = offer.ProductDescription,
+                ProductName = offer.ProductName,
+                CategoryId = offer.CategoryId,
+                StartDate = offer.StartDate,
+                EndDate = offer.EndDate,
+                Price = offer.Price,
+                IsArchived = offer.IsArchived,
+                Quantity = offer.Quantity,
+                CompanyId = offer.CompanyId,
+                IsCanceled = offer.IsCanceled
+            }));
+
         }
     }
 }
