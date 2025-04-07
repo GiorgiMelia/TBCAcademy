@@ -3,6 +3,7 @@ using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.API.Models;
 using offers.itacademy.ge.Domain.entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace offers.itacademy.ge.API.Controllers
 {
@@ -37,8 +38,9 @@ namespace offers.itacademy.ge.API.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, response);
         }
-
+        
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<SubscriptionResponse>>> GetAll(CancellationToken cancellationToken)
         {
             var subscriptions = await _subscriptionService.GetAllSubscriptions(cancellationToken);
@@ -52,6 +54,7 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<SubscriptionResponse>> GetById(int id,CancellationToken cancellationToken)
         {
             var subscription = await _subscriptionService.GetSubscriptionById(id, cancellationToken);

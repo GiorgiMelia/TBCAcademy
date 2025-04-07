@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using offers.itacademy.ge.Domain.entities;
 using OfferArchiver.Worker;
 using offers.itacademy.ge.API.Middlewares;
+using offers.itacademy.ge.API.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHealthChecks();
@@ -28,6 +29,7 @@ builder.Services.AddScoped<IUserRegistrationService, UserRegistrationService>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IBuyerService, BuyerService>();
+builder.Services.Configure<JWTTokenOptins>(builder.Configuration.GetSection(nameof(JWTTokenOptins)));
 
 builder.Services.AddIdentity<Client, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
