@@ -4,6 +4,10 @@ using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Application.Dtos;
 using System;
+using offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace offers.itacademy.ge.API.Controllers
 {
@@ -12,18 +16,25 @@ namespace offers.itacademy.ge.API.Controllers
     public class OfferController : ControllerBase
     {
         private readonly IOfferService _offerService;
+        private readonly ICompanyService _companyService;
 
-        public OfferController(IOfferService offerService)
+        public OfferController(IOfferService offerService, ICompanyService companyService)
         {
             _offerService = offerService;
+            _companyService = companyService;
         }
 
+        [Authorize(Policy = "MustCompany")]
         [HttpPost]
         public async Task<ActionResult<OfferResponse>> Create([FromBody] OfferRequest request, CancellationToken cancellationToken)
         {
+            var companyId = User.GetCompanyId();
+            var company = await _companyService.GetCompanyById(companyId, cancellationToken);
+            if (company == null) return NotFound();
+
             var OfferDto = new OfferDto
             {
-                CompanyId = request.CompanyId,
+                CompanyId = companyId,
                 CategoryId = request.CategoryId,
                 EndDate = request.EndDate,
                 Price = request.Price,
@@ -43,7 +54,7 @@ namespace offers.itacademy.ge.API.Controllers
                 EndDate = offer.EndDate,
                 Price = offer.Price,
                 Quantity = offer.Quantity,
-                CompanyId = request.CompanyId,
+                CompanyId = companyId,
                 IsArchived = offer.IsArchived,
                 IsCanceled = offer.IsCanceled,
             };

@@ -26,10 +26,10 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             return subscription;
         }
 
-        public async Task<bool> DeleteSubscription(int id, CancellationToken cancellationToken)
+        public async Task<bool> DeleteSubscription(int SubscriptionId, int BuyerId, CancellationToken cancellationToken)
         {
-            var subscription = await _context.Subscriptions.FindAsync(id,cancellationToken);
-            if (subscription == null)
+            var subscription = await _context.Subscriptions.FindAsync(SubscriptionId, cancellationToken);
+            if (subscription == null || subscription.BuyerId != BuyerId)
                 return false;
 
             _context.Subscriptions.Remove(subscription);
@@ -44,7 +44,7 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
 
         public async Task<Subscription?> GetSubscriptionById(int id, CancellationToken cancellationToken)
         {
-            return await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == id,cancellationToken);
+            return await _context.Subscriptions.FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
         }
     }
 }

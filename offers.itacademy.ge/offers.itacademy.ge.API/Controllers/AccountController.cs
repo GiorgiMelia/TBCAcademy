@@ -32,7 +32,6 @@ namespace offers.itacademy.ge.API.Controllers
 
         [Route("login")]
         [HttpPost]
-        //UserLogInRequest
         public async Task<string> LogIn(UserLoginRequest user, CancellationToken cancellation)
         {
             var userr = await _userManager.FindByEmailAsync(user.Username);

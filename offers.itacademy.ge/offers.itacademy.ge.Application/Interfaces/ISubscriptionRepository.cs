@@ -12,7 +12,7 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<Subscription> CreateSubscription(Subscription subscription,CancellationToken cancellationToken);
         Task<List<Subscription>> GetAllSubscriptions(CancellationToken cancellationToken);
         Task<Subscription?> GetSubscriptionById(int id,CancellationToken cancellationToken);
-        Task<bool> DeleteSubscription(int id, CancellationToken cancellationToken);
+        Task<bool> DeleteSubscription(int SubscriptionId, int buyerId, CancellationToken cancellationToken);
     
     }
 }

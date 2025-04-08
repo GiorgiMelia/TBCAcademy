@@ -1,5 +1,6 @@
 ﻿namespace offers.itacademy.ge.API.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using offers.itacademy.ge.API.Models;
     using offers.itacademy.ge.Application.Dtos;
@@ -7,8 +8,10 @@
 
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Policy = "MustAdmin")]
     public class CategoryController : ControllerBase
     {
+
         private readonly ICategoryService _categoryService;
 
         public CategoryController(ICategoryService categoryService)
@@ -18,6 +21,7 @@
 
 
         [HttpPost]
+
         public async Task<ActionResult<CategoryResponse>> Create([FromBody] CategoryRequest request)
         {
             var category = await _categoryService.CreateCategory(new CategoryDto { CategoryName = request.CategoryName});
@@ -31,6 +35,7 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<CategoryResponse>>> GetAll()
         {
             var categories = await _categoryService.GetAllCategories();

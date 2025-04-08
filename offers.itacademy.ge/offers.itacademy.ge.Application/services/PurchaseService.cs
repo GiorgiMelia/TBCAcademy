@@ -61,34 +61,34 @@ namespace offers.itacademy.ge.Application.services
             return await purchaseRepository.GetPurchaseById(id, cancellationToken);
 
         }
-        public async Task<bool> CancelPurchase(int purchaseId, CancellationToken cancellationToken)
+        public async Task<bool> CancelPurchase(int purchaseId, int buyerId, CancellationToken cancellationToken)
         {
             var purchase = await purchaseRepository.GetPurchaseById(purchaseId, cancellationToken);
-            if (purchase == null || purchase.IsCanceled || DateTime.UtcNow - purchase.PurchaseDate > TimeSpan.FromMinutes(5))
+            if (purchase == null || purchase.BuyerId != buyerId || purchase.IsCanceled || DateTime.UtcNow - purchase.PurchaseDate > TimeSpan.FromMinutes(5))
                 return false;
 
-            var offer = await offerRepository.GetOfferById(purchase.OfferId,cancellationToken);
+            var offer = await offerRepository.GetOfferById(purchase.OfferId, cancellationToken);
             if (offer != null)
             {
                 offer.Quantity += purchase.Quantity;
             }
             var buyer = await buyerService.GetBuyerById(purchase.BuyerId, cancellationToken);
-            
+
             purchase.IsCanceled = true;
             await buyerService.AddMoneyToBuyer(purchase.BuyerId, offer.Price * purchase.Quantity, cancellationToken);
-            await buyerService.UpdateBuyer(buyer,cancellationToken);
+            await buyerService.UpdateBuyer(buyer, cancellationToken);
             await purchaseRepository.SaveChanges(cancellationToken);
 
             return true;
         }
         public async Task<bool> CancelPurchaseByOffer(int offerId, CancellationToken cancellationToken)
         {
-            var offer = await offerRepository.GetOfferById(offerId,cancellationToken);
+            var offer = await offerRepository.GetOfferById(offerId, cancellationToken);
 
             var purchases = await purchaseRepository.GetActivePurchasesByOfferId(offerId, cancellationToken);
             foreach (var purchase in purchases)
             {
-                var buyer = await buyerService.GetBuyerById(purchase.BuyerId,cancellationToken);
+                var buyer = await buyerService.GetBuyerById(purchase.BuyerId, cancellationToken);
                 if (buyer != null)
                 {
                     buyer.Balance += offer.Price * purchase.Quantity;

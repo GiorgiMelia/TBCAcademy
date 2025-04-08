@@ -3,6 +3,8 @@ using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.API.Models;
 using offers.itacademy.ge.Domain.entities;
+using Microsoft.AspNetCore.Authorization;
+using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
 
 namespace offers.itacademy.ge.API.Controllers
 {
@@ -11,24 +13,27 @@ namespace offers.itacademy.ge.API.Controllers
     public class PurchaseController : ControllerBase
     {
         private readonly IPurchaseService _purchaseService;
-
-        public PurchaseController(IPurchaseService purchaseService)
+        private readonly IBuyerService _buyerService;
+        public PurchaseController(IPurchaseService purchaseService, IBuyerService buyerService)
         {
             _purchaseService = purchaseService;
+            _buyerService = buyerService;
         }
 
         [HttpPost]
+        [Authorize(Policy = "MustBuyer")]
         public async Task<ActionResult<PurchaseResponse>> Create([FromBody] PurchaseRequest request, CancellationToken cancellationToken)
         {
+            var buyerId = User.GetBuyerId();
             var purchasedto = new PurchaseDto
             {
-                BuyerId = request.BuyerId,
+                BuyerId = buyerId,
                 OfferId = request.OfferId,
                 Quantity = request.Quantity,
             };
             var purchase = await _purchaseService.CreatePurchase(purchasedto,cancellationToken);
 
-            return CreatedAtAction(nameof(GetById), new { id = purchase.Id }, new PurchaseResponse
+            return CreatedAtAction(nameof(GetById), new { purchaseId = purchase.Id }, new PurchaseResponse
             {
                 Id = purchase.Id,
                 OfferId = purchase.OfferId,
@@ -40,6 +45,9 @@ namespace offers.itacademy.ge.API.Controllers
             });
         }
 
+
+
+        [Authorize(Policy = "MustAdmin")]
         [HttpGet]
         public async Task<ActionResult<List<PurchaseResponse>>> GetAll(CancellationToken cancellationToken)
         {
@@ -57,10 +65,12 @@ namespace offers.itacademy.ge.API.Controllers
             }));
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PurchaseResponse>> GetById(int id, CancellationToken cancellationToken)
+        [Authorize(Policy = "MustAdmin")]
+
+        [HttpGet("{purchaseId}")]
+        public async Task<ActionResult<PurchaseResponse>> GetById(int purchaseId, CancellationToken cancellationToken)
         {
-            var purchase = await _purchaseService.GetPurchaseById(id,cancellationToken);
+            var purchase = await _purchaseService.GetPurchaseById(purchaseId, cancellationToken);
             if (purchase == null)
                 return NotFound();
 
@@ -75,10 +85,13 @@ namespace offers.itacademy.ge.API.Controllers
                 IsCanceled = purchase.IsCanceled
             });
         }
-        [HttpPost("{id}/cancel")]
-        public async Task<IActionResult> CancelPurchase(int id, CancellationToken cancellationToken)
+
+        [Authorize(Policy = "MustBuyer")]
+        [HttpPost("{purchaseId}/cancel")]
+        public async Task<IActionResult> CancelPurchase(int purchaseId, CancellationToken cancellationToken)
         {
-            if (!await _purchaseService.CancelPurchase(id, cancellationToken))
+            var buyerId = User.GetBuyerId();
+            if (!await _purchaseService.CancelPurchase(purchaseId,buyerId, cancellationToken))
                 return BadRequest("Cannot cancel purchase .");
 
             return Ok("Purchase canceled successfully.");

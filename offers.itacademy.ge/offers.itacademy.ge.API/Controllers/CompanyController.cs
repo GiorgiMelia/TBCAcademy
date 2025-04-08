@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
 using offers.itacademy.ge.API.Models;
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
@@ -43,24 +45,27 @@ namespace offers.itacademy.ge.API.Controllers
                 Email = result.Client.Email
             });
         }
-
         [HttpPut("{companyId}/activate")]
+        [Authorize(Policy = "MustAdmin")]
         public async Task<IActionResult> Activate(int companyId, CancellationToken cancellationToken)
         {
             await _companyService.ActivateCompany(companyId, cancellationToken);
             return NoContent();
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+        [Authorize(Policy = "MustCompany")]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMe(CancellationToken cancellationToken)
         {
-            var company = await _companyService.GetCompanyById(id, cancellationToken);
+            var companyId = User.GetCompanyId();
+            var company = await _companyService.GetCompanyById(companyId, cancellationToken);
             if (company == null) return NotFound();
+
             return Ok(new CompanyResponse
             {
-                Description=company.Description,
-                IsActive=company.IsActive,
-                Name=company.Name,
+                Description = company.Description,
+                IsActive = company.IsActive,
+                Name = company.Name,
                 ImageUrl = company.PhotoUrl,
                 CreatedAt = company.CreatedAt,
                 Id = company.Id,
@@ -68,6 +73,7 @@ namespace offers.itacademy.ge.API.Controllers
             });
         }
         [HttpGet]
+        [Authorize(Policy = "MustAdmin")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var companies = await _companyService.GetAllCompanies(cancellationToken);
@@ -84,10 +90,10 @@ namespace offers.itacademy.ge.API.Controllers
             return Ok(response);
         }
         [HttpGet("{companyId}/GetOffers")]
-        public async Task<IActionResult> GetOffersByCompany(int companyId,CancellationToken cancellationToken)
+        public async Task<IActionResult> GetOffersByCompany(int companyId, CancellationToken cancellationToken)
         {
 
-            var offers = await _offerService.GetOffersByCompany(companyId,cancellationToken);
+            var offers = await _offerService.GetOffersByCompany(companyId, cancellationToken);
             return Ok(offers.Select(offer => new OfferResponse
             {
                 Id = offer.Id,

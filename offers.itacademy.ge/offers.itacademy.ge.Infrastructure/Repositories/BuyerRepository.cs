@@ -19,6 +19,13 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<int> FindBuyerWithClientId(string clientId)
+        {
+            var buyer = await _context.Users.FirstOrDefaultAsync(u => u.Id == clientId);
+
+            return buyer.BuyerId?? 0;
+        }
+
         public async Task<List<Buyer>> GetAllBuyers(CancellationToken cancellationToken)
         {
             return await _context.Buyers.ToListAsync(cancellationToken);

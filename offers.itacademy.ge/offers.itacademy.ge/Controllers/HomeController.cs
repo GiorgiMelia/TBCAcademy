@@ -16,7 +16,13 @@ namespace offers.itacademy.ge.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                // Optional: get user type and redirect
+                return RedirectToAction("Dashboard", "Buyer");
+            }
+
+            return View(); // show welcome view for guestreturn View();
         }
 
         public IActionResult Privacy()

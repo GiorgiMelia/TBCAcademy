@@ -17,6 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddIdentity<Client, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>().AddTokenProvider<DataProtectorTokenProvider<Client>>(TokenOptions.DefaultProvider);
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserRegistrationService,UserRegistrationService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();

@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
 using offers.itacademy.ge.API.Models;
 using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Application.services;
 using offers.itacademy.ge.Domain.entities;
 using System;
+using System.Security.Claims;
 
 namespace offers.itacademy.ge.API.Controllers
 {
@@ -23,11 +27,13 @@ namespace offers.itacademy.ge.API.Controllers
             _offerService = offerService;
         }
 
-
-        [HttpPost("{id}/add-money")]
-        public async Task<IActionResult> AddMoney(int id, [FromBody] AddMoneyRequest request, CancellationToken cancellationToken)
+        [Authorize(Policy = "MustBuyer")]
+        [HttpPost("/add-money")]
+        public async Task<IActionResult> AddMoney( [FromBody] AddMoneyRequest request, CancellationToken cancellationToken)
         {
-            if (await _buyerService.AddMoneyToBuyer(id, request.Amount, cancellationToken))
+            var buyerId = User.GetBuyerId();
+          
+            if (await _buyerService.AddMoneyToBuyer(buyerId, request.Amount, cancellationToken))
             {
                 return Ok("Money added successfully.");
 
@@ -58,10 +64,12 @@ namespace offers.itacademy.ge.API.Controllers
                 Email = result.Client.Email
             });
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+        [Authorize(Policy = "MustBuyer")]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetMe( CancellationToken cancellationToken)
         {
-            var buyer = await _buyerService.GetBuyerById(id, cancellationToken);
+            var buyerId = User.GetBuyerId();
+            var buyer = await _buyerService.GetBuyerById(buyerId, cancellationToken);
             if (buyer == null) return NotFound();
             return Ok(new BuyerResponse
             {
@@ -75,6 +83,7 @@ namespace offers.itacademy.ge.API.Controllers
             });
         }
         [HttpGet]
+        [Authorize(Policy = "MustAdmin")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
         {
             var buyers = await _buyerService.GetAllBuyers(cancellationToken);
@@ -90,10 +99,13 @@ namespace offers.itacademy.ge.API.Controllers
             });
             return Ok(response);
         }
-        [HttpGet("{id}/subscribedOffers")]
-        public async Task<IActionResult> GetSubscribedOffers(int id, CancellationToken cancellationToken)
+
+        [Authorize(Policy = "MustBuyer")]
+        [HttpGet("/MySubscribedOffers")]
+        public async Task<IActionResult> GetSubscribedOffers( CancellationToken cancellationToken)
         {
-            var offers = await _offerService.GetSubscribedOffers(id, cancellationToken);
+            var buyerId = User.GetBuyerId();
+            var offers = await _offerService.GetSubscribedOffers(buyerId, cancellationToken);
 
             return Ok(offers.Select(offer => new OfferResponse
             {
