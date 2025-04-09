@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Persistance.Data.Configurations;
-//using offers.itacademy.ge.Persistance.Seed;
-using System.Reflection.Metadata;
+using offers.itacademy.ge.Persistance.Seed;
+
 
 namespace offers.itacademy.ge.Persistance.Data
 {
@@ -33,7 +33,7 @@ namespace offers.itacademy.ge.Persistance.Data
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.SeedAdminUser();
+            modelBuilder.SeedAdminUser();
 
         }
 

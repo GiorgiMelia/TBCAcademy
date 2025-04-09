@@ -30,10 +30,11 @@ namespace offers.itacademy.ge.API
                     policy.RequireClaim("ClientType", "Buyer"));
 
                 options.AddPolicy("MustCompany", policy =>
-                    policy.RequireClaim("ClientType", "Company"));
+                    policy.RequireAssertion(context => !context.User.IsInRole("Admin")).RequireClaim("ClientType", "Buyer"));
+
 
                 options.AddPolicy("MustAdmin", policy =>
-                    policy.RequireRole("Administrator"));
+                        policy.RequireRole("Admin"));
             });
             return services;
         }

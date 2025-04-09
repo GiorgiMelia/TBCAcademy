@@ -45,7 +45,7 @@ namespace offers.itacademy.ge.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8c0f3c20-020c-4be5-8222-9281a09ce48f",
+                            Id = "a9c5611a-aac2-4fbf-9482-ec726fc4dedf",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -136,8 +136,8 @@ namespace offers.itacademy.ge.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4222d533-4194-4456-9176-d2e3b5813e7d",
-                            RoleId = "8c0f3c20-020c-4be5-8222-9281a09ce48f"
+                            UserId = "f716b59a-1729-4233-9381-d5cf3c8e0ab1",
+                            RoleId = "a9c5611a-aac2-4fbf-9482-ec726fc4dedf"
                         });
                 });
 
@@ -292,9 +292,9 @@ namespace offers.itacademy.ge.Persistance.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4222d533-4194-4456-9176-d2e3b5813e7d",
+                            Id = "f716b59a-1729-4233-9381-d5cf3c8e0ab1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9dc23d20-2064-438b-962e-a25245d7c9ad",
+                            ConcurrencyStamp = "9961805a-a38a-48ea-8f7c-a9fcb67c5eca",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
@@ -302,7 +302,7 @@ namespace offers.itacademy.ge.Persistance.Migrations
                             NormalizedUserName = "ADMIN@ADMIN.COM",
                             PasswordHash = "AQAAAAIAAYagAAAAENX4Q7sbsVk3vLjpGJMfrnY2mvJCXcdnkiyHWWkSGCCAsX24I/rur8CAULHlolZoGw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8a361aa4-5cd3-4692-8379-365abe81e045",
+                            SecurityStamp = "4b64d5c6-7ebf-4fb3-a773-7c51ffec8904",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com",
                             UserType = "Company"

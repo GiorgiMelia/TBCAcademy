@@ -8,6 +8,7 @@ using offers.itacademy.ge.API.Extentions;
 using offers.itacademy.ge.Application.services;
 using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
 using Microsoft.AspNetCore.Authorization;
+using System.Net;
 
 namespace offers.itacademy.ge.API.Controllers
 {
@@ -29,6 +30,7 @@ namespace offers.itacademy.ge.API.Controllers
         public async Task<ActionResult<OfferResponse>> Create([FromBody] OfferRequest request, CancellationToken cancellationToken)
         {
             var companyId = User.GetCompanyId();
+
             var company = await _companyService.GetCompanyById(companyId, cancellationToken);
             if (company == null) return NotFound();
 
@@ -65,7 +67,7 @@ namespace offers.itacademy.ge.API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<OfferResponse>>> GetAll(CancellationToken cancellationToken)
         {
-            var offers = await _offerService.GetAllOffers( cancellationToken);
+            var offers = await _offerService.GetAllOffers(cancellationToken);
 
             return Ok(offers.Select(offer => new OfferResponse
             {

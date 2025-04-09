@@ -39,20 +39,20 @@ namespace offers.itacademy.ge.API.Middlewares
 
                 await context.Response.WriteAsync(json);
             }
-            //catch (Exception ex)
-            //{
+            catch (Exception ex)
+            {
 
-            //    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //    context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.ContentType = "application/json";
 
-            //    var response = new
-            //    {
-            //        status = context.Response.StatusCode,
-            //        message = "Something went wrong. Please contact the administrator"
-            //        };
+                var response = new
+                {
+                    status = context.Response.StatusCode,
+                    message = "Something went wrong. Please contact the administrator"
+                };
 
-            //    await context.Response.WriteAsync(JsonSerializer.Serialize(response));
-            //}
+                await context.Response.WriteAsync(JsonSerializer.Serialize(response));
+            }
         }
     }
 }

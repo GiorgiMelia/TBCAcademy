@@ -11,8 +11,8 @@ using offers.itacademy.ge.Persistance.Data;
 namespace offers.itacademy.ge.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250406014010_CompanyToOfferConnectedd")]
-    partial class CompanyToOfferConnectedd
+    [Migration("20250409130754_InitalCreate")]
+    partial class InitalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,14 @@ namespace offers.itacademy.ge.Persistance.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "a9c5611a-aac2-4fbf-9482-ec726fc4dedf",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -127,6 +135,13 @@ namespace offers.itacademy.ge.Persistance.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "f716b59a-1729-4233-9381-d5cf3c8e0ab1",
+                            RoleId = "a9c5611a-aac2-4fbf-9482-ec726fc4dedf"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -276,6 +291,25 @@ namespace offers.itacademy.ge.Persistance.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f716b59a-1729-4233-9381-d5cf3c8e0ab1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9961805a-a38a-48ea-8f7c-a9fcb67c5eca",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN@ADMIN.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENX4Q7sbsVk3vLjpGJMfrnY2mvJCXcdnkiyHWWkSGCCAsX24I/rur8CAULHlolZoGw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4b64d5c6-7ebf-4fb3-a773-7c51ffec8904",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@admin.com",
+                            UserType = "Company"
+                        });
                 });
 
             modelBuilder.Entity("offers.itacademy.ge.Domain.entities.Company", b =>
