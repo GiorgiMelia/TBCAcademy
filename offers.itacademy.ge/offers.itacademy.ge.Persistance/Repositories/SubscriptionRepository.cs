@@ -28,7 +28,8 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
 
         public async Task<bool> DeleteSubscription(int SubscriptionId, int BuyerId, CancellationToken cancellationToken)
         {
-            var subscription = await _context.Subscriptions.FindAsync(SubscriptionId, cancellationToken);
+            var subscription = await _context.Subscriptions.FirstOrDefaultAsync(s => s.BuyerId == BuyerId, cancellationToken);
+
             if (subscription == null || subscription.BuyerId != BuyerId)
                 return false;
 

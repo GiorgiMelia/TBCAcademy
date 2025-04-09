@@ -9,7 +9,7 @@ namespace offers.itacademy.ge.API.Tokens
 {
     public interface IJWTTokenService
     {
-        string GenerateToken(Client client);
+        string GenerateToken(Client client, IList<string> roles);
 
 
 

@@ -28,7 +28,7 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [Authorize(Policy = "MustBuyer")]
-        [HttpPost("/add-money")]
+        [HttpPost("add-money")]
         public async Task<IActionResult> AddMoney( [FromBody] AddMoneyRequest request, CancellationToken cancellationToken)
         {
             var buyerId = User.GetBuyerId();
@@ -101,7 +101,7 @@ namespace offers.itacademy.ge.API.Controllers
         }
 
         [Authorize(Policy = "MustBuyer")]
-        [HttpGet("/MySubscribedOffers")]
+        [HttpGet("MySubscribedOffers")]
         public async Task<IActionResult> GetSubscribedOffers( CancellationToken cancellationToken)
         {
             var buyerId = User.GetBuyerId();
@@ -121,6 +121,26 @@ namespace offers.itacademy.ge.API.Controllers
                 CompanyId = offer.CompanyId,
                 IsCanceled = offer.IsCanceled
             }));
+
+        }
+
+        [HttpPost("upload-Image")]
+        [Authorize(Policy = "MustBuyer")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadImage( IFormFile file)
+        {
+            var buyerId = User.GetBuyerId();
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            using var ms = new MemoryStream();
+            await file.CopyToAsync(ms);
+            var bytes = ms.ToArray();
+            var base64 = Convert.ToBase64String(bytes);
+
+            await _buyerService.UploadImage(base64, buyerId);
+
+            return Ok(new { message = "Image uploaded successfully." });
 
         }
     }

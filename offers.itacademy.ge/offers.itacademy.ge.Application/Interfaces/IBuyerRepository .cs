@@ -12,6 +12,7 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<int> FindBuyerWithClientId(string clientId);
         Task<List<Buyer>> GetAllBuyers(CancellationToken cancellationToken);
         Task<Buyer?> GetBuyerById(int id, CancellationToken cancellationToken);
+        Task SaveImage(string base64,int id);
         Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken);
     }
 }

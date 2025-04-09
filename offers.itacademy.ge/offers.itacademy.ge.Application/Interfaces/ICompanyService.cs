@@ -12,5 +12,6 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task ActivateCompany(int companyId, CancellationToken cancellationToken);
         Task<List<Company>> GetAllCompanies(CancellationToken cancellationToken);
         Task <Company?> GetCompanyById(int id, CancellationToken cancellationToken);
+        Task UploadImage(string base64, int compId);
     }
 }

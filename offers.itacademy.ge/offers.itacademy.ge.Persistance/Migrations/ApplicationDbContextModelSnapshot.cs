@@ -41,6 +41,14 @@ namespace offers.itacademy.ge.Persistance.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8c0f3c20-020c-4be5-8222-9281a09ce48f",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -124,6 +132,13 @@ namespace offers.itacademy.ge.Persistance.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "4222d533-4194-4456-9176-d2e3b5813e7d",
+                            RoleId = "8c0f3c20-020c-4be5-8222-9281a09ce48f"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -273,6 +288,25 @@ namespace offers.itacademy.ge.Persistance.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "4222d533-4194-4456-9176-d2e3b5813e7d",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "9dc23d20-2064-438b-962e-a25245d7c9ad",
+                            Email = "admin@admin.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN@ADMIN.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENX4Q7sbsVk3vLjpGJMfrnY2mvJCXcdnkiyHWWkSGCCAsX24I/rur8CAULHlolZoGw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "8a361aa4-5cd3-4692-8379-365abe81e045",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@admin.com",
+                            UserType = "Company"
+                        });
                 });
 
             modelBuilder.Entity("offers.itacademy.ge.Domain.entities.Company", b =>

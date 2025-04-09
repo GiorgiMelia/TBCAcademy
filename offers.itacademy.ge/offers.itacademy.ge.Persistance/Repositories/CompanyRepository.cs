@@ -33,5 +33,12 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
         {
             await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task SaveImage(string base64, int compId)
+        {
+            var company = await GetCompanyById(compId, CancellationToken.None);
+            company.PhotoUrl=base64;
+           await SaveChanges(CancellationToken.None);
+        }
     }
 }

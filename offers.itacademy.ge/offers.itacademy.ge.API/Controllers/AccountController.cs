@@ -38,10 +38,10 @@ namespace offers.itacademy.ge.API.Controllers
             if (userr == null) throw new WrongRequestException("Wrong Login attempt");
 
             var result = await _signInManager.CheckPasswordSignInAsync(userr, user.Password, false);
-            
+            var roles = await _userManager.GetRolesAsync(userr);
             if (result.Succeeded)
             {
-                var token =  _jWTTokenService.GenerateToken(userr);
+                var token =  _jWTTokenService.GenerateToken(userr,roles);
                 return token;
 
             }

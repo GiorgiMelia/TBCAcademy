@@ -2,11 +2,7 @@
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Persistance.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace offers.itacademy.ge.Infrastructure.Repositories
 {
@@ -33,10 +29,16 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
 
         public async Task<Buyer?> GetBuyerById(int id, CancellationToken cancellationToken)
         {
-            return await _context.Buyers.FindAsync(id,cancellationToken);
+            return await _context.Buyers.FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
         }
 
-      
+        public async Task SaveImage(string base64,int id)
+        {
+            var buyer = await GetBuyerById(id,CancellationToken.None);
+            buyer.PhotoUrl = base64;
+            await _context.SaveChangesAsync();
+        }
+
         public async Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken)
         {
             _context.Buyers.Update(buyer);

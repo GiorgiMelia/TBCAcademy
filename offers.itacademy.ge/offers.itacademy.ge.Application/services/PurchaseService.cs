@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Exceptions;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 
@@ -22,19 +23,19 @@ namespace offers.itacademy.ge.Application.services
         {
             var offer = await offerRepository.GetOfferById(purchaseDto.OfferId, cancellationToken);
             if (offer == null)
-                throw new Exception($"Offer with Id {purchaseDto.OfferId} not found.");
+                throw new NotFoundException($"Offer with Id {purchaseDto.OfferId} not found.");
 
             if (offer.Quantity < purchaseDto.Quantity)
-                throw new Exception($"Not enough quantity. Available: {offer.Quantity}");
-            if (offer.IsArchived) throw new Exception("Offer is Archived");
-            if (offer.IsCanceled) throw new Exception("Offer is Caceled");
+                throw new WrongRequestException($"Not enough quantity. Available: {offer.Quantity}");
+            if (offer.IsArchived) throw new WrongRequestException("Offer is Archived");
+            if (offer.IsCanceled) throw new WrongRequestException("Offer is Caceled");
             var buyer = await buyerService.GetBuyerById(purchaseDto.BuyerId, cancellationToken);
             if (buyer == null)
-                throw new Exception($"Buyer with Id {purchaseDto.BuyerId} not found.");
+                throw new NotFoundException($"Buyer with Id {purchaseDto.BuyerId} not found.");
             offer.Quantity -= purchaseDto.Quantity;
             decimal totalCost = offer.Price * purchaseDto.Quantity;
             if (buyer.Balance < totalCost)
-                throw new Exception($"Insufficient funds. Available: {buyer.Balance}, needed: {totalCost}");
+                throw new WrongRequestException($"Insufficient funds. Available: {buyer.Balance}, needed: {totalCost}");
             buyer.Balance -= totalCost;
             offer.Quantity -= purchaseDto.Quantity;
             var purchase = new Purchase

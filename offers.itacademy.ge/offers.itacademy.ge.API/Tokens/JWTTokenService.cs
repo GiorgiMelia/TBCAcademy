@@ -17,7 +17,7 @@ namespace offers.itacademy.ge.API.Tokens
             _options = options;
         }
 
-        public string GenerateToken(Client client)
+        public string GenerateToken(Client client, IList<string> roles)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -35,8 +35,12 @@ namespace offers.itacademy.ge.API.Tokens
                 Audience = "localhost",
                 Issuer = "localhost",
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
-            };
 
+            };
+            foreach (var role in roles)
+            {
+                tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, role));
+            }
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 

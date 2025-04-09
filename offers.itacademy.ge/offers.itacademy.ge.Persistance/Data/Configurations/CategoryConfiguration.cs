@@ -15,6 +15,7 @@ namespace offers.itacademy.ge.Persistance.Data.Configurations
         {
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
+           
 
         }
     }

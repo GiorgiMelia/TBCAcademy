@@ -27,7 +27,6 @@ namespace offers.itacademy.ge.Web.Controllers
 
         private async Task<int?> GetBuyerIdAsync()
         {
-            var buyerId = User.GetBuyerId();
           
 
             var clientId = User.FindFirstValue(ClaimTypes.NameIdentifier);

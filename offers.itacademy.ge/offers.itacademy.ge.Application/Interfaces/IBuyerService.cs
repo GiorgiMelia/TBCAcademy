@@ -14,5 +14,6 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<List<Buyer>> GetAllBuyers(CancellationToken cancellationToken);
         Task<Buyer?> GetBuyerById(int id, CancellationToken cancellationToken);
         Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken);
+        Task UploadImage(string base64, int buyerId);
     }
 }

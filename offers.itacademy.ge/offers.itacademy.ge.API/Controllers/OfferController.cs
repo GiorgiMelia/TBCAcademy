@@ -107,10 +107,12 @@ namespace offers.itacademy.ge.API.Controllers
 
             });
         }
+
         [HttpPost("{id}/cancel")]
         public async Task<IActionResult> CancelOffer(int id, CancellationToken cancellationToken)
         {
-            if (!await _offerService.CancelOffer(id, cancellationToken))
+            var companyId = User.GetCompanyId();
+            if (!await _offerService.CancelOffer(id, companyId, cancellationToken))
                 return BadRequest("Offer cannot be canceled (expired, already canceled, or not found).");
             return Ok("Offer canceled successfully.");
         }

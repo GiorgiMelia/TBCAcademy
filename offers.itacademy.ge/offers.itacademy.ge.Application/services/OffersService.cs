@@ -25,7 +25,7 @@ namespace offers.itacademy.ge.Application.services
             var company = await companyService.GetCompanyById(offerDto.CompanyId, cancellationToken);
             if (company == null)
                 throw new NotFoundException($"Company with{offerDto.CompanyId} does not exist");
-                if(!company.IsActive)
+            if (!company.IsActive)
                 throw new WrongRequestException("Company is not Active!");
 
 
@@ -59,10 +59,10 @@ namespace offers.itacademy.ge.Application.services
             return await offerRepository.GetOfferById(id, cancellationToken);
 
         }
-        public async Task<bool> CancelOffer(int offerId, CancellationToken cancellationToken)
+        public async Task<bool> CancelOffer(int offerId, int companyId, CancellationToken cancellationToken)
         {
             var offer = await offerRepository.GetOfferById(offerId, cancellationToken);
-            if (offer == null || offer.IsArchived || offer.IsCanceled)
+            if (offer == null || offer.IsArchived || offer.IsCanceled || offer.CompanyId != companyId)
                 return false;
 
             var elapsed = DateTime.UtcNow - offer.StartDate;

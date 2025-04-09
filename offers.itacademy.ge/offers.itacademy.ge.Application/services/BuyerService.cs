@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace offers.itacademy.ge.Application.services
@@ -41,6 +42,11 @@ namespace offers.itacademy.ge.Application.services
         public async Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken)
         {
              await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
+        }
+
+        public async Task UploadImage(string base64, int buyerId)
+        {
+            await _buyerRepository.SaveImage(base64,buyerId);
         }
     }
 }

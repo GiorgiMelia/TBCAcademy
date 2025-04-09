@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Exceptions;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using System;
@@ -22,7 +23,7 @@ namespace offers.itacademy.ge.Application.services
         {
             var company = await _companyRepository.GetCompanyById(companyId,cancellationToken);
             if (company == null)
-                throw new Exception("Company not found");
+                throw new NotFoundException("Company not found");
             company.IsActive = true;
 
            await _companyRepository.SaveChanges(cancellationToken);
@@ -37,6 +38,10 @@ namespace offers.itacademy.ge.Application.services
         public async Task<Company?> GetCompanyById(int id, CancellationToken cancellationToken)
         {
             return await _companyRepository.GetCompanyById(id,cancellationToken);
+        }
+        public async Task UploadImage(string base64, int compId)
+        {
+            await _companyRepository.SaveImage(base64, compId);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace offers.itacademy.ge.API.Controllers
         public async Task<IActionResult> Activate(int companyId, CancellationToken cancellationToken)
         {
             await _companyService.ActivateCompany(companyId, cancellationToken);
-            return NoContent();
+            return Ok("Activated");
         }
 
         [Authorize(Policy = "MustCompany")]
@@ -89,10 +89,12 @@ namespace offers.itacademy.ge.API.Controllers
             });
             return Ok(response);
         }
-        [HttpGet("{companyId}/GetOffers")]
-        public async Task<IActionResult> GetOffersByCompany(int companyId, CancellationToken cancellationToken)
-        {
+        [Authorize(Policy = "MustCompany")]
 
+        [HttpGet("/GetMyOffers")]
+        public async Task<IActionResult> GetOffersByCompany( CancellationToken cancellationToken)
+        {
+            var companyId = User.GetCompanyId();
             var offers = await _offerService.GetOffersByCompany(companyId, cancellationToken);
             return Ok(offers.Select(offer => new OfferResponse
             {
@@ -109,6 +111,25 @@ namespace offers.itacademy.ge.API.Controllers
                 IsCanceled = offer.IsCanceled,
 
             }));
+        }
+        [HttpPost("upload-Image")]
+        [Authorize(Policy = "MustCompany")]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            var compId = User.GetCompanyId();
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            using var ms = new MemoryStream();
+            await file.CopyToAsync(ms);
+            var bytes = ms.ToArray();
+            var base64 = Convert.ToBase64String(bytes);
+
+            await _companyService.UploadImage(base64, compId);
+
+            return Ok(new { message = "Image uploaded successfully." });
+
         }
     }
 }

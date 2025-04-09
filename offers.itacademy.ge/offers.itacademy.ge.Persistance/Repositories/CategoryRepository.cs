@@ -2,11 +2,7 @@
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Persistance.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace offers.itacademy.ge.Infrastructure.Repositories
 {
@@ -48,7 +44,8 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
             if (hasOffers)
                 throw new InvalidOperationException("Cannot delete category with associated offers.");
 
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
             if (category == null)
                 return false;
 
