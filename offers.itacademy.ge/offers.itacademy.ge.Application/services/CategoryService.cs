@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Exceptions;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 
@@ -17,13 +18,15 @@ namespace offers.itacademy.ge.Application.services
 
         public async Task<Category> CreateCategory(CategoryDto categoryDto)
         {
+            var categories = await GetAllCategories();
+            if (categories.Any(c => c.Name == categoryDto.CategoryName)) throw new WrongRequestException("Category already exists");
             var category = new Category { Name = categoryDto.CategoryName };
 
             await _categoryRepository.CreateCategory(category);
 
             return category;
         }
-        
+
         public async Task<List<Category>> GetAllCategories()
         {
             return await _categoryRepository.GetAllCategories();

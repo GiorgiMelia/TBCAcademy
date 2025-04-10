@@ -23,9 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "offers.itacademy.ge.Persist
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "offers.itacademy.ge.API", "offers.itacademy.ge.API\offers.itacademy.ge.API.csproj", "{FA4481A3-3FC1-41AD-B802-0BC137280C65}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AAFAC8EF-3FA4-43AE-9DD2-C5EC5EA47314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferArchiver.Worker", "OfferArchiver.Worker\OfferArchiver.Worker.csproj", "{9ECA78EE-2C31-4E5E-9B8F-E3D7A8E02A18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferArchiver.Worker", "OfferArchiver.Worker\OfferArchiver.Worker.csproj", "{9ECA78EE-2C31-4E5E-9B8F-E3D7A8E02A18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{23DA8173-F81F-48B2-B7E3-C6C3364DD457}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +61,10 @@ Global
 		{9ECA78EE-2C31-4E5E-9B8F-E3D7A8E02A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ECA78EE-2C31-4E5E-9B8F-E3D7A8E02A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ECA78EE-2C31-4E5E-9B8F-E3D7A8E02A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23DA8173-F81F-48B2-B7E3-C6C3364DD457}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23DA8173-F81F-48B2-B7E3-C6C3364DD457}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23DA8173-F81F-48B2-B7E3-C6C3364DD457}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23DA8173-F81F-48B2-B7E3-C6C3364DD457}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
