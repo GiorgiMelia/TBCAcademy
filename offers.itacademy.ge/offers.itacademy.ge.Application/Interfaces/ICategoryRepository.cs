@@ -10,5 +10,6 @@ namespace offers.itacademy.ge.Application.Interfaces
         Task<Category?> GetCategoryById(int id);
         Task UpdateCategory(Category category);
         Task<bool> DeleteCategory(int id);
+        Task<bool> CategoryExists(string name);
     }
 }

@@ -18,8 +18,8 @@ namespace offers.itacademy.ge.Application.services
 
         public async Task<Category> CreateCategory(CategoryDto categoryDto)
         {
-            var categories = await GetAllCategories();
-            if (categories.Any(c => c.Name == categoryDto.CategoryName)) throw new WrongRequestException("Category already exists");
+
+            if (await _categoryRepository.CategoryExists(categoryDto.CategoryName)) throw new WrongRequestException("Category already exists");
             var category = new Category { Name = categoryDto.CategoryName };
 
             await _categoryRepository.CreateCategory(category);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Exceptions;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Persistance.Data;
@@ -21,6 +22,8 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
 
         public async Task<Subscription> CreateSubscription(Subscription subscription, CancellationToken cancellationToken)
         {
+            if (_context.Subscriptions.Any(c => c.BuyerId == subscription.BuyerId && c.CategoryId == subscription.CategoryId))
+                throw new WrongRequestException("Category already subscribed!");
             _context.Subscriptions.Add(subscription);
             await _context.SaveChangesAsync(cancellationToken);
             return subscription;

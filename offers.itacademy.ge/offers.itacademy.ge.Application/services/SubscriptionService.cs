@@ -1,9 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Application.Dtos;
+﻿using offers.itacademy.ge.Application.Dtos;
 using offers.itacademy.ge.Application.Exceptions;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
-using System.Threading;
 
 namespace offers.itacademy.ge.Application.services
 {
@@ -18,11 +16,7 @@ namespace offers.itacademy.ge.Application.services
 
         public async Task<Subscription> CreateSubscription(SubscriptionDto subscritionDto, CancellationToken cancellationToken)
         {
-            List<Subscription> subs = await _subscriptionRepository.GetAllSubscriptions(cancellationToken);
-            foreach (Subscription sub in subs)
-            {
-                if (subscritionDto.BuyerId == sub.BuyerId && subscritionDto.CategoryId == sub.CategoryId) throw new WrongRequestException("Subscription already exists");
-            }
+
             var subscription = new Subscription
             {
                 BuyerId = subscritionDto.BuyerId,
@@ -40,7 +34,9 @@ namespace offers.itacademy.ge.Application.services
 
         public async Task<Subscription?> GetSubscriptionById(int id, CancellationToken cancellationToken)
         {
-            return await _subscriptionRepository.GetSubscriptionById(id, cancellationToken);
+            var sub = await _subscriptionRepository.GetSubscriptionById(id, cancellationToken);
+            if (sub == null) throw new NotFoundException("Subscription not found");
+            return sub;
         }
         public async Task<bool> DeleteSubscription(int SubscripitonId, int BuyerId, CancellationToken cancellationToken)
         {

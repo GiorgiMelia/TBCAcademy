@@ -28,15 +28,12 @@ namespace Tests
             var dto = new CategoryDto { CategoryName = "Snacks" };
 
             _categoryRepositoryMock
-                .Setup(r => r.GetAllCategories())
-                .ReturnsAsync(new List<Category>()); // no categories yet
-
-            Category? created = null;
+                .Setup(r => r.CategoryExists("Snacks"))
+                .ReturnsAsync(false);
 
             _categoryRepositoryMock
                 .Setup(r => r.CreateCategory(It.IsAny<Category>()))
-                .Callback<Category>(c => created = c)
-               .ReturnsAsync((Category c) => c);
+                .ReturnsAsync((Category c) => c);
 
             // Act
             var result = await _categoryService.CreateCategory(dto);
@@ -45,11 +42,12 @@ namespace Tests
             result.Should().NotBeNull();
             result.Name.Should().Be("Snacks");
 
-            created.Should().NotBeNull();
-            created!.Name.Should().Be("Snacks");
+            _categoryRepositoryMock.Verify(r =>
+                r.CategoryExists("Snacks"), Times.Once);
 
             _categoryRepositoryMock.Verify(r =>
                 r.CreateCategory(It.Is<Category>(c => c.Name == "Snacks")), Times.Once);
+
         }
         [Fact]
         public async Task CreateCategory_WhenCategoryExists_ThrowsWrongRequestException()
@@ -58,10 +56,8 @@ namespace Tests
             var dto = new CategoryDto { CategoryName = "Drinks" };
 
             _categoryRepositoryMock
-                .Setup(r => r.GetAllCategories())
-                .ReturnsAsync(new List<Category> {
-            new Category { Id = 1, Name = "Drinks" }
-                });
+                .Setup(r => r.CategoryExists("Drinks"))
+                .ReturnsAsync(true);
 
             // Act
             Func<Task> act = async () => await _categoryService.CreateCategory(dto);
@@ -69,6 +65,9 @@ namespace Tests
             // Assert
             await act.Should().ThrowAsync<WrongRequestException>()
                 .WithMessage("Category already exists");
+
+            _categoryRepositoryMock.Verify(r =>
+                r.CategoryExists("Drinks"), Times.Once);
 
             _categoryRepositoryMock.Verify(r =>
                 r.CreateCategory(It.IsAny<Category>()), Times.Never);
@@ -205,6 +204,24 @@ namespace Tests
 
             _categoryRepositoryMock.Verify(r => r.DeleteCategory(999), Times.Once);
         }
+        [Fact]
+        public async Task DeleteCategory_WhenCategoryHasOffers_ThrowsInvalidOperationException()
+        {
+            // Arrange
+            _categoryRepositoryMock
+                .Setup(r => r.DeleteCategory(1))
+                .ThrowsAsync(new WrongRequestException("Cannot delete category with associated offers."));
+
+            // Act
+            Func<Task> act = async () => await _categoryService.DeleteCategory(1);
+
+            // Assert
+            await act.Should().ThrowAsync<WrongRequestException>()
+                .WithMessage("Cannot delete category with associated offers.");
+
+            _categoryRepositoryMock.Verify(r => r.DeleteCategory(1), Times.Once);
+        }
+
 
 
     }

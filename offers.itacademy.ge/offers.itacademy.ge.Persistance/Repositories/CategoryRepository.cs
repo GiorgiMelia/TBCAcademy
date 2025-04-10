@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Exceptions;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
 using offers.itacademy.ge.Persistance.Data;
@@ -26,6 +27,11 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
         {
             return await _context.Categories.ToListAsync();
         }
+        public async Task<bool> CategoryExists(string name)
+        {
+            return await  _context.Categories.AnyAsync(o => o.Name == name);
+
+        }
 
         public async Task<Category?> GetCategoryById(int id)
         {
@@ -42,7 +48,7 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
         {
             var hasOffers = await _context.Offers.AnyAsync(o => o.CategoryId == id);
             if (hasOffers)
-                throw new InvalidOperationException("Cannot delete category with associated offers.");
+                throw new WrongRequestException("Cannot delete category with associated offers.");
 
             var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
 

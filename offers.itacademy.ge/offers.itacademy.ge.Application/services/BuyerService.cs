@@ -1,12 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using offers.itacademy.ge.Application.Exceptions;
 using offers.itacademy.ge.Application.Interfaces;
 using offers.itacademy.ge.Domain.entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace offers.itacademy.ge.Application.services
 {
@@ -23,7 +17,7 @@ namespace offers.itacademy.ge.Application.services
         {
             var buyer = await _buyerRepository.GetBuyerById(buyerId, cancellationToken);
             if (buyer == null)
-                return false;
+                throw new NotFoundException("Buyer id not found!");
 
             buyer.Balance += amount;
            await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
