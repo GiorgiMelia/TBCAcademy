@@ -12,7 +12,7 @@ Host.CreateDefaultBuilder(args)
     {
         services.AddHostedService<Worker>();
         services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(
+            options.UseSqlServer(
                 context.Configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IOfferService, OfferService>();
