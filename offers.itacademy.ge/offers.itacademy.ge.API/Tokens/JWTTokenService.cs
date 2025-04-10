@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Options;
+﻿using ITAcademy.Offers.Domain.Entities;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using offers.itacademy.ge.Domain.entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace offers.itacademy.ge.API.Tokens
+namespace ITAcademy.Offers.API.Tokens
 {
     public class JWTTokenService : IJWTTokenService
     {

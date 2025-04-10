@@ -1,8 +1,8 @@
-﻿using offers.itacademy.ge.Application.Exceptions;
+﻿using ITAcademy.Offers.Application.Exceptions;
 using System.Net;
 using System.Text.Json;
 
-namespace offers.itacademy.ge.API.Middlewares
+namespace ITAcademy.Offers.API.Middlewares
 {
     public class ExceptionHandlingMiddleware
     {

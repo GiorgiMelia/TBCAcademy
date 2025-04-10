@@ -1,7 +1,6 @@
-﻿namespace offers.itacademy.ge.Domain.entities
+﻿namespace ITAcademy.Offers.Domain.Entities
 {
     using Microsoft.AspNetCore.Identity;
-    using offers.itacademy.ge.Domain.entities;
 
     public class Client : IdentityUser
     {

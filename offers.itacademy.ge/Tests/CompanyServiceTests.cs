@@ -1,17 +1,12 @@
-﻿using Xunit;
-using FluentAssertions;
+﻿using FluentAssertions;
+using ITAcademy.Offers.Application.Exceptions;
+using ITAcademy.Offers.Application.services;
+using ITAcademy.Offers.Domain.Entities;
+using ITAcademy.Offers.Persistence.Data;
+using ITAcademy.Offers.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Application.services;
-using offers.itacademy.ge.Infrastructure.Repositories;
-using offers.itacademy.ge.Persistance.Data;
-using offers.itacademy.ge.Domain.entities;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System;
-using offers.itacademy.ge.Application.Exceptions;
 
-namespace Tests
+namespace ITAcademy.Offers.Application.Tests
 {
     public class CompanyServiceTests
     {
@@ -56,8 +51,8 @@ namespace Tests
         public async Task GetAllCompanies_ReturnsAllCompanies()
         {
             _context.Companies.AddRange(
-                new Company { Name = "A" , Description = "asda" },
-                new Company { Name = "B" , Description = "asda" }
+                new Company { Name = "A", Description = "asda" },
+                new Company { Name = "B", Description = "asda" }
             );
             await _context.SaveChangesAsync();
 
@@ -93,7 +88,7 @@ namespace Tests
         [InlineData("http://cdn.images/test.jpg")]
         public async Task UploadImage_UpdatesPhotoUrl(string photo)
         {
-            var company = new Company { Name = "PhotoCorp",Description="asda" };
+            var company = new Company { Name = "PhotoCorp", Description = "asda" };
             _context.Companies.Add(company);
             await _context.SaveChangesAsync();
 

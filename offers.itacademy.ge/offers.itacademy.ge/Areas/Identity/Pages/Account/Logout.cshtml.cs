@@ -2,18 +2,12 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using ITAcademy.Offers.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using offers.itacademy.ge.Web.Models;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Web.Areas.Identity.Pages.Account;
 
-namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account
+namespace ITAcademy.Offers.Web.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {

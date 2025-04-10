@@ -1,13 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using ITAcademy.Offers.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Domain.entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace offers.itacademy.ge.Persistance.Data.Configurations
+namespace ITAcademy.Offers.Persistence.Data.Configurations
 {
     public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
@@ -20,7 +15,7 @@ namespace offers.itacademy.ge.Persistance.Data.Configurations
         new Category { Id = 1, Name = "Food" },
         new Category { Id = 2, Name = "Drinks" },
         new Category { Id = 3, Name = "Plants" },
-        new Category { Id = 4, Name = "Sweets"}
+        new Category { Id = 4, Name = "Sweets" }
         );
         }
     }

@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using offers.itacademy.ge.Application.Dtos;
-using offers.itacademy.ge.Application.Interfaces;
-using offers.itacademy.ge.API.Models;
-using offers.itacademy.ge.Domain.entities;
+﻿using ITAcademy.Offers.API.Extentions;
+using ITAcademy.Offers.API.Models;
+using ITAcademy.Offers.Application.Dtos;
+using ITAcademy.Offers.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
+using Microsoft.AspNetCore.Mvc;
 
-namespace offers.itacademy.ge.API.Controllers
+namespace ITAcademy.Offers.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -31,7 +30,7 @@ namespace offers.itacademy.ge.API.Controllers
                 OfferId = request.OfferId,
                 Quantity = request.Quantity,
             };
-            var purchase = await _purchaseService.CreatePurchase(purchasedto,cancellationToken);
+            var purchase = await _purchaseService.CreatePurchase(purchasedto, cancellationToken);
 
             return CreatedAtAction(nameof(GetById), new { purchaseId = purchase.Id }, new PurchaseResponse
             {
@@ -91,7 +90,7 @@ namespace offers.itacademy.ge.API.Controllers
         public async Task<IActionResult> CancelPurchase(int purchaseId, CancellationToken cancellationToken)
         {
             var buyerId = User.GetBuyerId();
-            if (!await _purchaseService.CancelPurchase(purchaseId,buyerId, cancellationToken))
+            if (!await _purchaseService.CancelPurchase(purchaseId, buyerId, cancellationToken))
                 return BadRequest("Cannot cancel purchase .");
 
             return Ok("Purchase canceled successfully.");

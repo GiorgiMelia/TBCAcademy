@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Application.Exceptions;
-using offers.itacademy.ge.Application.Interfaces;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Persistance.Data;
+﻿using ITAcademy.Offers.Application.Exceptions;
+using ITAcademy.Offers.Application.Interfaces;
+using ITAcademy.Offers.Domain.Entities;
+using ITAcademy.Offers.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
 
 
-namespace offers.itacademy.ge.Infrastructure.Repositories
+namespace ITAcademy.Offers.Persistence.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
@@ -29,7 +29,7 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
         }
         public async Task<bool> CategoryExists(string name)
         {
-            return await  _context.Categories.AnyAsync(o => o.Name == name);
+            return await _context.Categories.AnyAsync(o => o.Name == name);
 
         }
 

@@ -1,14 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Application.Interfaces;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Persistance.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ITAcademy.Offers.Application.Interfaces;
+using ITAcademy.Offers.Domain.Entities;
+using ITAcademy.Offers.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace offers.itacademy.ge.Infrastructure.Repositories
+namespace ITAcademy.Offers.Persistence.Repositories
 {
     public class PurchaseRepository : IPurchaseRepository
     {
@@ -41,12 +36,12 @@ namespace offers.itacademy.ge.Infrastructure.Repositories
 
         public async Task<Purchase?> GetPurchaseById(int id, CancellationToken cancellationToken)
         {
-            return await _context.Purchases.Include(p => p.Offer).Include(p => p.Buyer).FirstOrDefaultAsync(p => p.Id == id,cancellationToken);
+            return await _context.Purchases.Include(p => p.Offer).Include(p => p.Buyer).FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
         }
 
         public async Task SaveChanges(CancellationToken cancellationToken)
         {
-             await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }

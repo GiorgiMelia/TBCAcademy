@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Application.Interfaces;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Persistance.Data;
-namespace offers.itacademy.ge.Infrastructure.Repositories
+﻿using ITAcademy.Offers.Application.Interfaces;
+using ITAcademy.Offers.Domain.Entities;
+using ITAcademy.Offers.Persistence.Data;
+using Microsoft.EntityFrameworkCore;
+namespace ITAcademy.Offers.Persistence.Repositories
 {
     public class OfferRepository : IOfferRepository
     {

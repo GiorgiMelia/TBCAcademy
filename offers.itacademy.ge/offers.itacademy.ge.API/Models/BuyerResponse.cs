@@ -1,4 +1,4 @@
-﻿namespace offers.itacademy.ge.API.Models
+﻿namespace ITAcademy.Offers.API.Models
 {
     public class BuyerResponse
     {

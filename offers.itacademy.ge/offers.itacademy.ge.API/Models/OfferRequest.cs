@@ -1,7 +1,7 @@
-﻿using offers.itacademy.ge.API.Attributes;
+﻿using ITAcademy.Offers.API.Attributes;
 using System.ComponentModel.DataAnnotations;
 
-namespace offers.itacademy.ge.API.Models
+namespace ITAcademy.Offers.API.Models
 {
     public class OfferRequest
     {
@@ -14,7 +14,7 @@ namespace offers.itacademy.ge.API.Models
         public string ProductDescription { get; set; }
 
         [Required(ErrorMessage = "End date is required.")]
-        [ValidEndDateAttribute("End date must be in the future.")]
+        [ValidEndDate("End date must be in the future.")]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "CategoryId is required.")]

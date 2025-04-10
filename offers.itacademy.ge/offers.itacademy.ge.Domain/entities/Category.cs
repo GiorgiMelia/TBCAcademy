@@ -1,4 +1,4 @@
-﻿namespace offers.itacademy.ge.Domain.entities
+﻿namespace ITAcademy.Offers.Domain.Entities
 {
 
     public class Category

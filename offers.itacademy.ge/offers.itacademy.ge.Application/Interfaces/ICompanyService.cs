@@ -1,17 +1,12 @@
-﻿using offers.itacademy.ge.Domain.entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ITAcademy.Offers.Domain.Entities;
 
-namespace offers.itacademy.ge.Application.Interfaces
+namespace ITAcademy.Offers.Application.Interfaces
 {
     public interface ICompanyService
     {
         Task ActivateCompany(int companyId, CancellationToken cancellationToken);
         Task<List<Company>> GetAllCompanies(CancellationToken cancellationToken);
-        Task <Company?> GetCompanyById(int id, CancellationToken cancellationToken);
+        Task<Company?> GetCompanyById(int id, CancellationToken cancellationToken);
         Task UploadImage(string base64, int compId);
     }
 }

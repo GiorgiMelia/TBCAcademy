@@ -1,8 +1,7 @@
-﻿using offers.itacademy.ge.Application.Dtos;
-using offers.itacademy.ge.Domain.entities;
+﻿using ITAcademy.Offers.Application.Dtos;
+using ITAcademy.Offers.Domain.Entities;
 
-
-namespace offers.itacademy.ge.Application.Interfaces
+namespace ITAcademy.Offers.Application.Interfaces
 {
 
     public interface ISubscriptionService

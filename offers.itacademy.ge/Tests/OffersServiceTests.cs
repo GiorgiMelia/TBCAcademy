@@ -1,21 +1,15 @@
-﻿using Xunit;
-using Moq;
-using FluentAssertions;
+﻿using FluentAssertions;
+using ITAcademy.Offers.Application.Dtos;
+using ITAcademy.Offers.Application.Exceptions;
+using ITAcademy.Offers.Application.Interfaces;
+using ITAcademy.Offers.Application.services;
+using ITAcademy.Offers.Domain.Entities;
+using ITAcademy.Offers.Persistence.Data;
+using ITAcademy.Offers.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Application.services;
-using offers.itacademy.ge.Application.Interfaces;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Application.Dtos;
-using offers.itacademy.ge.Infrastructure.Repositories;
-using offers.itacademy.ge.Persistance.Data;
-using offers.itacademy.ge.Application.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+using Moq;
 
-namespace Tests
+namespace ITAcademy.Offers.Application.Tests
 {
     public class OfferServiceTests
     {
@@ -132,7 +126,7 @@ namespace Tests
             var offer = new Offer
             {
                 CompanyId = 1,
-                ProductName="bla",
+                ProductName = "bla",
                 ProductDescription = "desc",
                 StartDate = DateTime.UtcNow.AddMinutes(-5),
                 EndDate = DateTime.UtcNow.AddMinutes(30),
@@ -239,8 +233,8 @@ namespace Tests
         {
             _context.Offers.AddRange(
                 new Offer { CompanyId = 1, ProductName = "A", ProductDescription = "desc" },
-                new Offer { CompanyId = 2, ProductName = "B" , ProductDescription = "desc" },
-                new Offer { CompanyId = 1, ProductName = "C" , ProductDescription = "desc" }
+                new Offer { CompanyId = 2, ProductName = "B", ProductDescription = "desc" },
+                new Offer { CompanyId = 1, ProductName = "C", ProductDescription = "desc" }
             );
             await _context.SaveChangesAsync();
 

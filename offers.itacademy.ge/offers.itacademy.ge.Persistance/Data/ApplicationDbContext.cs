@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ITAcademy.Offers.Domain.Entities;
+using ITAcademy.Offers.Persistence.Data.Configurations;
+using ITAcademy.Offers.Persistence.Seed;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Persistance.Data.Configurations;
-using offers.itacademy.ge.Persistance.Seed;
 
 
-namespace offers.itacademy.ge.Persistance.Data
+namespace ITAcademy.Offers.Persistence.Data
 {
     public class ApplicationDbContext : IdentityDbContext<Client>
     {

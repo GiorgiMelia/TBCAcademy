@@ -1,18 +1,13 @@
-﻿using offers.itacademy.ge.Domain.entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ITAcademy.Offers.Domain.Entities;
 
-namespace offers.itacademy.ge.Application.Interfaces
+namespace ITAcademy.Offers.Application.Interfaces
 {
     public interface ISubscriptionRepository
     {
-        Task<Subscription> CreateSubscription(Subscription subscription,CancellationToken cancellationToken);
+        Task<Subscription> CreateSubscription(Subscription subscription, CancellationToken cancellationToken);
         Task<List<Subscription>> GetAllSubscriptions(CancellationToken cancellationToken);
-        Task<Subscription?> GetSubscriptionById(int id,CancellationToken cancellationToken);
+        Task<Subscription?> GetSubscriptionById(int id, CancellationToken cancellationToken);
         Task<bool> DeleteSubscription(int SubscriptionId, int buyerId, CancellationToken cancellationToken);
-    
+
     }
 }

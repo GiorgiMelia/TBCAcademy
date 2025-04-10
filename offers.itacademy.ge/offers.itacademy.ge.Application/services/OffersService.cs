@@ -1,12 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Application.Interfaces;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Application.Dtos;
-using System;
-using offers.itacademy.ge.Application.Exceptions;
-using System.ComponentModel.Design;
+﻿using ITAcademy.Offers.Application.Dtos;
+using ITAcademy.Offers.Application.Exceptions;
+using ITAcademy.Offers.Application.Interfaces;
+using ITAcademy.Offers.Domain.Entities;
 
-namespace offers.itacademy.ge.Application.services
+namespace ITAcademy.Offers.Application.services
 {
     public class OfferService : IOfferService
     {

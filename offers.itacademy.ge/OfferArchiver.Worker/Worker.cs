@@ -1,6 +1,6 @@
-using offers.itacademy.ge.Application.Interfaces;
+using ITAcademy.Offers.Application.Interfaces;
 
-namespace OfferArchiver.Worker;
+namespace ITAcademy.Offers.Worker;
 
 public class Worker : BackgroundService
 {
@@ -18,10 +18,10 @@ public class Worker : BackgroundService
             using (var scope = _serviceProvider.CreateScope())
             {
                 var offerService = scope.ServiceProvider.GetRequiredService<IOfferService>();
-               await offerService.ArchiveOldOffers(stoppingToken);    
+                await offerService.ArchiveOldOffers(stoppingToken);
 
             }
-            await Task.Delay(5000,stoppingToken);
+            await Task.Delay(5000, stoppingToken);
         }
     }
 }

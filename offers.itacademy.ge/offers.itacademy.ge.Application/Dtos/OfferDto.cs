@@ -1,6 +1,5 @@
-﻿using offers.itacademy.ge.Domain.entities;
-
-namespace offers.itacademy.ge.Application.Dtos
+﻿
+namespace ITAcademy.Offers.Application.Dtos
 {
     public class OfferDto
     {

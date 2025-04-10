@@ -1,14 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ITAcademy.Offers.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Domain.entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
-namespace offers.itacademy.ge.Persistance.Seed
+namespace ITAcademy.Offers.Persistence.Seed
 {
     public static class SeedAdminUserExtensions
     {

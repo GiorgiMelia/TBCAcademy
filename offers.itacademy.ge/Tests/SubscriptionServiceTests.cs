@@ -1,13 +1,13 @@
 ﻿using FluentAssertions;
+using ITAcademy.Offers.Application.Dtos;
+using ITAcademy.Offers.Application.Exceptions;
+using ITAcademy.Offers.Application.services;
+using ITAcademy.Offers.Domain.Entities;
+using ITAcademy.Offers.Persistence.Data;
+using ITAcademy.Offers.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using offers.itacademy.ge.Application.Dtos;
-using offers.itacademy.ge.Application.Exceptions;
-using offers.itacademy.ge.Application.services;
-using offers.itacademy.ge.Domain.entities;
-using offers.itacademy.ge.Infrastructure.Repositories;
-using offers.itacademy.ge.Persistance.Data;
 
-namespace Tests
+namespace ITAcademy.Offers.Application.Tests
 {
     public class SubscriptionServiceTests
     {

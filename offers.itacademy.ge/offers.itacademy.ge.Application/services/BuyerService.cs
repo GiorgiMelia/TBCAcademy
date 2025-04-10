@@ -1,8 +1,8 @@
-﻿using offers.itacademy.ge.Application.Exceptions;
-using offers.itacademy.ge.Application.Interfaces;
-using offers.itacademy.ge.Domain.entities;
+﻿using ITAcademy.Offers.Application.Exceptions;
+using ITAcademy.Offers.Application.Interfaces;
+using ITAcademy.Offers.Domain.Entities;
 
-namespace offers.itacademy.ge.Application.services
+namespace ITAcademy.Offers.Application.services
 {
     public class BuyerService : IBuyerService
     {
@@ -13,14 +13,14 @@ namespace offers.itacademy.ge.Application.services
             _buyerRepository = buyerRepository;
         }
 
-        public async Task<bool> AddMoneyToBuyer(int buyerId, decimal amount,CancellationToken cancellationToken)
+        public async Task<bool> AddMoneyToBuyer(int buyerId, decimal amount, CancellationToken cancellationToken)
         {
             var buyer = await _buyerRepository.GetBuyerById(buyerId, cancellationToken);
             if (buyer == null)
                 throw new NotFoundException("Buyer id not found!");
 
             buyer.Balance += amount;
-           await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
+            await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
             return true;
         }
         public async Task<List<Buyer>> GetAllBuyers(CancellationToken cancellationToken)
@@ -35,12 +35,12 @@ namespace offers.itacademy.ge.Application.services
 
         public async Task UpdateBuyer(Buyer buyer, CancellationToken cancellationToken)
         {
-             await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
+            await _buyerRepository.UpdateBuyer(buyer, cancellationToken);
         }
 
         public async Task UploadImage(string base64, int buyerId)
         {
-            await _buyerRepository.SaveImage(base64,buyerId);
+            await _buyerRepository.SaveImage(base64, buyerId);
         }
     }
 }

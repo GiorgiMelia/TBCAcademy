@@ -1,15 +1,11 @@
-﻿using Xunit;
-using Moq;
-using FluentAssertions;
+﻿using FluentAssertions;
+using ITAcademy.Offers.Application.Dtos;
+using ITAcademy.Offers.Application.services;
+using ITAcademy.Offers.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
-using offers.itacademy.ge.Application.Dtos;
-using offers.itacademy.ge.Application.services;
-using offers.itacademy.ge.Domain.entities;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Threading;
+using Moq;
 
-namespace Tests
+namespace ITAcademy.Offers.Application.Tests
 {
     public class UserRegistrationServiceTests
     {
