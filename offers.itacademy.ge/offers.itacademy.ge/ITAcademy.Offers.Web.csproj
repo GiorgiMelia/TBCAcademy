@@ -20,11 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\offers.itacademy.ge.API\offers.itacademy.ge.API.csproj" />
-    <ProjectReference Include="..\offers.itacademy.ge.Application\offers.itacademy.ge.Application.csproj" />
-    <ProjectReference Include="..\offers.itacademy.ge.Domain\offers.itacademy.ge.Domain.csproj" />
-    <ProjectReference Include="..\offers.itacademy.ge.Infrastructure\offers.itacademy.ge.Infrastructure.csproj" />
-    <ProjectReference Include="..\offers.itacademy.ge.Persistance\offers.itacademy.ge.Persistance.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.API\ITAcademy.Offers.API.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Application\ITAcademy.Offers.Application.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Domain\ITAcademy.Offers.Domain.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Infrastructure\ITAcademy.Offers.Infrastructure.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Persistance\ITAcademy.Offers.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>    <ProjectReference Include="..\offers.itacademy.ge.Application\offers.itacademy.ge.Application.csproj" />    <ProjectReference Include="..\offers.itacademy.ge.Domain\offers.itacademy.ge.Domain.csproj" />
+  <ItemGroup>    <ProjectReference Include="..\offers.itacademy.ge.Application\ITAcademy.Offers.Application.csproj" />    <ProjectReference Include="..\offers.itacademy.ge.Domain\ITAcademy.Offers.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

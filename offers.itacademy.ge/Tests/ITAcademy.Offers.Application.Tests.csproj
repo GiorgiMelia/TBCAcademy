@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\offers.itacademy.ge.Persistance\offers.itacademy.ge.Persistance.csproj" />
+    <ProjectReference Include="..\offers.itacademy.ge.Persistance\ITAcademy.Offers.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

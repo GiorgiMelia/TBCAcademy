@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "offers.itacademy.ge.Web", "offers.itacademy.ge\offers.itacademy.ge.Web.csproj", "{474F24C1-C236-477C-9D68-5DA6CACD6539}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITAcademy.Offers.Web", "offers.itacademy.ge\ITAcademy.Offers.Web.csproj", "{474F24C1-C236-477C-9D68-5DA6CACD6539}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B0BED877-C3C6-4BAB-A173-919898DDE116}"
 EndProject
@@ -13,19 +13,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentation", "{7795CBA7-90A5-424E-A263-5D2D676DA9BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "offers.itacademy.ge.Application", "offers.itacademy.ge.Application\offers.itacademy.ge.Application.csproj", "{1E2E124B-B363-4026-8617-176DB57B64CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITAcademy.Offers.Application", "offers.itacademy.ge.Application\ITAcademy.Offers.Application.csproj", "{1E2E124B-B363-4026-8617-176DB57B64CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "offers.itacademy.ge.Domain", "offers.itacademy.ge.Domain\offers.itacademy.ge.Domain.csproj", "{31FE55E1-4CDA-4FDE-93DB-0933406E3C2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITAcademy.Offers.Domain", "offers.itacademy.ge.Domain\ITAcademy.Offers.Domain.csproj", "{31FE55E1-4CDA-4FDE-93DB-0933406E3C2B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "offers.itacademy.ge.Infrastructure", "offers.itacademy.ge.Infrastructure\offers.itacademy.ge.Infrastructure.csproj", "{FB6D98A7-55BE-47A0-B372-ABFDD5E761BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITAcademy.Offers.Infrastructure", "offers.itacademy.ge.Infrastructure\ITAcademy.Offers.Infrastructure.csproj", "{FB6D98A7-55BE-47A0-B372-ABFDD5E761BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "offers.itacademy.ge.Persistance", "offers.itacademy.ge.Persistance\offers.itacademy.ge.Persistance.csproj", "{4AD6E3DA-E303-42D6-B164-999730D3CCCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITAcademy.Offers.Persistence", "offers.itacademy.ge.Persistance\ITAcademy.Offers.Persistence.csproj", "{4AD6E3DA-E303-42D6-B164-999730D3CCCA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "offers.itacademy.ge.API", "offers.itacademy.ge.API\offers.itacademy.ge.API.csproj", "{FA4481A3-3FC1-41AD-B802-0BC137280C65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITAcademy.Offers.API", "offers.itacademy.ge.API\ITAcademy.Offers.API.csproj", "{FA4481A3-3FC1-41AD-B802-0BC137280C65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferArchiver.Worker", "OfferArchiver.Worker\OfferArchiver.Worker.csproj", "{9ECA78EE-2C31-4E5E-9B8F-E3D7A8E02A18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITAcademy.Offers.Worker", "OfferArchiver.Worker\ITAcademy.Offers.Worker.csproj", "{9ECA78EE-2C31-4E5E-9B8F-E3D7A8E02A18}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{23DA8173-F81F-48B2-B7E3-C6C3364DD457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITAcademy.Offers.Application.Tests", "Tests\ITAcademy.Offers.Application.Tests.csproj", "{23DA8173-F81F-48B2-B7E3-C6C3364DD457}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{20634CAC-EE92-4105-A1F9-2FC9AE2DB513}"
 EndProject
