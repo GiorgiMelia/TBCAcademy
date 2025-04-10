@@ -2,7 +2,6 @@
 {
     public class Buyer
     {
-        private List<Subscription> subscriptions;
 
         public int? Id{ get; set; }
 

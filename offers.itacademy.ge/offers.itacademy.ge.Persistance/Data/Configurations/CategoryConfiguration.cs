@@ -15,8 +15,13 @@ namespace offers.itacademy.ge.Persistance.Data.Configurations
         {
             builder.HasKey(c => c.Id);
             builder.Property(c => c.Name).IsRequired().HasMaxLength(100);
-           
 
+            builder.HasData(
+        new Category { Id = 1, Name = "Food" },
+        new Category { Id = 2, Name = "Drinks" },
+        new Category { Id = 3, Name = "Plants" },
+        new Category { Id = 4, Name = "Sweets"}
+        );
         }
     }
 }

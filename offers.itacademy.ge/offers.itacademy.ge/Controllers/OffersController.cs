@@ -23,7 +23,7 @@ namespace offers.itacademy.ge.Web.Controllers
                 Price = o.Price,
                 Quantity = o.Quantity,
                 CategoryId = o.CategoryId,
-                CompanyId = (int)o.CompanyId,
+                CompanyId = o.CompanyId?? 0,
                 EndDate = DateTime.UtcNow,
                 ProductDescription = o.ProductDescription,
 

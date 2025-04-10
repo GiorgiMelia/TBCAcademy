@@ -71,7 +71,7 @@ builder.Services.Configure<JWTTokenOptins>(builder.Configuration.GetSection("JWT
 builder.Services.AddTokenAuthentication(builder.Configuration.GetSection("JWTOptins").GetSection(nameof(JWTTokenOptins.Secret)).Value);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHealthChecks().AddDbContextCheck<ApplicationDbContext>();
 var app = builder.Build();
 

@@ -20,31 +20,31 @@ namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Register
         }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel Input { get; set; } = new();
 
         public class InputModel
         {
             [Required]
-            public string Name { get; set; }
+            public string Name { get; set; } = null!;
 
             [Required]
-            public string Surname { get; set; }
+            public string Surname { get; set; } = null!;
 
             [Required]
-            public string Address { get; set; }
+            public string Address { get; set; } = null!;
 
             public string? PhotoUrl { get; set; }
 
             [Required, EmailAddress]
-            public string Email { get; set; }
+            public string Email { get; set; } = null!;
 
             [Required, DataType(DataType.Password)]
             [StringLength(100, MinimumLength = 3, ErrorMessage = "Password must be at least 3 characters.")]
-            public string Password { get; set; }
+            public string Password { get; set; } = null!;
 
             [Required, DataType(DataType.Password)]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
+            public string ConfirmPassword { get; set; } = null!;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
