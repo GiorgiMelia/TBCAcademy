@@ -30,7 +30,7 @@ namespace offers.itacademy.ge.API.Extentions
                     policy.RequireClaim("ClientType", "Buyer"));
 
                 options.AddPolicy("MustCompany", policy =>
-                    policy.RequireAssertion(context => !context.User.IsInRole("Admin")).RequireClaim("ClientType", "Buyer"));
+                    policy.RequireClaim("ClientType", "Company"));
 
 
                 options.AddPolicy("MustAdmin", policy =>

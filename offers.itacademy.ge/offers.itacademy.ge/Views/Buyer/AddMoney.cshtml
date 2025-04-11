@@ -1,18 +1,31 @@
 ﻿@model AddMoneyViewModel
 
-<form asp-action="AddMoney" method="post">
-    @Html.AntiForgeryToken()
+@{
+    ViewData["Title"] = "Add Money";
+}
 
-    <div>
-        <label for="amount">Amount</label>
-        <input asp-for="Amount" type="number" class="form-control" />
-        <span asp-validation-for="Amount" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Add Money</button>
-</form>
+<h2 class="mb-4">Add Money to Your Balance</h2>
 
 @if (TempData["Success"] != null)
 {
-    <div class="alert alert-success mt-3">@TempData["Success"]</div>
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form asp-action="AddMoney" method="post">
+    <div class="mb-3">
+        <label class="form-label">Current Balance:</label>
+        <input type="text" class="form-control" value="@Model.CurrentBalance ₾" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Amount" class="form-label"></label>
+        <input asp-for="Amount" class="form-control" />
+        <span asp-validation-for="Amount" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Money</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
