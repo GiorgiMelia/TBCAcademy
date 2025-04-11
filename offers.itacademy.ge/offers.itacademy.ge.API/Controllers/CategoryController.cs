@@ -1,10 +1,10 @@
-﻿namespace ITAcademy.Offers.API.Controllers
+﻿namespace offers.itacademy.ge.API.Controllers
 {
-    using ITAcademy.Offers.API.Models;
-    using ITAcademy.Offers.Application.Dtos;
-    using ITAcademy.Offers.Application.Interfaces;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using offers.itacademy.ge.API.Models;
+    using offers.itacademy.ge.Application.Dtos;
+    using offers.itacademy.ge.Application.Interfaces;
 
     [ApiController]
     [Route("api/[controller]")]
@@ -24,7 +24,7 @@
 
         public async Task<ActionResult<CategoryResponse>> Create([FromBody] CategoryRequest request)
         {
-            var category = await _categoryService.CreateCategory(new CategoryDto { CategoryName = request.CategoryName });
+            var category = await _categoryService.CreateCategory(new CategoryDto { CategoryName = request.CategoryName});
             var response = new CategoryResponse
             {
                 Id = category.Id,
@@ -69,7 +69,7 @@
             if (!result)
                 return NotFound("Category not found.");
 
-            return NoContent();
+            return NoContent(); 
         }
 
         [HttpDelete("{id}")]

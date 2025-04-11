@@ -1,8 +1,8 @@
-﻿using ITAcademy.Offers.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using offers.itacademy.ge.Domain.entities;
 
-namespace ITAcademy.Offers.Persistence.Data.Configurations
+namespace offers.itacademy.ge.Persistance.Data.Configurations
 {
     internal class ClientEntityConfiguration : IEntityTypeConfiguration<Client>
     {

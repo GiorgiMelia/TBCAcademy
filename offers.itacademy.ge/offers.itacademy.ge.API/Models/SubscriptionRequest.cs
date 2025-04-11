@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using offers.itacademy.ge.Domain.entities;
+using System.ComponentModel.DataAnnotations;
 
-namespace ITAcademy.Offers.API.Models
+namespace offers.itacademy.ge.API.Models
 {
     public class SubscriptionRequest
     {

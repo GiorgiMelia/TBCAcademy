@@ -1,10 +1,15 @@
-﻿using ITAcademy.Offers.Application.Exceptions;
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Domain.Entities;
-using ITAcademy.Offers.Persistence.Data;
+﻿using ITAcademy.Offers.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Exceptions;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Domain.entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ITAcademy.Offers.Persistence.Repositories
+namespace offers.itacademy.ge.Infrastructure.Repositories
 {
     public class SubscriptionRepository : ISubscriptionRepository
     {

@@ -1,9 +1,14 @@
-﻿using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Domain.Entities;
-using ITAcademy.Offers.Persistence.Data;
+﻿using ITAcademy.Offers.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Domain.entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ITAcademy.Offers.Persistence.Repositories
+namespace offers.itacademy.ge.Infrastructure.Repositories
 {
     public class CompanyRepository : ICompanyRepository
     {
@@ -16,12 +21,12 @@ namespace ITAcademy.Offers.Persistence.Repositories
 
         public async Task<List<Company>> GetAllCompanies(CancellationToken cancellationToken)
         {
-            return await _context.Companies.ToListAsync(cancellationToken);
+           return await _context.Companies.ToListAsync(cancellationToken);
         }
 
         public async Task<Company?> GetCompanyById(int companyId, CancellationToken cancellationToken)
         {
-            return await _context.Companies.FirstOrDefaultAsync(c => c.Id == companyId, cancellationToken);
+            return await _context.Companies.FirstOrDefaultAsync(c => c.Id == companyId,cancellationToken); 
         }
 
         public async Task SaveChanges(CancellationToken cancellationToken)
@@ -32,8 +37,8 @@ namespace ITAcademy.Offers.Persistence.Repositories
         public async Task SaveImage(string base64, int compId)
         {
             var company = await GetCompanyById(compId, CancellationToken.None);
-            company.PhotoUrl = base64;
-            await SaveChanges(CancellationToken.None);
+            company.PhotoUrl=base64;
+           await SaveChanges(CancellationToken.None);
         }
     }
 }

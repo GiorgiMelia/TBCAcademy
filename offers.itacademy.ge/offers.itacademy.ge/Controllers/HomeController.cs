@@ -1,8 +1,9 @@
-using ITAcademy.Offers.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using offers.itacademy.ge.Web.Controllers;
+using offers.itacademy.ge.Web.Models;
 
-namespace ITAcademy.Offers.Web.Controllers
+namespace offers.itacademy.ge.Web.Controllers
 {
     public class HomeController : Controller
     {

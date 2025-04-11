@@ -1,8 +1,14 @@
-﻿using ITAcademy.Offers.Application.Exceptions;
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Exceptions;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Domain.entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ITAcademy.Offers.Application.services
+namespace offers.itacademy.ge.Application.services
 {
     public class CompanyService : ICompanyService
     {
@@ -15,12 +21,12 @@ namespace ITAcademy.Offers.Application.services
 
         public async Task ActivateCompany(int companyId, CancellationToken cancellationToken)
         {
-            var company = await _companyRepository.GetCompanyById(companyId, cancellationToken);
+            var company = await _companyRepository.GetCompanyById(companyId,cancellationToken);
             if (company == null)
                 throw new NotFoundException("Company not found");
             company.IsActive = true;
 
-            await _companyRepository.SaveChanges(cancellationToken);
+           await _companyRepository.SaveChanges(cancellationToken);
 
         }
 
@@ -31,7 +37,7 @@ namespace ITAcademy.Offers.Application.services
 
         public async Task<Company?> GetCompanyById(int id, CancellationToken cancellationToken)
         {
-            return await _companyRepository.GetCompanyById(id, cancellationToken);
+            return await _companyRepository.GetCompanyById(id,cancellationToken);
         }
         public async Task UploadImage(string base64, int compId)
         {

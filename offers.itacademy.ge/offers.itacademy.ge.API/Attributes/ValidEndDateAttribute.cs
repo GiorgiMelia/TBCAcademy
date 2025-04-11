@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ITAcademy.Offers.API.Attributes
+namespace offers.itacademy.ge.API.Attributes
 {
     public class ValidEndDateAttribute : ValidationAttribute
     {

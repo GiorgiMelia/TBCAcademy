@@ -1,4 +1,4 @@
-﻿namespace ITAcademy.Offers.API.Models
+﻿namespace offers.itacademy.ge.API.Models
 {
     public class UserLoginRequest
     {

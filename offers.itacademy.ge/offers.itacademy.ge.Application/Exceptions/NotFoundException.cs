@@ -1,4 +1,4 @@
-﻿namespace ITAcademy.Offers.Application.Exceptions
+﻿namespace offers.itacademy.ge.Application.Exceptions
 {
     public class NotFoundException : Exception
     {

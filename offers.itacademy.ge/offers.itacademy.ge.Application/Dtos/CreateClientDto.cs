@@ -1,6 +1,12 @@
-﻿using ITAcademy.Offers.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using offers.itacademy.ge.Domain.entities;
 
-namespace ITAcademy.Offers.Application.Dtos
+namespace offers.itacademy.ge.Application.Dtos
 {
     public class CreateClientDto
     {
@@ -11,7 +17,7 @@ namespace ITAcademy.Offers.Application.Dtos
         public UserType UserType { get; set; }
 
         public Buyer? Buyer { get; set; }
-
+        
         public Company? Company { get; set; }
     }
 }

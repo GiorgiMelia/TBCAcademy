@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ITAcademy.Offers.Web.Models
+namespace offers.itacademy.ge.Web.Models
 {
     public class AddMoneyViewModel
     {

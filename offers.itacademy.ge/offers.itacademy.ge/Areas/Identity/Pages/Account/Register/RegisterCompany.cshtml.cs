@@ -1,12 +1,12 @@
-﻿    using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Application.Interfaces;
 
-namespace ITAcademy.Offers.Web.Areas.Identity.Pages.Account.Register
+namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Register
 {
     public class RegisterCompanyModel : PageModel
     {
@@ -43,7 +43,7 @@ namespace ITAcademy.Offers.Web.Areas.Identity.Pages.Account.Register
             public string ConfirmPassword { get; set; } = null!;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl,CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
                 return Page();
@@ -56,7 +56,7 @@ namespace ITAcademy.Offers.Web.Areas.Identity.Pages.Account.Register
                 Company = new Company
                 {
                     Name = Input.CompanyName,
-                    Description = Input.Description ?? "",
+                    Description = Input.Description??"",
                     PhotoUrl = Input.PhotoUrl
                 }
             };

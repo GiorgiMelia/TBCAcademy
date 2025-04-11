@@ -1,11 +1,13 @@
-﻿using ITAcademy.Offers.API.Extentions;
-using ITAcademy.Offers.API.Models;
-using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.API.Models;
+using offers.itacademy.ge.Domain.entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
 
-namespace ITAcademy.Offers.API.Controllers
+namespace offers.itacademy.ge.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

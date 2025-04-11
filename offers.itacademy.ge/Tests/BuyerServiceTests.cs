@@ -1,12 +1,17 @@
-﻿using FluentAssertions;
-using ITAcademy.Offers.Application.Exceptions;
-using ITAcademy.Offers.Application.services;
-using ITAcademy.Offers.Domain.Entities;
-using ITAcademy.Offers.Persistence.Data;
-using ITAcademy.Offers.Persistence.Repositories;
+﻿using Xunit;
+using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Infrastructure.Repositories;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using offers.itacademy.ge.Application.Exceptions;
+using ITAcademy.Offers.Persistence.Data;
 
-namespace ITAcademy.Offers.Application.Tests
+namespace Tests
 {
     public class BuyerServiceTests
     {
@@ -59,8 +64,8 @@ namespace ITAcademy.Offers.Application.Tests
         {
             // Arrange
             _context.Buyers.AddRange(
-                new Buyer { Id = 2, Address = "nucub", Name = "saxeli", Surname = "gvari", Balance = 1, CreatedAt = DateTime.UtcNow },
-                new Buyer { Id = 3, Address = "nucub", Name = "saxeli", Surname = "gvari", Balance = 1, CreatedAt = DateTime.UtcNow }
+                new Buyer {Id = 2, Address = "nucub", Name = "saxeli", Surname = "gvari", Balance = 1, CreatedAt = DateTime.UtcNow },
+                new Buyer {Id = 3, Address = "nucub", Name = "saxeli", Surname = "gvari", Balance = 1, CreatedAt = DateTime.UtcNow }
             );
             await _context.SaveChangesAsync();
 
@@ -75,7 +80,7 @@ namespace ITAcademy.Offers.Application.Tests
         public async Task GetBuyerById_WhenExists_ReturnsBuyer()
         {
             // Arrange
-            var buyer = new Buyer { Id = 4, Address = "nucub", Name = "Target", Surname = "gvari", Balance = 1, CreatedAt = DateTime.UtcNow };
+            var buyer = new Buyer {Id = 4, Address = "nucub", Name = "Target", Surname = "gvari", Balance = 1, CreatedAt = DateTime.UtcNow };
             _context.Buyers.Add(buyer);
             await _context.SaveChangesAsync();
 
@@ -119,14 +124,14 @@ namespace ITAcademy.Offers.Application.Tests
         public async Task UploadImage_UpdatesPhotoUrl()
         {
             // Arrange
-            var buyer = new Buyer { Id = 6, Address = "nucub", Name = "saxeli", Surname = "gvari", Balance = 1, CreatedAt = DateTime.UtcNow };
+            var buyer = new Buyer { Id =6,Address = "nucub",Name = "saxeli", Surname = "gvari", Balance=1,CreatedAt =DateTime.UtcNow };
             _context.Buyers.Add(buyer);
             await _context.SaveChangesAsync();
 
             var base64 = "data:image/png;base64,AAA...";
 
             // Act
-            await _buyerService.UploadImage(base64, (int)buyer.Id);
+            await _buyerService.UploadImage(base64,(int) buyer.Id);
 
             // Assert
             var updated = await _context.Buyers.FindAsync(buyer.Id);

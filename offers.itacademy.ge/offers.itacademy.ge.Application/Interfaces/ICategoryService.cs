@@ -1,7 +1,7 @@
-﻿using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Domain.Entities;
+﻿using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Domain.entities;
 
-namespace ITAcademy.Offers.Application.Interfaces
+namespace offers.itacademy.ge.Application.Interfaces
 {
     public interface ICategoryService
     {

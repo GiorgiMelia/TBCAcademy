@@ -1,7 +1,7 @@
-﻿using ITAcademy.Offers.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using offers.itacademy.ge.Domain.entities;
 
-namespace ITAcademy.Offers.Application.Dtos
+namespace offers.itacademy.ge.Application.Dtos
 {
     public class CreateClientResult
     {

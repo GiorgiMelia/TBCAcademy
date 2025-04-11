@@ -1,6 +1,6 @@
-﻿using ITAcademy.Offers.Application.Dtos;
+﻿using offers.itacademy.ge.Application.Dtos;
 
-namespace ITAcademy.Offers.Application.Interfaces
+namespace offers.itacademy.ge.Application.Interfaces
 {
     public interface IUserRegistrationService
     {

@@ -1,11 +1,15 @@
-﻿using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Web.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Models;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Web.Models;
 using System.Security.Claims;
 
-namespace ITAcademy.Offers.Web.Controllers
+namespace offers.itacademy.ge.Web.Controllers
 {
     [Authorize]
     public class BuyerController : Controller
@@ -23,7 +27,7 @@ namespace ITAcademy.Offers.Web.Controllers
 
         private async Task<int?> GetBuyerIdAsync()
         {
-
+          
 
             var clientId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (clientId == null) return null;

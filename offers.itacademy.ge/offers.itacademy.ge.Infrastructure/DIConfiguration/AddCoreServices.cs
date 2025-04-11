@@ -1,13 +1,13 @@
-﻿using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Application.services;
-using ITAcademy.Offers.Persistence.Repositories;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Infrastructure.Repositories;
 
 
 
-namespace ITAcademy.Offers.Infrastructure.DIConfiguration
+namespace offers.itacademy.ge.Infrastructure.DIConfiguration
 {
-    public static class ServiceRegistrationExtensions
+    public static class ServiceRegistrationExtensions 
     {
         public static IServiceCollection AddCoreServices(this IServiceCollection Services)
         {

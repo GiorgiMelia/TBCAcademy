@@ -1,11 +1,16 @@
-﻿using ITAcademy.Offers.API.Extentions;
-using ITAcademy.Offers.API.Models;
-using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Models;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Domain.entities;
+using System;
+using System.Security.Claims;
 
-namespace ITAcademy.Offers.API.Controllers
+namespace offers.itacademy.ge.API.Controllers
 {
     [ApiController]
     [Route("api/buyer")]
@@ -24,10 +29,10 @@ namespace ITAcademy.Offers.API.Controllers
 
         [Authorize(Policy = "MustBuyer")]
         [HttpPost("add-money")]
-        public async Task<IActionResult> AddMoney([FromBody] AddMoneyRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddMoney( [FromBody] AddMoneyRequest request, CancellationToken cancellationToken)
         {
             var buyerId = User.GetBuyerId();
-
+          
             if (await _buyerService.AddMoneyToBuyer(buyerId, request.Amount, cancellationToken))
             {
                 return Ok("Money added successfully.");
@@ -61,7 +66,7 @@ namespace ITAcademy.Offers.API.Controllers
         }
         [Authorize(Policy = "MustBuyer")]
         [HttpGet("me")]
-        public async Task<IActionResult> GetMe(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetMe( CancellationToken cancellationToken)
         {
             var buyerId = User.GetBuyerId();
             var buyer = await _buyerService.GetBuyerById(buyerId, cancellationToken);
@@ -97,7 +102,7 @@ namespace ITAcademy.Offers.API.Controllers
 
         [Authorize(Policy = "MustBuyer")]
         [HttpGet("MySubscribedOffers")]
-        public async Task<IActionResult> GetSubscribedOffers(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetSubscribedOffers( CancellationToken cancellationToken)
         {
             var buyerId = User.GetBuyerId();
             var offers = await _offerService.GetSubscribedOffers(buyerId, cancellationToken);
@@ -122,7 +127,7 @@ namespace ITAcademy.Offers.API.Controllers
         [HttpPost("upload-Image")]
         [Authorize(Policy = "MustBuyer")]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> UploadImage(IFormFile file)
+        public async Task<IActionResult> UploadImage( IFormFile file)
         {
             var buyerId = User.GetBuyerId();
             if (file == null || file.Length == 0)

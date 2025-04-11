@@ -1,8 +1,13 @@
-﻿using ITAcademy.Offers.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using offers.itacademy.ge.Domain.entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ITAcademy.Offers.Persistence.Data.Configurations
+namespace offers.itacademy.ge.Persistance.Data.Configurations
 {
     internal class CompanyEntityConfiguration : IEntityTypeConfiguration<Company>
     {

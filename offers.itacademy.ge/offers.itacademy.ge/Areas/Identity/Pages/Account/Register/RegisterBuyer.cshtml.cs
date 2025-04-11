@@ -1,12 +1,12 @@
-﻿using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Application.Interfaces;
 
-namespace ITAcademy.Offers.Web.Areas.Identity.Pages.Account.Register
+namespace offers.itacademy.ge.Web.Areas.Identity.Pages.Account.Register
 {
     public class RegisterBuyerModel : PageModel
     {

@@ -1,10 +1,11 @@
-﻿using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Exceptions;
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Exceptions;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Domain.entities;
 
 
-namespace ITAcademy.Offers.Application.services
+namespace offers.itacademy.ge.Application.services
 {
     public class CategoryService : ICategoryService
     {

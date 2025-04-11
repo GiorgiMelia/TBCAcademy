@@ -1,4 +1,4 @@
-﻿namespace ITAcademy.Offers.API.Tokens
+﻿namespace offers.itacademy.ge.API.Tokens
 {
     public class JWTTokenOptins
     {

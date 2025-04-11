@@ -1,4 +1,6 @@
-﻿namespace ITAcademy.Offers.API.Models
+﻿using offers.itacademy.ge.Domain.entities;
+
+namespace offers.itacademy.ge.API.Models
 {
     public class OfferResponse
     {
@@ -13,7 +15,7 @@
 
         public decimal Price { get; set; }
         public bool IsArchived { get; set; }
-        public bool IsCanceled { get; set; }
+        public bool IsCanceled{ get; set; }
         public int Quantity { get; set; }
 
     }

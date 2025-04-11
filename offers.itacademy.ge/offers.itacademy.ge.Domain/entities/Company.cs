@@ -1,4 +1,4 @@
-﻿namespace ITAcademy.Offers.Domain.Entities
+﻿namespace offers.itacademy.ge.Domain.entities
 {
     public class Company
     {

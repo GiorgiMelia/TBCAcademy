@@ -1,4 +1,10 @@
-﻿namespace ITAcademy.Offers.Domain.Entities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace offers.itacademy.ge.Domain.entities
 {
     public class Purchase
     {

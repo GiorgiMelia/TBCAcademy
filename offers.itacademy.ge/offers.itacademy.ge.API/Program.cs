@@ -1,12 +1,15 @@
-using ITAcademy.Offers.API.Extentions;
-using ITAcademy.Offers.API.Middlewares;
-using ITAcademy.Offers.API.Tokens;
-using ITAcademy.Offers.Domain.Entities;
-using ITAcademy.Offers.Infrastructure.DIConfiguration;
-using ITAcademy.Offers.Persistence.Data;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
+using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.API.Middlewares;
+using offers.itacademy.ge.API.Tokens;
+using offers.itacademy.ge.Infrastructure.DIConfiguration;
+using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using offers.itacademy.ge.API.Extentions;
+using ITAcademy.Offers.Persistence.Data;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
@@ -81,7 +84,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
-app.UseAuthentication();
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllers();

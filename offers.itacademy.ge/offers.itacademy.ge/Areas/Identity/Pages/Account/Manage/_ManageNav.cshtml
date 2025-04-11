@@ -1,5 +1,5 @@
-﻿@using  ITAcademy.Offers.Domain.Entities
-@using  ITAcademy.Offers.Web.Models
+﻿@using offers.itacademy.ge.Domain.entities
+@using offers.itacademy.ge.Web.Models
 @inject SignInManager<Client> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

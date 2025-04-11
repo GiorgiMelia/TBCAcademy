@@ -1,4 +1,4 @@
-﻿namespace ITAcademy.Offers.Web.Controllers
+﻿namespace offers.itacademy.ge.Web.Controllers
 {
     public class AdminController
     {

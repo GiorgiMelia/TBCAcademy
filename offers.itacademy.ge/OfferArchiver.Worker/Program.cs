@@ -1,9 +1,9 @@
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Application.services;
 using ITAcademy.Offers.Persistence.Data;
-using ITAcademy.Offers.Persistence.Repositories;
-using ITAcademy.Offers.Worker;
 using Microsoft.EntityFrameworkCore;
+using OfferArchiver.Worker;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Infrastructure.Repositories;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();

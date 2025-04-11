@@ -1,11 +1,14 @@
-﻿using ITAcademy.Offers.API.Extentions;
-using ITAcademy.Offers.API.Models;
-using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Extentions.offers.itacademy.ge.API.Extentions;
+using offers.itacademy.ge.API.Models;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Domain.entities;
 
-namespace ITAcademy.Offers.API.Controllers
+namespace offers.itacademy.ge.API.Controllers
 {
     [ApiController]
     [Route("api/company")]
@@ -89,7 +92,7 @@ namespace ITAcademy.Offers.API.Controllers
         [Authorize(Policy = "MustCompany")]
 
         [HttpGet("/GetMyOffers")]
-        public async Task<IActionResult> GetOffersByCompany(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetOffersByCompany( CancellationToken cancellationToken)
         {
             var companyId = User.GetCompanyId();
             var offers = await _offerService.GetOffersByCompany(companyId, cancellationToken);

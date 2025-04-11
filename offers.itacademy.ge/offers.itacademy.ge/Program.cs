@@ -1,10 +1,11 @@
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Application.services;
-using ITAcademy.Offers.Domain.Entities;
-using ITAcademy.Offers.Infrastructure.DIConfiguration;
-using ITAcademy.Offers.Persistence.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Infrastructure.Repositories;
+using offers.itacademy.ge.Infrastructure.DIConfiguration;
+using ITAcademy.Offers.Persistence.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,7 @@ builder.Services.AddIdentity<Client, IdentityRole>(options => options.SignIn.Req
     .AddEntityFrameworkStores<ApplicationDbContext>().AddTokenProvider<DataProtectorTokenProvider<Client>>(TokenOptions.DefaultProvider);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IUserRegistrationService, UserRegistrationService>();
+builder.Services.AddScoped<IUserRegistrationService,UserRegistrationService>();
 builder.Services.AddCoreServices();
 builder.Services.AddRazorPages();
 builder.Services.Configure<IdentityOptions>(options =>

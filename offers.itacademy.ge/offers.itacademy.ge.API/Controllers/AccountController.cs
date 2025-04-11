@@ -1,12 +1,15 @@
-﻿using ITAcademy.Offers.API.Models;
-using ITAcademy.Offers.API.Tokens;
-using ITAcademy.Offers.Application.Exceptions;
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using offers.itacademy.ge.API.Models;
+using offers.itacademy.ge.API.Tokens;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Exceptions;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Domain.entities;
 
-namespace ITAcademy.Offers.API.Controllers
+namespace offers.itacademy.ge.API.Controllers
 {
     [ApiController]
     [Route("api/account")]
@@ -38,7 +41,7 @@ namespace ITAcademy.Offers.API.Controllers
             var roles = await _userManager.GetRolesAsync(userr);
             if (result.Succeeded)
             {
-                var token = _jWTTokenService.GenerateToken(userr, roles);
+                var token =  _jWTTokenService.GenerateToken(userr,roles);
                 return token;
 
             }

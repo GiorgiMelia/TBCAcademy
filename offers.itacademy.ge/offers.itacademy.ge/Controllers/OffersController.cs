@@ -1,8 +1,8 @@
-﻿using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Interfaces;
 
-namespace ITAcademy.Offers.Web.Controllers
+namespace offers.itacademy.ge.Web.Controllers
 {
 
     public class OffersController : Controller
@@ -23,18 +23,18 @@ namespace ITAcademy.Offers.Web.Controllers
                 Price = o.Price,
                 Quantity = o.Quantity,
                 CategoryId = o.CategoryId,
-                CompanyId = o.CompanyId ?? 0,
+                CompanyId = o.CompanyId?? 0,
                 EndDate = DateTime.UtcNow,
                 ProductDescription = o.ProductDescription,
 
             }).ToList();
 
             return View(offerDtos);
-
+    
         }
         public async Task<IActionResult> Details(int id)
         {
-            var offer = await _offerService.GetOfferById(id, CancellationToken.None);
+            var offer = await _offerService.GetOfferById(id,CancellationToken.None);
             return View(offer);
         }
     }

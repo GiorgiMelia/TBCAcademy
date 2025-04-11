@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace ITAcademy.Offers.API.Extentions
+namespace offers.itacademy.ge.API.Extentions
 {
     public static class AuthExtensions
     {

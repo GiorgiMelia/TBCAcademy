@@ -1,10 +1,10 @@
-﻿using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Domain.Entities;
-using ITAcademy.Offers.Persistence.Data;
+﻿using ITAcademy.Offers.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Domain.entities;
 
 
-namespace ITAcademy.Offers.Persistence.Repositories
+namespace offers.itacademy.ge.Infrastructure.Repositories
 {
     public class BuyerRepository : IBuyerRepository
     {
@@ -19,7 +19,7 @@ namespace ITAcademy.Offers.Persistence.Repositories
         {
             var buyer = await _context.Users.FirstOrDefaultAsync(u => u.Id == clientId);
 
-            return buyer.BuyerId ?? 0;
+            return buyer.BuyerId?? 0;
         }
 
         public async Task<List<Buyer>> GetAllBuyers(CancellationToken cancellationToken)
@@ -32,9 +32,9 @@ namespace ITAcademy.Offers.Persistence.Repositories
             return await _context.Buyers.FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
         }
 
-        public async Task SaveImage(string base64, int id)
+        public async Task SaveImage(string base64,int id)
         {
-            var buyer = await GetBuyerById(id, CancellationToken.None);
+            var buyer = await GetBuyerById(id,CancellationToken.None);
             buyer.PhotoUrl = base64;
             await _context.SaveChangesAsync();
         }

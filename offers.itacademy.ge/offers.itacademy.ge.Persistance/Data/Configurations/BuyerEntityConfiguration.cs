@@ -1,8 +1,14 @@
-﻿using ITAcademy.Offers.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using offers.itacademy.ge.Domain.entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ITAcademy.Offers.Persistence.Data.Configurations
+namespace offers.itacademy.ge.Persistance.Data.Configurations
 {
     internal class BuyerEntityConfiguration : IEntityTypeConfiguration<Buyer>
     {
@@ -13,7 +19,7 @@ namespace ITAcademy.Offers.Persistence.Data.Configurations
             builder.Property(b => b.Surname).HasMaxLength(100);
             builder.Property(b => b.Address).HasMaxLength(500);
             builder.Property(b => b.Balance).HasPrecision(18, 2);
-
+            
         }
     }
 }

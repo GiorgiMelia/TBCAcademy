@@ -1,13 +1,14 @@
 ﻿using FluentAssertions;
-using ITAcademy.Offers.Application.Dtos;
-using ITAcademy.Offers.Application.Exceptions;
-using ITAcademy.Offers.Application.Interfaces;
-using ITAcademy.Offers.Application.services;
-using ITAcademy.Offers.Domain.Entities;
 using Moq;
+using offers.itacademy.ge.Application.Dtos;
+using offers.itacademy.ge.Application.Exceptions;
+using offers.itacademy.ge.Application.Interfaces;
+using offers.itacademy.ge.Application.services;
+using offers.itacademy.ge.Domain.entities;
+using offers.itacademy.ge.Infrastructure.Repositories;
 
 
-namespace ITAcademy.Offers.Application.Tests
+namespace Tests
 {
     public class CategoryServiceTests
     {
@@ -17,7 +18,7 @@ namespace ITAcademy.Offers.Application.Tests
         public CategoryServiceTests()
         {
             _categoryRepositoryMock = new Mock<ICategoryRepository>();
-            _categoryService = new CategoryService(_categoryRepositoryMock.Object);
+            _categoryService = new CategoryService(_categoryRepositoryMock.Object); 
         }
 
         [Fact]

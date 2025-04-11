@@ -1,9 +1,9 @@
-﻿namespace ITAcademy.Offers.Domain.Entities
+﻿namespace offers.itacademy.ge.Domain.entities
 {
     public class Buyer
     {
 
-        public int? Id { get; set; }
+        public int? Id{ get; set; }
 
         public string Name { get; set; }
 
@@ -16,6 +16,6 @@
         public string? PhotoUrl { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
+        
     }
 }

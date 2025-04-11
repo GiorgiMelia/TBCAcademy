@@ -1,4 +1,11 @@
-﻿namespace ITAcademy.Offers.API.Models
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using offers.itacademy.ge.Application.Dtos;
+
+namespace offers.itacademy.ge.API.Models
 {
     public class SubscriptionResponse
     {
